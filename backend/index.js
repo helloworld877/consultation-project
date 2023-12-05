@@ -1,8 +1,14 @@
 const express = require("express");
+const port = 8080;
 var app = express();
-app.get("/", function (request, response) {
-  response.send("Hello World!");
+app.use(express.json);
+const userRoutes = require("./routes/userRoutes");
+const matchRoutes = require("./routes/matchRoutes");
+app.use("/users", userRoutes);
+app.use("/matches", matchRoutes);
+app.get("/", function (req, res) {
+  res.send("Hello World!");
 });
-app.listen(8080, function () {
+app.listen(port, function () {
   console.log("Started application on port %d", 8080);
 });
