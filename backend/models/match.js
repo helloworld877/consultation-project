@@ -15,7 +15,7 @@ const matchSchema = new Schema({
     required: true,
   },
   dateAndTime: {
-    type: String,
+    type: Date,
     required: true,
   },
   mainReferee: {
@@ -28,4 +28,4 @@ const matchSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Match", userSchema);
+module.exports = mongoose.model("Match", matchSchema);

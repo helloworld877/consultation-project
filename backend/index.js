@@ -1,6 +1,15 @@
 const express = require("express");
 const port = 8080;
-var app = express();
+const mongoose = require("mongoose");
+mongoose
+  .connect("mongodb+srv://mmghaly3:EO0TUxRL6RRwEwsw@users.iaf0wje.mongodb.net/")
+  .then((result) =>
+    app.listen(port, (req, res, next) => {
+      console.log("Server running on port 5000");
+    })
+  )
+  .catch((err) => console.log(err));
+const app = express();
 app.use(express.json);
 const userRoutes = require("./routes/userRoutes");
 const matchRoutes = require("./routes/matchRoutes");
