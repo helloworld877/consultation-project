@@ -1,0 +1,349 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900");
+
+body {
+  /* background-image: url("/images/login.png");  */
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #19204e;
+  background-color: #19204e;
+  overflow-x: hidden;
+}
+
+.page-container {
+  /* background-image: url("/images/login.png"); */
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+a {
+  cursor: pointer;
+  transition: all 200ms linear;
+}
+a:hover {
+  text-decoration: none;
+}
+.link {
+  color: #19204e;
+}
+.link:hover {
+  color: #d6d6d6;
+}
+p {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.7;
+}
+h4 {
+  font-weight: 600;
+}
+h6 span {
+  padding: 0 20px;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.section {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+.full-height {
+  min-height: 100vh;
+}
+
+[type="checkbox"]:checked,
+[type="checkbox"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Toggle button styles */
+.checkbox {
+  opacity: 0; /* Hide the checkbox */
+  position: absolute;
+  z-index: -1; /* Place it behind the label */
+}
+.toggle-label-text {
+  color: #fcb300;
+  font-size: 14px;
+  user-select: none;
+  margin: 10px 30px 10px 30px;
+  font-weight: 500;
+}
+.toggle-container {
+  display: flex;
+  justify-content: center; /* Center the toggle horizontally */
+  margin: 20px 0; /* Adjust space around the toggle as needed */
+}
+
+/* This styles the label as a toggle button */
+.toggle-label {
+  position: relative;
+  display: inline-flex; /* Use flexbox for centering content */
+  justify-content: center;
+  align-items: center;
+  width: 40px; /* Diameter of the toggle button */
+  height: 40px; /* Diameter of the toggle button */
+  border-radius: 50%; /* Make it round */
+  background-color: #102770; /* Background color */
+  cursor: pointer;
+  transition: all 0.5s ease; /* Smooth background transition */
+}
+
+/* Hover effect for the toggle button */
+.toggle-label:hover {
+  background-color: #0d1f33; /* Darker shade when hovered */
+}
+
+/* Styles for the Font Awesome icon */
+.toggle-icon {
+  color: #fcb300; /* Color of the icon */
+  font-size: 15px; /* Adjust font size as needed */
+  padding: 5px 5px 5px 5px;
+}
+
+/* Rotate the icon when the checkbox is checked */
+.checkbox:checked + .toggle-label .toggle-icon {
+  transform: translateX(44px) rotate(180deg); /* Rotate icon when checked */
+}
+
+/* Styles for when the checkbox is checked */
+.checkbox:checked + .toggle-label {
+  background-color: #fcb300; /* Color when checked */
+}
+
+.card-3d-wrap {
+  position: relative;
+  width: 700px;
+  max-width: 100%;
+  height: 400px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  margin: auto;
+  margin-top: 20px;
+}
+.card-3d-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  transition: all 600ms ease-out;
+}
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+
+  background-color: white;
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg");
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: 300%;
+  position: absolute;
+  border-radius: 6px;
+  left: 0;
+  top: 0;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+.checkbox:checked ~ .card-3d-wrap .card-3d-wrapper {
+  transform: rotateY(180deg);
+}
+.center-wrap {
+  position: absolute;
+  width: 550px;
+  padding: 0 35px;
+  top: 50%;
+  left: 0;
+  transform: translate3d(0, -50%, 35px) perspective(100px);
+  z-index: 20;
+  display: block;
+}
+
+.form-group {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.gender {
+  padding-bottom: 18px !important;
+  width: 97% !important;
+}
+.form-style {
+  padding: 13px;
+  padding-left: 20px;
+  padding-right: 130px;
+  margin-bottom: 8px;
+  width: 40%;
+  font-weight: 500;
+  border-radius: 4px;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+  outline: none;
+  color: #d6d6d6;
+  background-color: #19204e;
+  border: none;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+  box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
+}
+.form-style:focus,
+.form-style:active {
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
+}
+.form-row {
+  display: flex;
+  justify-content: space-between;
+}
+.form-column {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 10px); /* Adjust the width as needed */
+}
+/* Decrease the space between columns */
+.form-row .form-column:not(:last-child) {
+  margin-right: 20px; /* Adjust the space between the columns */
+}
+
+.input-icon {
+  position: absolute;
+  top: 0;
+  left: 18px;
+  height: 48px;
+  font-size: 24px;
+  line-height: 48px;
+  text-align: left;
+  color: #ffeba7;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+}
+
+.form-group input:-ms-input-placeholder {
+  color: #c4c3ca;
+  opacity: 0.7;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+}
+.form-group input::-moz-placeholder {
+  color: #c4c3ca;
+  opacity: 0.7;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+}
+.form-group input:-moz-placeholder {
+  color: #c4c3ca;
+  opacity: 0.7;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+}
+.form-group input::-webkit-input-placeholder {
+  color: #c4c3ca;
+  opacity: 0.7;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+}
+.form-group input:focus:-ms-input-placeholder {
+  opacity: 0;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+}
+.form-group input:focus::-moz-placeholder {
+  opacity: 0;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+}
+.form-group input:focus:-moz-placeholder {
+  opacity: 0;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+}
+.form-group input:focus::-webkit-input-placeholder {
+  opacity: 0;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+}
+
+.btn {
+  margin-top: 20px !important;
+  border-radius: 4px;
+  height: 44px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+  padding: 0 30px;
+  letter-spacing: 1px;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  text-align: center;
+  border: none;
+  background-color: #df183f;
+  color: white;
+  box-shadow: 0 8px 24px 0 rgba(255, 235, 167, 0.2);
+}
+.btn:active,
+.btn:focus {
+  background-color: #102770;
+  color: #df183f;
+  box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
+}
+.btn:hover {
+  background-color: #d6d6d6;
+  color: white;
+  box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Aligns the button to the right */
+  padding: 10px; /* Adjust padding as needed */
+}
+
+.view-matches-btn {
+  background-color: #df183f; /* Green background */
+  border: none;
+  color: white;
+  padding: 15px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 60px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Add hover effect for button */
+.view-matches-btn:hover {
+  background-color: #d6d6d6;
+}
