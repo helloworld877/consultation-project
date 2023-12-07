@@ -1,5 +1,6 @@
 const User = require("../models/user");
 
+//returns all users
 const getUsers = (req, res, next) => {
   User.find()
     .then((users) => {
@@ -13,6 +14,7 @@ const getUsers = (req, res, next) => {
     });
 };
 
+//gets a user based on a username
 const getUser = (req, res, next) => {
   userName = req.params.userName;
   User.findOne({ userName: userName })
@@ -23,6 +25,7 @@ const getUser = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
+//creates a user
 const createUser = (req, res, next) => {
   const userName = req.body.userName;
   const password = req.body.password;
@@ -51,15 +54,33 @@ const createUser = (req, res, next) => {
     .save()
     .then((result) => {
       console.log("User added Successfully");
-      res.status(201).json({ message: "User added successfully" });
+      res.status(200).json({ message: "User added successfully" });
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json({ error: err.message });
     });
 };
+
+const promoteUser = (req, res, next) => {
+  const filter = { userName: req.body.userName };
+  const update = { role: "admin" };
+
+  // `doc` is the document _before_ `update` was applied
+  User.findOneAndUpdate(filter, update)
+    .then((result) => {
+      console.log("User added Successfully");
+      res.status(200).json({ message: "User promoted successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err.message });
+    });
+};
+
 module.exports = {
   getUsers,
   getUser,
   createUser,
+  promoteUser,
 };
