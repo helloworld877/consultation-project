@@ -36,7 +36,6 @@ const createUser = (req, res, next) => {
   const city = req.body.city;
   const address = req.body.address;
   const emailAddress = req.body.emailAddress;
-  const role = req.body.role;
   const user = new User({
     userName,
     password,
@@ -47,7 +46,7 @@ const createUser = (req, res, next) => {
     city,
     address,
     emailAddress,
-    role,
+    role: "user",
   });
   user
     .save()
@@ -62,7 +61,6 @@ const createUser = (req, res, next) => {
 };
 
 const updateUser = (req, res, next) => {
-  const password = req.body.password;
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const birthDate = req.body.birthDate;
@@ -71,7 +69,6 @@ const updateUser = (req, res, next) => {
   const address = req.body.address;
   const filter = { userName: req.body.userName };
   const update = {
-    password: password,
     firstName: firstName,
     lastName: lastName,
     birthDate: birthDate,
