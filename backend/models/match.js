@@ -27,6 +27,9 @@ const matchSchema = new Schema({
     required: true,
     validate: [arrayLimit, "{PATH} exceeds the limit of 2"],
   },
+  reservedSeats: {
+    type: [String],
+  },
 });
 function arrayLimit(val) {
   return Array.isArray(val) && val.length === 2;

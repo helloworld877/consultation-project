@@ -1,5 +1,6 @@
 // matchController.js
 const Match = require("../models/match");
+const Stadium = require("../models/stadium");
 
 const getAllMatches = (req, res, next) => {
   Match.find()
@@ -17,9 +18,20 @@ const getAllMatches = (req, res, next) => {
 const getMatch = (req, res, next) => {
   id = req.body.id;
   Match.findOne({ _id: id })
-    .then((result) => {
-      console.log(result);
-      res.status(200).json(result);
+    .then((match) => {
+      console.log(match);
+      Stadium.findOne({ name: match.matchVenue }).then((stadium) => {
+        // result = match;
+        // result.size = [stadium.rows, stadium.columns];
+        // let result = { match };
+        // result.size = [stadium.rows, stadium.columns];
+        match.size = [];
+        match.size.push(stadium.rows);
+        match.size.push(stadium.columns);
+        console.log(stadium.rows);
+        console.log(stadium.columns);
+        res.status(200).json(match);
+      });
     })
     .catch((err) => console.log(err));
 };
