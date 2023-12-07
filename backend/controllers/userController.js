@@ -49,7 +49,6 @@ const createUser = (req, res, next) => {
     emailAddress,
     role,
   });
-
   user
     .save()
     .then((result) => {
@@ -62,6 +61,34 @@ const createUser = (req, res, next) => {
     });
 };
 
+const updateUser = (req, res, next) => {
+  const password = req.body.password;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const birthDate = req.body.birthDate;
+  const gender = req.body.gender;
+  const city = req.body.city;
+  const address = req.body.address;
+  const filter = { userName: req.body.userName };
+  const update = {
+    password: password,
+    firstName: firstName,
+    lastName: lastName,
+    birthDate: birthDate,
+    gender: gender,
+    city: city,
+    address: address,
+  };
+  User.findOneAndUpdate(filter, update)
+    .then((result) => {
+      console.log("User Info Updated Successfully");
+      res.status(200).json({ message: "User Info Updated successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err.message });
+    });
+};
 //promote user to admin
 const promoteUser = (req, res, next) => {
   const filter = { userName: req.body.userName };
@@ -117,4 +144,5 @@ module.exports = {
   promoteUser,
   demoteUser,
   promoteToAdmin,
+  updateUser,
 };
