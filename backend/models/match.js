@@ -23,9 +23,13 @@ const matchSchema = new Schema({
     required: true,
   },
   linesMen: {
-    type: String,
+    type: [String],
     required: true,
+    validate: [arrayLimit, "{PATH} exceeds the limit of 2"],
   },
 });
+function arrayLimit(val) {
+  return Array.isArray(val) && val.length === 2;
+}
 
 module.exports = mongoose.model("Match", matchSchema);
