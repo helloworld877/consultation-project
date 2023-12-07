@@ -13,5 +13,5 @@ router.post(
   bodyParser.json(),
   userController.promoteToAdmin
 ); // promote a user to admin
-
+router.delete("/deleteUser", bodyParser.json(), userController.deleteUser); // delete a user
 module.exports = router;
