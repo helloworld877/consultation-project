@@ -13,8 +13,10 @@ mongoose
       console.log(`Server running on port ${PORT}`);
       const userRoutes = require("./routes/userRoutes");
       const matchRoutes = require("./routes/matchRoutes");
+      const stadiumRoutes = require("./routes/stadiumRoutes");
       app.use("/users", userRoutes);
       app.use("/matches", matchRoutes);
+      app.use("/stadiums", stadiumRoutes);
       app.get("/", function (req, res) {
         res.send("Hello World!");
       });

@@ -17,4 +17,4 @@ const stadiumSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Stadium", stadiumSchema);
+module.exports = mongoose.model("Stadium", stadiumSchema, "stadiums");

@@ -51,6 +51,7 @@ const createMatch = (req, res, next) => {
     });
 };
 
+//Update Match Info
 const updateMatch = (req, res, next) => {
   const matchId = req.body.id;
   const homeTeam = req.body.homeTeam;
