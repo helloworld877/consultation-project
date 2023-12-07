@@ -62,15 +62,31 @@ const createUser = (req, res, next) => {
     });
 };
 
+//promote user to admin
 const promoteUser = (req, res, next) => {
   const filter = { userName: req.body.userName };
   const update = { role: "admin" };
 
-  // `doc` is the document _before_ `update` was applied
   User.findOneAndUpdate(filter, update)
     .then((result) => {
-      console.log("User added Successfully");
+      console.log("User promoted Successfully");
       res.status(200).json({ message: "User promoted successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err.message });
+    });
+};
+
+//demote user to user
+const demoteUser = (req, res, next) => {
+  const filter = { userName: req.body.userName };
+  const update = { role: "user" };
+
+  User.findOneAndUpdate(filter, update)
+    .then((result) => {
+      console.log("User demoted Successfully");
+      res.status(200).json({ message: "User demoted successfully" });
     })
     .catch((err) => {
       console.log(err);
@@ -83,4 +99,5 @@ module.exports = {
   getUser,
   createUser,
   promoteUser,
+  demoteUser,
 };
