@@ -94,10 +94,27 @@ const demoteUser = (req, res, next) => {
     });
 };
 
+//promote user to admin
+const promoteToAdmin = (req, res, next) => {
+  const filter = { userName: req.body.userName };
+  const update = { role: "admin" };
+
+  User.findOneAndUpdate(filter, update)
+    .then((result) => {
+      console.log("User promoted to admin Successfully");
+      res.status(200).json({ message: "User promoted to admin successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err.message });
+    });
+};
+
 module.exports = {
   getUsers,
   getUser,
   createUser,
   promoteUser,
   demoteUser,
+  promoteToAdmin,
 };
