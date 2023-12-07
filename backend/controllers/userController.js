@@ -137,6 +137,19 @@ const promoteToAdmin = (req, res, next) => {
     });
 };
 
+//delete a user
+const deleteUser = (req, res, next) => {
+  User.findOneAndDelete({ userName: req.body.userName })
+    .then((result) => {
+      console.log("User deleted Successfully");
+      res.status(200).json({ message: "User deleted successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err.message });
+    });
+};
+
 module.exports = {
   getUsers,
   getUser,
@@ -145,4 +158,5 @@ module.exports = {
   demoteUser,
   promoteToAdmin,
   updateUser,
+  deleteUser,
 };
