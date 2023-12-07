@@ -1,0 +1,32 @@
+.payment-card {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    text-align: left;
+    background: white;
+    width: 50%;
+}
+
+h2 {
+    color: #333;
+    font-size: 20px; /* Adjusted font size */
+    margin-bottom: 16px; /* Adjusted margin */
+}
+
+.payment-info {
+    margin-bottom: 16px; /* Adjusted margin */
+    padding-bottom: 10px;
+}
+
+p {
+    color: black;
+    margin-bottom: 12px; /* Adjusted margin */
+    line-height: 1.6; /* Adjusted line height */
+    text-align: start;
+}
+
+strong {
+    color: black;
+}
