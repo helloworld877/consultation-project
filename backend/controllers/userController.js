@@ -16,7 +16,7 @@ const getUsers = (req, res, next) => {
 
 //gets a user based on a username
 const getUser = (req, res, next) => {
-  userName = req.params.userName;
+  userName = req.body.userName;
   User.findOne({ userName: userName })
     .then((result) => {
       console.log(result);

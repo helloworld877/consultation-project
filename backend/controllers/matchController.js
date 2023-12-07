@@ -13,6 +13,17 @@ const getAllMatches = (req, res, next) => {
       res.status(500).json({ error: "Internal Server Error" });
     });
 };
+//gets a match based on ID
+const getMatch = (req, res, next) => {
+  id = req.body.id;
+  Match.findOne({ _id: id })
+    .then((result) => {
+      console.log(result);
+      res.status(200).json(result);
+    })
+    .catch((err) => console.log(err));
+};
+
 const createMatch = (req, res, next) => {
   const homeTeam = req.body.homeTeam;
   const awayTeam = req.body.awayTeam;
@@ -48,8 +59,7 @@ const updateMatch = (req, res, next) => {
   const dateAndTime = req.body.dateAndTime;
   const mainReferee = req.body.mainReferee;
   const linesMen = req.body.linesMen;
-  Match.findOne({ id: userID }).then((match) => {
-    match.id = matchId;
+  Match.findOne({ _id: matchId }).then((match) => {
     match.homeTeam = homeTeam;
     match.awayTeam = awayTeam;
     match.matchVenue = matchVenue;
@@ -67,8 +77,22 @@ const updateMatch = (req, res, next) => {
   });
 };
 
+//delete a match
+const deleteMatch = (req, res, next) => {
+  Match.findOneAndDelete({ _id: req.body.id })
+    .then((result) => {
+      console.log("Match deleted Successfully");
+      res.status(200).json({ message: "Match deleted successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err.message });
+    });
+};
 module.exports = {
   getAllMatches,
+  getMatch,
   createMatch,
   updateMatch,
+  deleteMatch,
 };
