@@ -51,6 +51,7 @@ h6 span {
   position: relative;
   width: 100%;
   display: block;
+  align-items: center !important;
 }
 .full-height {
   min-height: 100vh;
@@ -126,6 +127,7 @@ h6 span {
   transform-style: preserve-3d;
   margin: auto;
   margin-top: 20px;
+  transition: transform 0.6s;
 }
 .card-3d-wrapper {
   width: 100%;
@@ -137,11 +139,13 @@ h6 span {
   transform-style: preserve-3d;
   transition: all 600ms ease-out;
 }
+.card-3d-wrap.flipped .card-3d-wrapper {
+  transform: rotateY(180deg);
+}
 .card-front,
 .card-back {
-  width: 100%;
+  width: 90%;
   height: 100%;
-
   background-color: white;
   background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg");
   background-position: bottom center;
@@ -157,6 +161,7 @@ h6 span {
   -moz-backface-visibility: hidden;
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
+  
 }
 
 .card-back {

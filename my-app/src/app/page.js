@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import "../../styles/onBoarding.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons"; 
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
 export default function Home() {
@@ -10,6 +10,13 @@ export default function Home() {
 
   const toggleForm = () => {
     setIsLogin(!isLogin); // Toggle the state
+  };
+
+  const loginForm = () => {
+    setIsLogin(true);
+  };
+  const signUpForm = () => {
+    setIsLogin(false);
   };
   return (
     <div className="page-container">
@@ -20,8 +27,7 @@ export default function Home() {
               <div className="section pb-5 pt-5 pt-sm-2 text-center">
                 <div className="button-container">
                   <Link href="/viewMatches">     
-                    {/* <a className="view-matches-btn">View Matches</a>{" "} */}
-                    <button type="button" class="btn btn-primary">View Matches</button>
+                    <a className="view-matches-btn">View Matches</a>{" "}
                   </Link>
                 </div>
                 <input
@@ -31,7 +37,9 @@ export default function Home() {
                   name="reg-log"
                 />
                 <div className="toggle-container">
-                  <span className="toggle-label-text">Login</span>
+                  <span className="toggle-label-text" onClick={loginForm}>
+                    Login
+                  </span>
                   <label
                     htmlFor="reg-log"
                     className="toggle-label"
@@ -42,10 +50,12 @@ export default function Home() {
                       className="toggle-icon"
                     />
                   </label>
-                  <span className="toggle-label-text">Sign Up</span>
+                  <span className="toggle-label-text" onClick={signUpForm}>
+                    Sign Up
+                  </span>
                 </div>
 
-                <div className="card-3d-wrap mx-auto">
+                <div className={`card-3d-wrap mx-auto ${isLogin ? '' : 'flipped'}`}>
                   <div className="card-3d-wrapper">
                     <div className="card-front">
                       <div className="center-wrap">
