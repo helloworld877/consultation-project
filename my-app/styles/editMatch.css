@@ -1,0 +1,21 @@
+body
+{
+    background-color: #19204e;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.7;
+}
+h1
+{
+    color: white;
+    font-family: "Poppins", sans-serif;
+    color:#fcb300;
+    margin: 50px 50px 50px 50px;
+    text-align: center;
+    
+}
+.Edit-Match {
+    background-color: #19204e;
+    font-family: "Poppins", sans-serif;
+}
