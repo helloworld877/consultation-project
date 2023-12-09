@@ -1,0 +1,45 @@
+
+.card {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    text-align: center;
+    background: white;
+    width: 50%;
+}
+
+h3 {
+    color: black;
+    margin-bottom: 8px;
+}
+
+p {
+    color: black;
+    margin-bottom: 4px;
+    line-height: 1.5;
+    text-align: start;
+}
+
+strong {
+    color: black;
+}
+h2 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.seat-section {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.grand-total-section
+{
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}

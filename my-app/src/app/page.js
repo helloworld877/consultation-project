@@ -26,7 +26,7 @@ export default function Home() {
             <div className="col-12 text-center align-self-center py-5">
               <div className="section pb-5 pt-5 pt-sm-2 text-center">
                 <div className="button-container">
-                  <Link href="/viewMatches">
+                  <Link href="/viewMatches">     
                     <a className="view-matches-btn">View Matches</a>{" "}
                   </Link>
                 </div>

@@ -6,19 +6,23 @@
     margin: 16px;
     text-align: center;
     background: white;
-    width: 25%;
+    width: 20%;
 }
+a:-webkit-any-link 
+{
+    text-decoration: none !important;
+    color: black;
+}
+
 h3
 {
     color: black;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     
 }
-
-
 p {
     color: black;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     line-height: 1.5;
     text-align: start;
 }
@@ -39,7 +43,7 @@ strong {
     height: 70px;
 }
 .vs {
-    font-size: 24px; 
+    font-size: 20px; 
     padding: 0 10px;  
     font-family: "Poppins", sans-serif;
 }

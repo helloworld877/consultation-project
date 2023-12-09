@@ -1,0 +1,144 @@
+body {
+    background-color: #19204e;
+    background-size: cover;
+    background-image: url("https://media.istockphoto.com/id/1502846052/photo/textured-soccer-game-field-with-neon-fog-center-midfield.webp?b=1&s=170667a&w=0&k=20&c=VMhKl2mgCFBZ06FMBcxzZRj-z_ITg-Wvj7PAX11Qr4I=");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  .checkout-page {
+    background-color: #19204e;
+    background-size: cover;
+    background-image: url("https://media.istockphoto.com/id/1502846052/photo/textured-soccer-game-field-with-neon-fog-center-midfield.webp?b=1&s=170667a&w=0&k=20&c=VMhKl2mgCFBZ06FMBcxzZRj-z_ITg-Wvj7PAX11Qr4I=");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    min-height: 100vh;
+    margin: 0;
+    position: relative;
+  }
+  
+  .checkout-btn {
+    background-color: #df183f; 
+    border: none;
+    color: white;
+    padding: 15px 35px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin: 0 auto;
+    cursor: pointer;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 20px; 
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+
+  .back-btn {
+    opacity: 0; 
+    position: absolute;
+    z-index: -1; 
+  }
+  .back-btn-label-text {
+    color: #fcb300;
+    font-size: 14px;
+    user-select: none;
+    margin: 10px 30px 10px 30px;
+    font-weight: 500;
+    font-family: 'Font Awesome 5 Free', 'FontAwesome', sans-serif;
+  }
+  .back-btn-container {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    display: flex;
+    justify-content: center; 
+    margin: 20px 0; 
+  }
+  
+  .back-btn-label {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px; 
+    height: 40px;
+    border-radius: 50%; 
+    background-color: #102770; 
+    cursor: pointer;
+    transition: all 0.5s ease; 
+  }
+  
+  .back-btn-label:hover {
+    background-color: #0d1f33; 
+  }
+  
+  .back-btn-icon {
+    color: #fcb300;
+    font-size: 20px;
+    padding: 5px 5px 5px 5px;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-container {
+    padding-left: 420px;
+    width:80%;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.receipt-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    padding-left: 150px;
+}
+
+.payment-container
+{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    padding-left: 300px;
+}
+
+.checkout-btn {
+  background-color: #df183f; 
+  border: none;
+  color: white;
+  padding: 15px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 60px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.checkout-btn:hover {
+  background-color: #d6d6d6;
+}
+
+.button-container {
+  position: absolute;
+  bottom: 10px; 
+  left: 55%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  padding-left: 200px;
+}
