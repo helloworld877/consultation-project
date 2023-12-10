@@ -27,7 +27,8 @@ export default function Home() {
               <div className="section pb-5 pt-5 pt-sm-2 text-center">
                 <div className="button-container">
                   <Link href="/viewMatches">     
-                    <a className="view-matches-btn">View Matches</a>{" "}
+                    {/* <a className="view-matches-btn">View Matches</a>{" "} */}
+                    <button type="button" class="btn btn-primary">View Matches</button>
                   </Link>
                 </div>
                 <input
