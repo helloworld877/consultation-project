@@ -1,0 +1,76 @@
+body
+{
+    background-color: #19204e;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.7;
+}
+h1
+{
+    color: white;
+    font-family: "Poppins", sans-serif;
+    color:#fcb300;
+    margin-bottom: 2rem;
+    margin: 50px 50px 50px 50px;
+    text-align: center;
+    
+}
+.Add-Match {
+    width: 80%; 
+    max-width: 1200px; 
+    margin: auto;
+    background-color: #19204e;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.input-fields-container {
+    width: 90%; 
+    margin-bottom: 20px; 
+    flex-wrap: wrap; 
+    gap: 1rem;
+}
+.columns-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+.column {
+    flex: 1; 
+    min-width: 250px;
+}
+
+.column:last-child {
+    margin-right: 0;
+}
+
+.custom-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.CustomButton {
+    margin-top: 20px;
+    align-self: center;
+}
+
+.linesmen-input-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .linesmen-input-container input {
+    width: 100%;
+    padding: 8px;
+    font-size: 15px;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .input-fields-container label {
+    color: #fcb300; /* Match the font color of the header */
+  }
