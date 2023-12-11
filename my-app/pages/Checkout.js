@@ -33,16 +33,17 @@ export default function Checkout() {
         <button className="checkout-btn">Checkout</button>
       </div>
       <Link href="/matchSeats" passHref>
-        <a>
+        {/* <a>
           <input className="back-btn" type="button" id="reg-log" name="reg-log" />
-        </a>{' '}
-      </Link>
+        </a>{' '} */}
+      
       <div className="back-btn-container">
         <label htmlFor="reg-log" className="back-btn-label">
           <FontAwesomeIcon icon={faArrowLeft} className="back-btn-icon" />
         </label>
         <span className="back-btn-label-text">Return To Seats</span>
       </div>
+      </Link>
     </div>
   );
 }
