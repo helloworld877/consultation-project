@@ -1,0 +1,98 @@
+body
+{
+    background-color: #19204e;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.7;
+}
+h1
+{
+    color: white;
+    font-family: "Poppins", sans-serif;
+    color:#fcb300;
+    margin-bottom: 2rem;
+    margin: 50px 50px 50px 50px;
+    text-align: center;
+    
+}
+.profile-page {
+    width: 80%; 
+    max-width: 1200px; 
+    margin: auto;
+    background-color: #19204e;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.user-info {
+  background-color: white;
+  border-radius: 15px;
+  padding-top: 60px;
+  padding-bottom: 100px;
+  padding-right: 100px;
+  padding-left: 100px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+.name-age {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.age {
+  font-size: 18px;
+}
+
+.links {
+  margin-top: 20px;
+}
+
+.link {
+  display: block;
+  color: #19204e;
+  text-decoration: none;
+  margin-bottom: 10px;
+  font-size: 18px;
+  border-bottom: 1px solid #d6d6d6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.link:hover {
+  background-color: #f8f8f8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.accountDetails
+{
+    margin-top: 60px;
+   
+}
+a:-webkit-any-link
+{
+    text-decoration: none;
+}
