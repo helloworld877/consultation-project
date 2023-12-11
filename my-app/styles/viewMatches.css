@@ -17,3 +17,16 @@ h1
     background-color: #19204e;
     font-family: "Poppins", sans-serif;
 }
+
+.add-match-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  
+  .add-stadium-button {
+    position: absolute;
+    top: 20px;
+    right: 220px;
+  }
+  
