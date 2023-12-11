@@ -1,0 +1,61 @@
+
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900");
+
+body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #19204e;
+    background-color: #19204e;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-image: url("https://media.istockphoto.com/id/1401603790/photo/soccer-ball-in-flag-colors-on-a-bright-sunny-stadium-background-egypt.jpg?s=612x612&w=0&k=20&c=hz6z-Na9d6j4Oi54Ti_Vml-9jjPLM5j0zkRFTbfn7Yc=");
+}
+
+header {
+    background-color: #19204e;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+h1 {
+    color: white;
+    font-family: "Poppins", sans-serif;
+    color: #fcb300;
+    margin-bottom: 2rem;
+    margin: 20px 50px; /* Adjust margin as needed */
+    text-align: center;
+}
+
+.header-buttons {
+    margin-top: 10px;
+    justify-content: space-around;
+    
+}
+
+.button-container{
+    margin-left: 10px;
+    display: inline-block;
+}
+
+main {
+    padding: 20px;
+}
+
+#carousel {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.match-image {
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+}
