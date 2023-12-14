@@ -147,6 +147,9 @@ const deleteUser = (req, res, next) => {
     });
 };
 
+//login a user
+const login = (req, res, next) => {};
+
 module.exports = {
   getUsers,
   getUser,
@@ -156,4 +159,5 @@ module.exports = {
   promoteToAdmin,
   updateUser,
   deleteUser,
+  login,
 };
