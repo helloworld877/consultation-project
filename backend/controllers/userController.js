@@ -1,6 +1,26 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+///////////////////////////
+
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (token === null) {
+    return res.sendStatus(401);
+  }
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) {
+      return res.sendStatus(403);
+    }
+    req.PRIVILEGE = user.role;
+    next();
+  });
+};
+
+/////////////////////////////
 //returns all users
 const getUsers = (req, res, next) => {
   User.find()
@@ -124,6 +144,9 @@ const promoteToAdmin = (req, res, next) => {
   const filter = { userName: req.body.userName };
   const update = { role: "admin" };
 
+  if (req.PRIVILEGE !== "admin") {
+    res.status(403).json({ error: "not authorized" });
+  }
   User.findOneAndUpdate(filter, update)
     .then((result) => {
       console.log("User promoted to admin Successfully");
@@ -156,17 +179,26 @@ const login = (req, res, next) => {
   const password = req.body.password;
 
   // check if user is correct
-  //.
-  //.
-  //.
-  //give the user the token
-  const user = { userName: userName, role: "user" };
-  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+  User.findOne({ userName: userName, password: password })
+    .then((result) => {
+      if (result == null) {
+        res.status(404).json({
+          message: "user not found",
+        });
+      }
+      //give the user the token
+      console.log(result);
+      const user = { role: result.role };
+      const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
 
-  //return user data and access token
-  res
-    .status(200)
-    .json({ message: "login successful", user, accessToken: accessToken });
+      //return user data and access token
+      res.status(200).json({
+        message: "login successful",
+        result,
+        accessToken: accessToken,
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 module.exports = {
@@ -179,4 +211,5 @@ module.exports = {
   updateUser,
   deleteUser,
   login,
+  authenticateToken,
 };

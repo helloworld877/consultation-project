@@ -15,6 +15,7 @@ router.post("/demoteUser", bodyParser.json(), userController.demoteUser); // dem
 router.post(
   "/promoteToAdmin",
   bodyParser.json(),
+  userController.authenticateToken,
   userController.promoteToAdmin
 ); // promote a user to admin
 router.delete("/deleteUser", bodyParser.json(), userController.deleteUser); // delete a user
