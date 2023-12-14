@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 
 //returns all users
 const getUsers = (req, res, next) => {
@@ -148,7 +149,25 @@ const deleteUser = (req, res, next) => {
 };
 
 //login a user
-const login = (req, res, next) => {};
+const login = (req, res, next) => {
+  //get username and password
+
+  const username = req.body.username;
+  const password = req.body.password;
+
+  // check if user is correct
+  //.
+  //.
+  //.
+  //give the user the token
+  const user = { name: username, role: "user" };
+  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+
+  //return user data and access token
+  res
+    .status(200)
+    .json({ message: "login successful", user, accessToken: accessToken });
+};
 
 module.exports = {
   getUsers,
