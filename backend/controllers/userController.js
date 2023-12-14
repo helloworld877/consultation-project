@@ -23,6 +23,9 @@ const authenticateToken = (req, res, next) => {
 /////////////////////////////
 //returns all users
 const getUsers = (req, res, next) => {
+  if (req.PRIVILEGE !== "admin") {
+    res.status(403).json({ error: "not authorized" });
+  }
   User.find()
     .then((users) => {
       console.log(users);
@@ -110,8 +113,10 @@ const updateUser = (req, res, next) => {
 //promote user to admin
 const promoteUser = (req, res, next) => {
   const filter = { userName: req.body.userName };
-  const update = { role: "admin" };
-
+  const update = { role: "manager" };
+  if (req.PRIVILEGE !== "admin") {
+    res.status(403).json({ error: "not authorized" });
+  }
   User.findOneAndUpdate(filter, update)
     .then((result) => {
       console.log("User promoted Successfully");
@@ -127,7 +132,9 @@ const promoteUser = (req, res, next) => {
 const demoteUser = (req, res, next) => {
   const filter = { userName: req.body.userName };
   const update = { role: "user" };
-
+  if (req.PRIVILEGE !== "admin") {
+    res.status(403).json({ error: "not authorized" });
+  }
   User.findOneAndUpdate(filter, update)
     .then((result) => {
       console.log("User demoted Successfully");
@@ -160,6 +167,9 @@ const promoteToAdmin = (req, res, next) => {
 
 //delete a user
 const deleteUser = (req, res, next) => {
+  if (req.PRIVILEGE !== "admin") {
+    res.status(403).json({ error: "not authorized" });
+  }
   User.findOneAndDelete({ userName: req.body.userName })
     .then((result) => {
       console.log("User deleted Successfully");
