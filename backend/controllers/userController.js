@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-
+require("dotenv").config();
 //returns all users
 const getUsers = (req, res, next) => {
   User.find()
@@ -152,7 +152,7 @@ const deleteUser = (req, res, next) => {
 const login = (req, res, next) => {
   //get username and password
 
-  const username = req.body.username;
+  const userName = req.body.userName;
   const password = req.body.password;
 
   // check if user is correct
@@ -160,7 +160,7 @@ const login = (req, res, next) => {
   //.
   //.
   //give the user the token
-  const user = { name: username, role: "user" };
+  const user = { userName: userName, role: "user" };
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
 
   //return user data and access token
