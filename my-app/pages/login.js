@@ -4,6 +4,7 @@ import "../styles/onBoarding.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import CustomButton from "../components/customButton";
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true); // State to toggle between login and signup
@@ -88,9 +89,11 @@ export default function Login() {
                             />
                             <i className="input-icon uil uil-lock-alt"></i>
                           </div>
-                          <a href="#" className="btn mt-4">
-                            submit
-                          </a>
+                          <Link href="/viewMatches">
+                          <CustomButton className="btn mt-4">
+                            Login
+                          </CustomButton>
+                          </Link>
                           <p className="mb-0 mt-4 text-center">
                             <a href="#0" className="link">
                               Forgot your password?
@@ -192,9 +195,11 @@ export default function Login() {
                               </div>
                             </div>
                           </div>
-                          <a href="#" className="btn mt-4">
-                            submit
-                          </a>
+                          <Link href="/viewMatches">
+                          <CustomButton className="btn mt-4">
+                            Sign Up
+                          </CustomButton>
+                          </Link>
                         </div>
                       </div>
                     </div>
