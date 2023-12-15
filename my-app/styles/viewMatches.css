@@ -1,32 +1,55 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900");
 
-body{
-    background-color: #19204e;
-  
+body {
+  background-color: #19204e;
+  margin: 0; /* Reset default margin */
+  padding: 0; /* Reset default padding */
 }
-h1
-{
-    color: white;
-    font-family: "Poppins", sans-serif;
-    color:#fcb300;
-    margin: 50px 50px 50px 50px;
-    text-align: center;
-    
+
+h1 {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  color: #fcb300;
+  margin: 2% 5%;
+  text-align: center;
 }
+
 .matches-page {
-    background-color: #19204e;
-    font-family: "Poppins", sans-serif;
+  background-color: #19204e;
+  font-family: "Poppins", sans-serif;
+  position: relative;
+}
+
+.add-match-button,
+.add-stadium-button,
+.view-account-button {
+  position: absolute;
+  top: 2%;
 }
 
 .add-match-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+  right: 2%;
+}
+
+.add-stadium-button {
+  right: 20%;
+}
+
+.view-account-button {
+  left: 2%;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem;
   }
-  
-  .add-stadium-button {
-    position: absolute;
-    top: 20px;
-    right: 220px;
+
+  .add-match-button,
+  .add-stadium-button,
+  .view-account-button {
+    position: static;
+    margin-bottom: 10px;
+    width: 100%;
   }
-  
+}

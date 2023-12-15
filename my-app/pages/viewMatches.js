@@ -10,56 +10,20 @@ export default function Matches() {
       <h1>Upcoming Matches</h1>
       <div className="add-match-button">
         <Link href="/addMatch">
-        <CustomButton>
-          + Add Match
-        </CustomButton>
+          <CustomButton>+ Add Match</CustomButton>
         </Link>
       </div>
       <div className="add-stadium-button">
         <Link href="/addStadium">
-        <CustomButton>
-          + Add Stadium
-        </CustomButton>
+          <CustomButton>+ Add Stadium</CustomButton>
+        </Link>
+      </div>
+      <div className="view-account-button">
+        <Link href="/profile">
+          <CustomButton>Account</CustomButton>
         </Link>
       </div>
       <MatchCard showEditIcon={true} />
     </div>
   );
 }
-
-// import React, { useEffect, useState } from 'react';
-
-// export default function Matches() {
-//     // const [matches, setMatches] = useState([]);
-
-//     // useEffect(() => {
-//         // Fetch the match details from your backend
-//         // setMatches(response.data);
-//     // }, []);
-
-//     return (
-//         <div>
-//             <h1>Available Matches</h1>
-//             <div className="cards-container">
-//                 {matches.length > 0 ? (
-//                     matches.map(match => <MatchCard key={match.id} match={match} />)
-//                 ) : (
-//                     <p>No matches available at this time.</p>
-//                 )}
-//             </div>
-//         </div>
-//     );
-// }
-
-// // MatchCard component
-// function MatchCard({ match }) {
-//     return (
-//         <div className="match-card">
-//             <h3>{match.homeTeam} vs {match.awayTeam}</h3>
-//             <p>Venue: {match.venue}</p>
-//             <p>Date & Time: {match.dateTime}</p>
-//             <p>Main Referee: {match.mainReferee}</p>
-//             <p>Linesmen: {match.linesmen.join(', ')}</p>
-//         </div>
-//     );
-// }
