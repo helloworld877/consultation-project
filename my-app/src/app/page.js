@@ -26,9 +26,11 @@ export default function Home() {
             <div className="col-12 text-center align-self-center py-5">
               <div className="section pb-5 pt-5 pt-sm-2 text-center">
                 <div className="button-container">
-                  <Link href="/viewMatches">     
+                  <Link href="/viewMatches">
                     {/* <a className="view-matches-btn">View Matches</a>{" "} */}
-                    <button type="button" class="btn btn-primary">View Matches</button>
+                    <button type="button" className="btn btn-primary">
+                      View Matches
+                    </button>
                   </Link>
                 </div>
                 <input
@@ -56,7 +58,9 @@ export default function Home() {
                   </span>
                 </div>
 
-                <div className={`card-3d-wrap mx-auto ${isLogin ? '' : 'flipped'}`}>
+                <div
+                  className={`card-3d-wrap mx-auto ${isLogin ? "" : "flipped"}`}
+                >
                   <div className="card-3d-wrapper">
                     <div className="card-front">
                       <div className="center-wrap">
