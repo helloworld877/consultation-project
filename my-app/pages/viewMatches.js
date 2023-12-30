@@ -5,11 +5,12 @@ import '../styles/viewMatches.css';
 
 
 export default function Matches() {
+   
     return (
         
         <div className="matches-page">
             <h1>Upcoming Matches</h1>
-            <MatchCard />
+            <MatchCard showEditIcon={true}  />
         </div>
     );
 }
