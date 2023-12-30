@@ -143,6 +143,19 @@ export default function Home() {
                                   autoComplete="off"
                                 />
                               </div>
+                              <div className="form-group">
+                                <select
+                                  name="gender"
+                                  className="form-style gender"
+                                  defaultValue=""
+                                >
+                                  <option value="" disabled>
+                                    Fan
+                                  </option>
+                                  <option value="Fan">Fan</option>
+                                  <option value="Manager">Manager</option>
+                                </select>
+                              </div>
                             </div>
                             <div className="form-column">
                               <div className="form-group">
@@ -184,12 +197,22 @@ export default function Home() {
                               <div className="form-group">
                                 <input
                                   type="text"
+                                  name="City"
+                                  className="form-style"
+                                  placeholder="City"
+                                  autoComplete="off"
+                                />
+                              </div>
+                              <div className="form-group">
+                                <input
+                                  type="text"
                                   name="address"
                                   className="form-style"
                                   placeholder="Address"
                                   autoComplete="off"
                                 />
                               </div>
+                              
                             </div>
                           </div>
                           <a href="#" className="btn mt-4">
