@@ -204,7 +204,7 @@ const login = (req, res, next) => {
 
       //return user data and access token
       res.status(200).json({
-        message: "login successful",
+        message: "Login Successful",
         result,
         accessToken: accessToken,
       });
