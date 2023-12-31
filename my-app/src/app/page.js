@@ -11,7 +11,7 @@ export default function Home() {
   const router = useRouter();
 
   const [loginData, setLoginData] = useState({
-    logemail: "",
+    logUserName: "",
     logpass: "",
   });
   const [formData, setFormData] = useState({
@@ -37,10 +37,10 @@ export default function Home() {
     e.preventDefault();
     try {
       const data = {
-        email: loginData.logemail,
+        email: loginData.logUserName,
         password: loginData.logpass,
       };
-      const res = await fetch("http://localhost:8080/users/loginUser", {
+      const res = await fetch("http://localhost:8080/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,9 +49,9 @@ export default function Home() {
       });
       if (!res.ok) throw new Error(res.statusText);
       const result = await res.json();
-      console.log(result);
+      // console.log(result);
 
-      if (result.message === "Login successful") {
+      if (result.message === "Login Successful") {
         router.push("/viewMatches");
       }
     } catch (error) {
@@ -152,13 +152,13 @@ export default function Home() {
                             <h4 className="mb-4 pb-3">Log In</h4>
                             <div className="form-group">
                               <input
-                                type="email"
-                                name="logemail"
-                                value={loginData.logemail}
+                                type="text"
+                                name="logUserName"
+                                value={loginData.logUserName}
                                 onChange={handleLoginChange}
                                 className="form-style"
-                                placeholder="Your Email"
-                                id="logemail"
+                                placeholder="Your Username"
+                                id="logUserName"
                                 autoComplete="off"
                               />
                               <i className="input-icon uil uil-at"></i>
@@ -283,7 +283,7 @@ export default function Home() {
                                     onChange={handleInputChange}
                                     className="form-style"
                                     placeholder="Your Email"
-                                    id="logemail"
+                                    id="emailAddress"
                                     autoComplete="off"
                                   />
                                   <i className="input-icon uil uil-at"></i>
