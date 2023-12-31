@@ -18,4 +18,5 @@ router.post(
 ); // promote a user to admin
 router.delete("/deleteUser", bodyParser.json(), userController.deleteUser); // delete a user
 router.post("/login", bodyParser.json(), userController.login); // login a user
+router.put("/forgotPassword", bodyParser.json(), userController.forgotPassword);
 module.exports = router;
