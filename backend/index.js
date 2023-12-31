@@ -1,9 +1,16 @@
 const bodyParser = require("body-parser");
-
+const cors = require('cors');
 const express = require("express");
 const PORT = 8080;
 const mongoose = require("mongoose");
 const app = express();
+app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:3000', // Allow only your frontend's origin to access
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 //starting app and database connection
 mongoose

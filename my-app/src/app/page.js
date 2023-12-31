@@ -9,7 +9,7 @@ export default function Home() {
   const [isLogin, setIsLogin] = useState(true); // State to toggle between login and signup
 
   const [formData, setFormData] = useState({
-    username: "",
+    userName: "",
     password: "",
     firstName: "",
     lastName: "",
@@ -150,8 +150,8 @@ export default function Home() {
                                 <div className="form-group">
                                   <input
                                     type="text"
-                                    name="username"
-                                    value={formData.username}
+                                    name="userName"
+                                    value={formData.userName}
                                     onChange={handleInputChange}
                                     className="form-style"
                                     placeholder="Username"
@@ -202,7 +202,7 @@ export default function Home() {
                                     defaultValue=""
                                   >
                                     <option value="" disabled>
-                                      Fan
+                                      Role
                                     </option>
                                     <option value="Fan">Fan</option>
                                     <option value="Manager">Manager</option>
