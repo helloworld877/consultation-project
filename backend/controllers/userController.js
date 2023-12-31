@@ -222,8 +222,15 @@ const forgotPassword = (req, res, next) => {
     const update = { password: newPassword };
     User.findOneAndUpdate(filter, update)
       .then((result) => {
-        console.log("User Password Updated Successfully");
-        res.status(200).json({ message: "User Password Updated Successfully" });
+        if (result.password === newPassword) {
+          console.log("You Should Write a New Password");
+          res.status(500).json({ message: "You Should Write a New Password" });
+        } else {
+          console.log("User Password Updated Successfully");
+          res
+            .status(200)
+            .json({ message: "User Password Updated Successfully" });
+        }
       })
       .catch((err) => {
         console.log("Password Update Unsuccessful!!");
