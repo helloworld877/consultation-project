@@ -7,7 +7,11 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Home() {
-  const [isLogin, setIsLogin] = useState(true); // State to toggle between login and signup
+  const [isLogin, setIsLogin] = useState(true); 
+  const [loginError, setLoginError] = useState("");
+  const [signUpError, setSignUpError] = useState("");
+
+
   const router = useRouter();
 
   const [loginData, setLoginData] = useState({
@@ -35,6 +39,8 @@ export default function Home() {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoginError(""); 
+
     try {
       const data = {
         userName: loginData.userName,
@@ -53,9 +59,12 @@ export default function Home() {
 
       if (result.message === "Login Successful") {
         router.push("/viewMatches");
+      } else {
+        setLoginError("Login Failed");
       }
     } catch (error) {
       console.error("Failed to login:", error);
+      setLoginError("Login Failed");
     }
   };
 
@@ -69,6 +78,22 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSignUpError("");
+    if (
+      !formData.userName.trim() ||
+      !formData.password.trim() ||
+      !formData.firstName.trim() ||
+      !formData.lastName.trim() ||
+      !formData.birthDate.trim() ||
+      !formData.gender ||
+      !formData.city.trim() ||
+      !formData.address.trim() ||
+      !formData.emailAddress.trim() ||
+      !formData.role
+    ) {
+      setSignUpError("Please complete all fields");
+      return; // Stop the submission
+    }
 
     try {
       const res = await fetch("http://localhost:8080/users/createUser", {
@@ -149,6 +174,9 @@ export default function Home() {
                       <form onSubmit={handleLogin}>
                         <div className="center-wrap">
                           <div className="section text-center">
+                            {loginError && (
+                              <p style={{ color: "red" }}>{loginError}</p>
+                            )}
                             <h4 className="mb-4 pb-3">Log In</h4>
                             <div className="form-group">
                               <input
@@ -196,6 +224,7 @@ export default function Home() {
                     <div className="card-back">
                       <div className="center-wrap">
                         <div className="section text-center">
+                        {signUpError && <p style={{ color: 'red' }}>{signUpError}</p>}
                           <h4 className="mb-4 pb-3">Sign Up</h4>
                           <form onSubmit={handleSubmit}>
                             <div className="form-row">
