@@ -195,7 +195,7 @@ const login = (req, res, next) => {
       console.log(result);
       if (result == null) {
         res.status(404).json({
-          message: "user not found",
+          message: "User Not Found",
         });
       } else {
         //give the user the token
@@ -214,6 +214,27 @@ const login = (req, res, next) => {
     })
     .catch((err) => console.log(err));
 };
+const forgotPassword = (req, res, next) => {
+  const newPassword = req.body.newPassword;
+  const confrimPassword = req.body.confirmPassword;
+  if (newPassword === confrimPassword) {
+    const filter = { userName: req.body.userName };
+    const update = { password: newPassword };
+    User.findOneAndUpdate(filter, update)
+      .then((result) => {
+        console.log("User Password Updated Successfully");
+        res.status(200).json({ message: "User Password Updated Successfully" });
+      })
+      .catch((err) => {
+        console.log("Password Update Unsuccessful!!");
+        console.log(err);
+        res.status(500).json({ error: err.message });
+      });
+  } else {
+    console.log("Password Mismatch");
+    res.status(500).json({ message: "Password Mismatch" });
+  }
+};
 
 module.exports = {
   getUsers,
@@ -226,4 +247,5 @@ module.exports = {
   deleteUser,
   login,
   authenticateToken,
+  forgotPassword,
 };
