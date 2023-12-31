@@ -1,13 +1,19 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../../styles/onBoarding.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true); // State to toggle between login and signup
+  const router = useRouter();
 
+  const [loginData, setLoginData] = useState({
+    logemail: "",
+    logpass: "",
+  });
   const [formData, setFormData] = useState({
     userName: "",
     password: "",
@@ -20,6 +26,38 @@ export default function Home() {
     emailAddress: "",
     role: "",
   });
+  const handleLoginChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const data = {
+        email: loginData.logemail,
+        password: loginData.logpass,
+      };
+      const res = await fetch("http://localhost:8080/users/loginUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(res.statusText);
+      const result = await res.json();
+      console.log(result);
+
+      if (result.message === "Login successful") {
+        router.push("/viewMatches");
+      }
+    } catch (error) {
+      console.error("Failed to login:", error);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,14 +81,18 @@ export default function Home() {
       console.log(res);
       if (!res.ok) throw new Error(res.statusText);
       const result = await res.json();
-      console.log(result); 
+      console.log(result);
+      if (result.message === "User added successfully") {
+        console.log("harohh view matches");
+        router.push("/viewMatches");
+      }
     } catch (error) {
       console.error("Failed to register:", error);
     }
   };
 
   const toggleForm = () => {
-    setIsLogin(!isLogin); // Toggle the state
+    setIsLogin(!isLogin);
   };
 
   const loginForm = () => {
@@ -104,41 +146,48 @@ export default function Home() {
                 >
                   <div className="card-3d-wrapper">
                     <div className="card-front">
-                      <div className="center-wrap">
-                        <div className="section text-center">
-                          <h4 className="mb-4 pb-3">Log In</h4>
-                          <div className="form-group">
-                            <input
-                              type="email"
-                              name="logemail"
-                              className="form-style"
-                              placeholder="Your Email"
-                              id="logemail"
-                              autoComplete="off"
-                            />
-                            <i className="input-icon uil uil-at"></i>
+                      <form onSubmit={handleLogin}>
+                        <div className="center-wrap">
+                          <div className="section text-center">
+                            <h4 className="mb-4 pb-3">Log In</h4>
+                            <div className="form-group">
+                              <input
+                                type="email"
+                                name="logemail"
+                                value={loginData.logemail}
+                                onChange={handleLoginChange}
+                                className="form-style"
+                                placeholder="Your Email"
+                                id="logemail"
+                                autoComplete="off"
+                              />
+                              <i className="input-icon uil uil-at"></i>
+                            </div>
+                            <div className="form-group mt-2">
+                              <input
+                                type="password"
+                                name="logpass"
+                                value={loginData.logpass}
+                                onChange={handleLoginChange}
+                                className="form-style"
+                                placeholder="Your Password"
+                                id="logpass"
+                                autoComplete="off"
+                              />
+                              <i className="input-icon uil uil-lock-alt"></i>
+                            </div>
+                            <button type="submit" className="btn mt-4">
+                              Log In
+                            </button>
+
+                            <p className="mb-0 mt-4 text-center">
+                              <a href="#0" className="link">
+                                Forgot your password?
+                              </a>
+                            </p>
                           </div>
-                          <div className="form-group mt-2">
-                            <input
-                              type="password"
-                              name="logpass"
-                              className="form-style"
-                              placeholder="Your Password"
-                              id="logpass"
-                              autoComplete="off"
-                            />
-                            <i className="input-icon uil uil-lock-alt"></i>
-                          </div>
-                          <a href="#" className="btn mt-4">
-                            submit
-                          </a>
-                          <p className="mb-0 mt-4 text-center">
-                            <a href="#0" className="link">
-                              Forgot your password?
-                            </a>
-                          </p>
                         </div>
-                      </div>
+                      </form>
                     </div>
                     <div className="card-back">
                       <div className="center-wrap">
@@ -276,7 +325,9 @@ export default function Home() {
                                 </div>
                               </div>
                             </div>
-                            <button type="submit" className="btn mt-4">Submit</button>
+                            <button type="submit" className="btn mt-4">
+                              Submit
+                            </button>
                           </form>{" "}
                           {/* End of Form */}
                         </div>
