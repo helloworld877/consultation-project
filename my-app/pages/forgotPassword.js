@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function ForgotPassword() {
   const [passwords, setPasswords] = useState({
-    username: "",
+    userName: "",
     newPassword: "",
     confirmPassword: "",
   });
@@ -24,18 +24,21 @@ export default function ForgotPassword() {
       [name]: value,
     }));
     setIsChanged(true);
+    if (passwords.userName.trim() && passwords.newPassword.trim() && passwords.confirmPassword.trim()) {
+      setError("");
+    }
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
     setError("");
-    if (!passwords.username.trim() || !passwords.newPassword.trim() || !passwords.confirmPassword.trim()) {
+    if (!passwords.userName.trim() || !passwords.newPassword.trim() || !passwords.confirmPassword.trim()) {
       setError("Please complete all fields");
       return; 
     }
 
     const data = {
-      username: passwords.username,
+      userName: passwords.userName,
       newPassword: passwords.newPassword,
       confirmPassword: passwords.confirmPassword,
     };
@@ -54,11 +57,11 @@ export default function ForgotPassword() {
       if (result.message === "User Password Updated Successfully") {
         router.push("/"); 
       } else {
-        setError("Failed to update password: " + result.message);
+        setError(result.message || "Failed to update password");
       }
     } catch (error) {
       console.error("Failed to update password:", error);
-      setError("Failed to update password.");
+      setError(error.message || "Failed to update password.");
     }
   };
 
@@ -69,9 +72,9 @@ export default function ForgotPassword() {
       <div className="input-fields-container">
         <CustomInput
           type="text"
-          name="username"
+          name="userName"
           placeholder="Username"
-          value={passwords.username}
+          value={passwords.userName}
           onChange={handleChange}
         />
         <CustomInput
@@ -95,7 +98,7 @@ export default function ForgotPassword() {
           style={{ backgroundColor: isChanged ? "blue" : "grey" }}
           disabled={
             !isChanged ||
-            !passwords.username ||
+            !passwords.userName ||
             !passwords.newPassword ||
             !passwords.confirmPassword
           }
