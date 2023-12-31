@@ -192,22 +192,25 @@ const login = (req, res, next) => {
   // check if user is correct
   User.findOne({ userName: userName, password: password })
     .then((result) => {
+      console.log(result);
       if (result == null) {
         res.status(404).json({
           message: "user not found",
         });
-      }
-      //give the user the token
-      console.log(result);
-      const user = { role: result.role };
-      const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+      } else {
+        //give the user the token
+        console.log(result);
+        const user = { role: result.role };
+        console.log(user);
+        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
 
-      //return user data and access token
-      res.status(200).json({
-        message: "Login Successful",
-        result,
-        accessToken: accessToken,
-      });
+        //return user data and access token
+        res.status(200).json({
+          message: "Login Successful",
+          result,
+          accessToken: accessToken,
+        });
+      }
     })
     .catch((err) => console.log(err));
 };
