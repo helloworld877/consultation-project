@@ -60,6 +60,7 @@ const createUser = (req, res, next) => {
   const city = req.body.city;
   const address = req.body.address;
   const emailAddress = req.body.emailAddress;
+  const role = req.body.role;
   const user = new User({
     userName,
     password,
@@ -70,7 +71,7 @@ const createUser = (req, res, next) => {
     city,
     address,
     emailAddress,
-    role: "user",
+    role,
   });
   user
     .save()
