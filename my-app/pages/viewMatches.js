@@ -10,7 +10,7 @@ export default function Matches() {
         
         <div className="matches-page">
             <h1>Upcoming Matches</h1>
-            <MatchCard showEditIcon={true}  />
+            <MatchCard showEditIcon={false}  />
         </div>
     );
 }
