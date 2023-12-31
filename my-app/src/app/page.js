@@ -11,8 +11,8 @@ export default function Home() {
   const router = useRouter();
 
   const [loginData, setLoginData] = useState({
-    logUserName: "",
-    logpass: "",
+    userName: "",
+    password: "",
   });
   const [formData, setFormData] = useState({
     userName: "",
@@ -37,8 +37,8 @@ export default function Home() {
     e.preventDefault();
     try {
       const data = {
-        email: loginData.logUserName,
-        password: loginData.logpass,
+        userName: loginData.userName,
+        password: loginData.password,
       };
       const res = await fetch("http://localhost:8080/users/login", {
         method: "POST",
@@ -49,7 +49,7 @@ export default function Home() {
       });
       if (!res.ok) throw new Error(res.statusText);
       const result = await res.json();
-      // console.log(result);
+      console.log(result);
 
       if (result.message === "Login Successful") {
         router.push("/viewMatches");
@@ -153,8 +153,8 @@ export default function Home() {
                             <div className="form-group">
                               <input
                                 type="text"
-                                name="logUserName"
-                                value={loginData.logUserName}
+                                name="userName"
+                                value={loginData.userName}
                                 onChange={handleLoginChange}
                                 className="form-style"
                                 placeholder="Your Username"
@@ -166,12 +166,12 @@ export default function Home() {
                             <div className="form-group mt-2">
                               <input
                                 type="password"
-                                name="logpass"
-                                value={loginData.logpass}
+                                name="password"
+                                value={loginData.password}
                                 onChange={handleLoginChange}
                                 className="form-style"
                                 placeholder="Your Password"
-                                id="logpass"
+                                id="logPassword"
                                 autoComplete="off"
                               />
                               <i className="input-icon uil uil-lock-alt"></i>
@@ -181,7 +181,11 @@ export default function Home() {
                             </button>
 
                             <p className="mb-0 mt-4 text-center">
-                              <a href="#0" className="link">
+                              <a
+                                className="link"
+                                onClick={() => router.push("/forgotPassword")}
+                                style={{ cursor: "pointer" }}
+                              >
                                 Forgot your password?
                               </a>
                             </p>
@@ -204,7 +208,7 @@ export default function Home() {
                                     onChange={handleInputChange}
                                     className="form-style"
                                     placeholder="Username"
-                                    id="logname"
+                                    id="signName"
                                     autoComplete="off"
                                   />
                                   <i className="input-icon uil uil-user"></i>
@@ -296,7 +300,7 @@ export default function Home() {
                                     onChange={handleInputChange}
                                     className="form-style"
                                     placeholder="Your Password"
-                                    id="logpass"
+                                    id="signPass"
                                     autoComplete="off"
                                   />
                                   <i className="input-icon uil uil-lock-alt"></i>

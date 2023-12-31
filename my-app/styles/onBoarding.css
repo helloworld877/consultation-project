@@ -28,6 +28,7 @@ a:hover {
 }
 .link {
   color: #19204e;
+  text-decoration: underline;
 }
 .link:hover {
   color: #d6d6d6;
