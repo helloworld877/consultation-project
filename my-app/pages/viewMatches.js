@@ -5,8 +5,8 @@ import "../styles/viewMatches.css";
 export default function Matches() {
   const [matches, setMatches] = useState([]);
   function showIcon() {
-    let role=localStorage.getItem("role");
-    if (role === 'Manager' || role === 'Admin') {
+    let role = localStorage.getItem("role");
+    if (role === "Manager" || role === "Admin") {
       return true;
     } else {
       return false;
