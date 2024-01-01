@@ -246,7 +246,33 @@ const forgotPassword = (req, res, next) => {
 };
 
 const changePassword = (req, res, next) => {
-  //do stuff here
+  const oldPassword = req.USER.password;
+  const newPassword = req.body.newPassword;
+  const confrimPassword = req.body.confirmPassword;
+  if (newPassword === confrimPassword) {
+    const filter = { userName: req.USER.userName };
+    const update = { password: newPassword };
+    User.findOneAndUpdate(filter, update)
+      .then((result) => {
+        if (result.password === newPassword) {
+          console.log("You Should Write a New Password");
+          res.status(500).json({ message: "You Should Write a New Password" });
+        } else {
+          console.log("User Password Changed Successfully");
+          res
+            .status(200)
+            .json({ message: "User Password Changed Successfully" });
+        }
+      })
+      .catch((err) => {
+        console.log("Password Update Unsuccessful!!");
+        console.log(err);
+        res.status(500).json({ error: err.message });
+      });
+  } else {
+    console.log("Password Mismatch");
+    res.status(500).json({ message: "Password Mismatch" });
+  }
 };
 
 module.exports = {
