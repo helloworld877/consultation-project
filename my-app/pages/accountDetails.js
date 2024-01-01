@@ -6,57 +6,73 @@ import CustomButton from "../components/customButton";
 
 export default function AccountDetails() {
   const router = useRouter();
-  const {
-    username,
-    firstname,
-    lastname,
-    email,
-    gender,
-    birthdate,
-    role,
-    address,
-    city,
-  } = router.query;
+  // const {
+  //   username,
+  //   firstname,
+  //   lastname,
+  //   email,
+  //   gender,
+  //   birthdate,
+  //   role,
+  //   address,
+  //   city,
+  // } = router.query;
 
   const [details, setDetails] = useState({
-    username: "ZiadAbdElWareth",
-    firstname: "Ziad",
-    lastname: "Abd El Wareth",
-    email: "ziad.wareth@gmail.com",
-    gender: "Male",
-    birthdate: "11/12/2001",
-    role: "fan",
-    address: "Hadayek El Ahram",
+    username: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    gender: "",
+    birthdate: "",
+    role: "",
+    address: "",
     city: "",
   });
 
   const [isChanged, setIsChanged] = useState(false);
   const [error, setError] = useState("");
 
+  
   useEffect(() => {
-    if (router.isReady) {
-      setDetails({
-        username: username || "",
-        firstname: firstname || "",
-        lastname: lastname || "",
-        email: email || "",
-        gender: gender || "",
-        birthdate: birthdate || "",
-        role: role || "",
-        address: address || "",
+    fetchDetails();
+  }, []);
+
+  const fetchDetails = async () => {
+    try {
+      const accessToken = localStorage.getItem("token");
+      const response = await fetch("http://localhost:8080/users/getUser", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `bearer ${accessToken}`,
+        },
       });
+      console.log("TOKEN FEL PROFILE");
+      console.log(`bearer ${accessToken}`);
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch details');
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setDetails({
+        username: data.username,
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        gender: data.gender,
+        birthdate: data.birthdate,
+        role: data.role,
+        address: data.address,
+        city: data.city,
+      });
+    } catch (error) {
+      setError("Failed to load account details");
+      console.error("There was an error fetching the account details:", error);
     }
-  }, [
-    router.isReady,
-    username,
-    firstname,
-    lastname,
-    email,
-    gender,
-    birthdate,
-    role,
-    address,
-  ]);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -81,6 +97,7 @@ export default function AccountDetails() {
       "gender",
       "address",
       "city",
+      "role"
     ];
     const emptyFields = requiredFields.filter(
       (field) => !details[field].trim()
@@ -92,8 +109,6 @@ export default function AccountDetails() {
       );
       return;
     }
-
-    // Continue with user data preparation and API call...
     const userData = {
       firstName: details.firstname,
       lastName: details.lastname,
@@ -138,29 +153,38 @@ export default function AccountDetails() {
         {/* First Column */}
         <div className="column">
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="homeTeam">Username:</label>
+          </div>
             <CustomInput
               type="text"
               name="username"
-              placeholder="Username"
+              placeholder={details.username || "Username"}
               value={details.username}
               readOnly={true} 
             
             />
           </div>
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="homeTeam">Firstname:</label>
+          </div>
             <CustomInput
               type="text"
               name="firstname"
-              placeholder="First Name"
+              placeholder={details.firstname || "First Name"}
               value={details.firstname}
               onChange={handleChange}
             />
           </div>
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="homeTeam">Role:</label>
+          </div>
             <CustomInput
               type="text"
               name="role"
-              placeholder="Role"
+              placeholder={details.role || "Role"}
               value={details.role}
               onChange={handleChange}
             />
@@ -169,28 +193,37 @@ export default function AccountDetails() {
         {/* Second Column */}
         <div className="column">
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="homeTeam">Email:</label>
+          </div>
             <CustomInput
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder={details.email || "Email"}
               value={details.email}
               readOnly={true} 
             />
           </div>
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="homeTeam">Lastname:</label>
+          </div>
             <CustomInput
               type="text"
               name="lastname"
-              placeholder="Last Name"
+              placeholder={details.lastname || "Last Name"}
               value={details.lastname}
               onChange={handleChange}
             />
           </div>
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="homeTeam">Address:</label>
+          </div>
             <CustomInput
               type="text"
               name="address"
-              placeholder="Address"
+              placeholder={details.address || "Adsress"}
               value={details.address}
               onChange={handleChange}
             />
@@ -199,28 +232,37 @@ export default function AccountDetails() {
         {/* Third Column */}
         <div className="column">
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="homeTeam">Gender:</label>
+          </div>
             <CustomInput
               type="text"
               name="gender"
-              placeholder="Gender"
+              placeholder={details.gender || "Gender"}
               value={details.gender}
               onChange={handleChange}
             />
           </div>
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="homeTeam">Birthdate:</label>
+          </div>
             <CustomInput
               type="date"
               name="birthdate"
-              placeholder="Birthdate"
+              placeholder={details.birthdate || "Birthdate"}
               value={details.birthdate}
               onChange={handleChange}
             />
           </div>
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="homeTeam">City:</label>
+          </div>
             <CustomInput
               type="text"
               name="city"
-              placeholder="City"
+              placeholder={details.city || "City"}
               value={details.city}
               onChange={handleChange}
             />
