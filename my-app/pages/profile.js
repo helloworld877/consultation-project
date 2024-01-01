@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import "../styles/profile.css";
+import { useRouter } from "next/router";
+
 
 export default function Profile() {
 
+  const router = useRouter();
   const [logoutError, setLogoutError] = useState(""); 
   const [details, setDetails] = useState({
     userName: "",
