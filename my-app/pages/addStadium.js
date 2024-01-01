@@ -54,6 +54,9 @@ export default function addStadium() {
       <div className="columns-container">
         <div className="column">
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="stadiumName">Stadium Name:</label>
+          </div>
             <CustomInput
               type="text"
               name="stadiumName"
@@ -65,6 +68,9 @@ export default function addStadium() {
           </div>
          
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="stadiumCity">City:</label>
+          </div>
             <CustomInput
               type="text"
               name="stadiumCity"
@@ -78,6 +84,9 @@ export default function addStadium() {
         </div>
         <div className="column">
         <div className="input-fields-container">
+        <div className="input-fields-label">
+          <label htmlFor="stadiumAddress">Address:</label>
+          </div>
             <CustomInput
               type="text"
               name="stadiumAddress"
@@ -88,6 +97,9 @@ export default function addStadium() {
             />
           </div>
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="stadiumCapacity">Capacity:</label>
+          </div>
             <CustomInput
               type="number"
               name="stadiumCapacity"

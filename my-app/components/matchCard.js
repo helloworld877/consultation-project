@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import styles from "../styles/matchCard.css";
 import { useRouter } from "next/router";
@@ -18,8 +18,8 @@ const MatchCard = ({
 }) => {
   const router = useRouter();
 
-  const matchDetails = {
-    id:_id,
+  const props = {
+    id: _id,
     homeTeam: homeTeam,
     awayTeam: awayTeam,
     venue: matchVenue,
@@ -27,6 +27,10 @@ const MatchCard = ({
     mainReferee: mainReferee,
     linesmen: linesMen,
   };
+  //console.log(props);
+
+  const[matchDetails, setMatchDetails] = useState(props);
+
 
   const onEdit = () => {
     const editUrl =
@@ -56,13 +60,7 @@ const MatchCard = ({
   const homeTeamImageUrl = "/images/ahly.png";
   const awayTeamImageUrl = "/images/Zamalek.png";
 
-  const matchPageDetailsUrl = `/matchSeats?homeTeam=${
-    matchDetails.homeTeam
-  }&awayTeam=${matchDetails.awayTeam}&venue=${matchDetails.venue}&dateTime=${
-    matchDetails.dateTime
-  }&mainReferee=${matchDetails.mainReferee}&linesmen=${encodeURIComponent(
-    matchDetails.linesmen.join(",")
-  )}`;
+  const matchPageDetailsUrl = `/matchSeats?matchID=${matchDetails.id}`;
 
   return (
     <div className={`card ${clickable ? "clickable" : "unclickable"}`}>
@@ -89,10 +87,10 @@ const MatchCard = ({
           />
         </div>
         <h3>
-          {matchDetails.homeTeam} vs {matchDetails.awayTeam}
+          {homeTeam} vs {awayTeam}
         </h3>
         <p>
-          <strong>Venue:</strong> {matchDetails.venue}
+          <strong>Venue:</strong> {matchVenue}
         </p>
         <p>
           <strong>Date:</strong> {formattedDate}
@@ -101,10 +99,11 @@ const MatchCard = ({
           <strong>Time:</strong> {formattedTime}
         </p>
         <p>
-          <strong>Main Referee:</strong> {matchDetails.mainReferee}
+          <strong>Main Referee:</strong> {mainReferee}
         </p>
         <p>
-          <strong>Linesmen:</strong> {matchDetails.linesmen ? matchDetails.linesmen.join(","):''}
+          <strong>Linesmen:</strong>{" "}
+          {linesMen ? linesMen.join(",") : ""}
         </p>
       </a>
     </div>

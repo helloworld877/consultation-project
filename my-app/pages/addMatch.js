@@ -77,6 +77,9 @@ export default function AddMatch() {
       <div className="columns-container">
         <div className="column">
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="homeTeam">Home Team:</label>
+          </div>
           <CustomDropdown
               name="homeTeam"
               options={homeTeamOptions}
@@ -87,6 +90,9 @@ export default function AddMatch() {
             />
           </div>
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="awayTeam">Away Team:</label>
+          </div>
           <CustomDropdown
               name="awayTeam"
               options={awayTeamOptions}
@@ -97,6 +103,9 @@ export default function AddMatch() {
             />
           </div>
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="venue">Venue:</label>
+          </div>
             <CustomInput
               type="text"
               name="venue"
@@ -107,6 +116,9 @@ export default function AddMatch() {
             />
           </div>
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="date">Date:</label>
+          </div>
             <CustomInput
               type="date"
               name="date"
@@ -119,6 +131,9 @@ export default function AddMatch() {
         </div>
         <div className="column">
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="time">Time:</label>
+          </div>
             <CustomInput
               type="time"
               name="time"
@@ -129,6 +144,9 @@ export default function AddMatch() {
             />
           </div>
           <div className="input-fields-container">
+          <div className="input-fields-label">
+          <label htmlFor="mainreferee">Main Referee:</label>
+          </div>
             <CustomInput
               type="text"
               name="mainReferee"
@@ -138,7 +156,9 @@ export default function AddMatch() {
               onChange={(e) => setMainRefereeState(e.target.value)}
             />
           </div>
-
+          <div className="input-fields-label">
+          <label htmlFor="linesMen">Linesmen:</label>
+          </div>
           <div className="input-fields-container">
             {linesmenState.map((linesman, index) => (
               <div key={index}>

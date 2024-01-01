@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import '../styles/Checkout.css';
 import MatchCard from '../components/matchCard';
 import Receipt from '../components/Receipt';
@@ -10,15 +10,36 @@ import Link from 'next/link';
 
 export default function Checkout() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('Card');
-
+  const [matchDetails, setMatchDetails] = useState({});
+  const router = useRouter();
   const handlePaymentMethodChange = (newPaymentMethod) => {
     setSelectedPaymentMethod(newPaymentMethod);
   };
+  useEffect(() => {
+    const matchId = router.query.matchID;
+    // Make sure to use template literals correctly with backticks
+    fetch(`http://localhost:8080/matches/getMatch/${matchId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMatchDetails(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching match details:", error);
+      });
+  }, [router.query.matchID]);
+  const matchPageDetailsUrl = `/matchSeats?matchID=${router.query.matchID}`;
 
   return (
     <div className="checkout-page">
       <div className="card-container">
-        <MatchCard clickable={false} />
+        <MatchCard homeTeam = {matchDetails.homeTeam}
+                    awayTeam = {matchDetails.awayTeam}
+                    matchVenue={matchDetails.matchVenue}
+                    dateAndTime={matchDetails.dateAndTime}
+                    mainReferee={matchDetails.mainReferee}
+                    linesMen={matchDetails.linesMen}
+                    clickable={false}
+                    showEditIcon={false} />
       </div>
       <div className="receipt-container">
         <Receipt />
@@ -32,11 +53,7 @@ export default function Checkout() {
       <div className="button-container">
         <button className="checkout-btn">Checkout</button>
       </div>
-      <Link href="/matchSeats" passHref>
-        {/* <a>
-          <input className="back-btn" type="button" id="reg-log" name="reg-log" />
-        </a>{' '} */}
-      
+      <Link href={matchPageDetailsUrl} passHref>
       <div className="back-btn-container">
         <label htmlFor="reg-log" className="back-btn-label">
           <FontAwesomeIcon icon={faArrowLeft} className="back-btn-icon" />

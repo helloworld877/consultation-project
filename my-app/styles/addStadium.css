@@ -57,3 +57,8 @@ h1
     margin-top: 20px;
     align-self: center;
 }
+
+.input-fields-label {
+    color: #fcb300;
+    font-family: "Poppins", sans-serif;
+}
