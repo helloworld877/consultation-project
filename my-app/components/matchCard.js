@@ -5,16 +5,25 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
-const MatchCard = ({ clickable = true, showEditIcon }) => {
+const MatchCard = ({
+  homeTeam,
+  awayTeam,
+  matchVenue,
+  dateAndTime,
+  mainReferee,
+  linesMen,
+  clickable = true,
+  showEditIcon,
+}) => {
   const router = useRouter();
 
   const matchDetails = {
-    homeTeam: "Al Ahly",
-    awayTeam: "Zamalek",
-    venue: "Cairo International Stadium",
-    dateTime: "2023-12-31 20:00",
-    mainReferee: "Gehad Grisha",
-    linesmen: ["Mahmoud Abouelregal", "Tahssen Bedyer"],
+    homeTeam: homeTeam,
+    awayTeam: awayTeam,
+    venue: matchVenue,
+    dateTime: dateAndTime,
+    mainReferee: mainReferee,
+    linesmen: linesMen,
   };
 
   const onEdit = () => {
@@ -31,6 +40,16 @@ const MatchCard = ({ clickable = true, showEditIcon }) => {
     )}&linesmen=${encodeURIComponent(matchDetails.linesmen.join(", "))}`;
     router.push(editUrl);
   };
+  const date = new Date(dateAndTime);
+  const formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }); // Adjust the locale and options as needed
+  const formattedTime = date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }); // Adjust the locale and options as needed
 
   const homeTeamImageUrl = "/images/ahly.png";
   const awayTeamImageUrl = "/images/Zamalek.png";
@@ -47,7 +66,7 @@ const MatchCard = ({ clickable = true, showEditIcon }) => {
     <div className={`card ${clickable ? "clickable" : "unclickable"}`}>
       {showEditIcon && (
         <div className="edit-icon-container" onClick={onEdit}>
-          <FontAwesomeIcon icon={faEdit} className='editIcon' />
+          <FontAwesomeIcon icon={faEdit} className="editIcon" />
         </div>
       )}
       <a
@@ -74,7 +93,10 @@ const MatchCard = ({ clickable = true, showEditIcon }) => {
           <strong>Venue:</strong> {matchDetails.venue}
         </p>
         <p>
-          <strong>Date & Time:</strong> {matchDetails.dateTime}
+          <strong>Date:</strong> {formattedDate}
+        </p>
+        <p>
+          <strong>Time:</strong> {formattedTime}
         </p>
         <p>
           <strong>Main Referee:</strong> {matchDetails.mainReferee}
