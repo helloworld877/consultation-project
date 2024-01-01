@@ -96,3 +96,19 @@ a:-webkit-any-link
 {
     text-decoration: none;
 }
+
+.logOut
+{
+  color: #19204e;
+  box-shadow: #d6d6d6;
+  background-color: white;
+  font-size: 18px;
+  border: none;
+  border-bottom: 1px solid #d6d6d6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: 50px;
+  width: 68%;
+  margin-top: 40px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+}
