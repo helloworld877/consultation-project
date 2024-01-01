@@ -20,7 +20,7 @@ router.put(
   bodyParser.json(),
   userController.authenticateToken,
   userController.updateUser
-); 
+);
 router.post("/promoteUser", bodyParser.json(), userController.promoteUser); // promote a user to admin
 router.post("/demoteUser", bodyParser.json(), userController.demoteUser); // demote a user to user
 router.post(
@@ -38,4 +38,14 @@ router.put(
   userController.authenticateToken,
   userController.changePassword
 );
+//Get All SignUp Requests
+router.get(
+  "/getSignUpRequests",
+  bodyParser.json(),
+  userController.authenticateToken,
+  userController.getAllRequests
+);
+//Logout User
+router.post("/logout", userController.authenticateToken, userController.logout);
+
 module.exports = router;
