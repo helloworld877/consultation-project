@@ -75,7 +75,7 @@ export default function EditMatch() {
         linesMen: linesmenState,
       };
       try {
-        fetch("http://localhost:8080/matches/updateMatch", {
+        const response = await fetch("http://localhost:8080/matches/updateMatch", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -83,7 +83,7 @@ export default function EditMatch() {
           body: JSON.stringify(matchDetails),
         });
         const result = await response.json();
-
+        console.log(result);
         if (result.message === "Edited Match Successfully") {
           router.push("/viewMatches");
         } else {
@@ -91,7 +91,7 @@ export default function EditMatch() {
         }
       } catch (error){
         console.error("Failed to update password:", error);
-        setErrorMessage(result.message || "Failed to edit match");
+        setErrorMessage(error.message || "Failed to edit match");
       }
     }
   };
