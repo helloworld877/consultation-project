@@ -293,14 +293,19 @@ const changePassword = (req, res, next) => {
 };
 //Checking All SignUp requests
 const getAllRequests = (req, res, next) => {
-  console.log(req.USER.result.role);
   if (req.USER.result.role !== "Manager") {
     return res.status(403).json({ error: "not authorized" });
   }
-  User.find({ isConfirmed: 1 }) // Only find users where isConfirmed is 1 (JUST SIGNED)
-    .then((users) => {
-      console.log(users);
-      res.status(200).json(users);
+  // Query for users who are managers
+  const managersPromise = User.find({ role: "Manager" });
+  // Query for users who have isConfirmed = 1 (Just Signed Up)
+  const confirmedUsersPromise = User.find({ isConfirmed: 1 });
+  Promise.all([managersPromise, confirmedUsersPromise])
+    .then(([managers, nonConfirmedUsers]) => {
+      res.status(200).json({
+        managers,
+        nonConfirmedUsers,
+      });
     })
     .catch((err) => {
       console.log("Couldn't get users");
@@ -308,6 +313,7 @@ const getAllRequests = (req, res, next) => {
       res.status(500).json({ error: "Internal Server Error" });
     });
 };
+
 //LogOut Functionality
 const tokenBlacklist = new Set();
 const logout = (req, res) => {
