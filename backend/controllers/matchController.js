@@ -17,10 +17,12 @@ const getAllMatches = (req, res, next) => {
 //gets a match based on ID
 const getMatch = (req, res, next) => {
   const id = req.params.id;
-  console.log(id);
+  // console.log(id);
   Match.findOne({ _id: id })
+    .lean()
     .then((match) => {
       console.log(match.matchVenue);
+      console.log(match.reservedSeats[0]);
       Stadium.findOne({ name: match.matchVenue }).then((stadium) => {
         console.log(stadium);
         match.size = [];

@@ -42,8 +42,8 @@ const getUsers = (req, res, next) => {
 
 //gets a user based on a username
 const getUser = (req, res, next) => {
-  userName = req.body.userName;
-  User.findOne({ userName: userName })
+  // userName = req.params.userName;
+  User.findOne({ userName: req.USER.result.userName })
     .then((result) => {
       console.log(result);
       res.status(200).json(result);
@@ -94,7 +94,7 @@ const updateUser = (req, res, next) => {
   const gender = req.body.gender;
   const city = req.body.city;
   const address = req.body.address;
-  const filter = { userName: req.body.userName };
+  const filter = { userName: req.USER.result.userName };
   const update = {
     firstName: firstName,
     lastName: lastName,
