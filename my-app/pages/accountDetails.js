@@ -4,6 +4,7 @@ import "../styles/accountDetails.css";
 import CustomInput from "../components/customInputField";
 import CustomButton from "../components/customButton";
 
+
 export default function AccountDetails() {
   const router = useRouter();
 
@@ -27,7 +28,6 @@ export default function AccountDetails() {
   }, []);
 
   const fetchDetails = async (e) => {
-   
     setError("");
     try {
       const accessToken = localStorage.getItem("token");
@@ -47,7 +47,9 @@ export default function AccountDetails() {
 
       const data = await response.json();
       console.log(data);
-      const formattedBirthDate = data.birthDate ? data.birthDate.split("T")[0] : ""; 
+      const formattedBirthDate = data.birthDate
+        ? data.birthDate.split("T")[0]
+        : "";
 
       console.log("FORMATTED DATE YA NAS B2A");
       console.log(formattedBirthDate);
@@ -98,15 +100,13 @@ export default function AccountDetails() {
       (field) => !details[field] || !details[field].trim()
     );
     if (emptyFields.length > 0) {
-      setError(
-        `Please complete all fields. `
-      );
+      setError(`Please complete all fields. `);
       return;
     }
     const userData = {
       firstName: details.firstName,
       lastName: details.lastName,
-      birthDate: `${details.birthDate}T00:00:00.000+00:00`,      
+      birthDate: `${details.birthDate}T00:00:00.000+00:00`,
       gender: details.gender === "Male" ? "M" : "F",
       city: details.city,
       address: details.address,
@@ -178,17 +178,24 @@ export default function AccountDetails() {
               onChange={handleChange}
             />
           </div>
-          <div className="input-fields-container">
-            <div className="input-fields-label">
-              <label htmlFor="homeTeam">Role:</label>
-            </div>
-            <CustomInput
-              type="text"
+
+          <div className="input-fields-label">
+            <label htmlFor="homeTeam">Role:</label>
+          </div>
+          <div className="form-group">
+            <select
               name="role"
-              placeholder={details.role || "Role"}
               value={details.role}
               onChange={handleChange}
-            />
+              className="form-style gender"
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Role
+              </option>
+              <option value="Fan">Fan</option>
+              <option value="Manager">Manager</option>
+            </select>
           </div>
         </div>
         {/* Second Column */}
