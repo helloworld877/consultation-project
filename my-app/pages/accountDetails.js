@@ -74,7 +74,6 @@ export default function AccountDetails() {
     const { name, value } = e.target;
     setDetails((prevDetails) => {
       const newDetails = { ...prevDetails, [name]: value };
-      // Check if any field is different from the placeholder (initial value)
       const changed = Object.keys(newDetails).some(
         (key) => newDetails[key] !== (router.query[key] || "")
       );
@@ -107,8 +106,7 @@ export default function AccountDetails() {
     const userData = {
       firstName: details.firstName,
       lastName: details.lastName,
-      birthDate: details.birthDate,
-      gender: details.gender === "Male" ? "M" : "F",
+      birthDate: `${details.birthDate}T00:00:00.000+00:00`,      gender: details.gender === "Male" ? "M" : "F",
       city: details.city,
       address: details.address,
       role: details.role,
