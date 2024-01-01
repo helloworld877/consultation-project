@@ -84,7 +84,7 @@ const updateMatch = (req, res, next) => {
       })
       .catch((err) => {
         console.log(err);
-        res.status(500).json({ result, message: "Match Not Updated" });
+        res.status(500).json({ err, message: "Match Not Updated" });
       });
   });
 };
