@@ -62,9 +62,9 @@ export default function AccountDetails() {
         address: data.address,
         city: data.city,
       });
-      console.log(username);
-      console.log(firstname);
-      console.log(lastname);
+      console.log(details.userName);
+      console.log(details.firstName);
+      console.log(details.birthDate);
     } catch (error) {
       console.error("There was an error fetching the account details:", error);
     }
@@ -106,12 +106,20 @@ export default function AccountDetails() {
     const userData = {
       firstName: details.firstName,
       lastName: details.lastName,
-      birthDate: `${details.birthDate}T00:00:00.000+00:00`,      gender: details.gender === "Male" ? "M" : "F",
+      birthDate: `${details.birthDate}T00:00:00.000+00:00`,      
+      gender: details.gender === "Male" ? "M" : "F",
       city: details.city,
       address: details.address,
       role: details.role,
     };
-
+    console.log("UPDATEEE USER DETAILS");
+    console.log(userData.firstName);
+    console.log(userData.lastName);
+    console.log(userData.birthDate);
+    console.log(userData.gender);
+    console.log(userData.city);
+    console.log(userData.address);
+    console.log(userData.role);
     try {
       const accessToken = localStorage.getItem("token");
       const response = await fetch("http://localhost:8080/users/updateUser", {
@@ -122,6 +130,7 @@ export default function AccountDetails() {
         },
         body: JSON.stringify(userData),
       });
+      console.log(`bearer ${accessToken}`);
 
       const result = await response.json();
 
@@ -151,7 +160,7 @@ export default function AccountDetails() {
             </div>
             <CustomInput
               type="text"
-              name="username"
+              name="userName"
               placeholder={details.userName || "Username"}
               value={details.userName}
               readOnly={true}
@@ -163,7 +172,7 @@ export default function AccountDetails() {
             </div>
             <CustomInput
               type="text"
-              name="firstname"
+              name="firstName"
               placeholder={details.firstName || "First Name"}
               value={details.firstName}
               onChange={handleChange}
@@ -190,7 +199,7 @@ export default function AccountDetails() {
             </div>
             <CustomInput
               type="email"
-              name="email"
+              name="emailAddress"
               placeholder={details.emailAddress || "Email"}
               value={details.emailAddress}
               readOnly={true}
@@ -202,7 +211,7 @@ export default function AccountDetails() {
             </div>
             <CustomInput
               type="text"
-              name="lastname"
+              name="lastName"
               placeholder={details.lastName || "Last Name"}
               value={details.lastName}
               onChange={handleChange}
@@ -241,7 +250,7 @@ export default function AccountDetails() {
             </div>
             <CustomInput
               type="text"
-              name="birthdate"
+              name="birthDate"
               placeholder={details.birthDate || "Birthdate"}
               value={details.birthDate}
               onChange={handleChange}
