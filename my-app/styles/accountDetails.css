@@ -63,3 +63,37 @@ h1 {
   color: white;
   font-family: "Poppins", sans-serif;
 }
+.form-group {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.gender {
+  padding-bottom: 18px !important;
+  width: 97% !important;
+}
+.form-style {
+  padding: 13px;
+  padding-left: 20px;
+  padding-right: 130px;
+  margin-bottom: 8px;
+  width: 40%;
+  font-weight: 500;
+  border-radius: 4px;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+  outline: none;
+  color: #d6d6d6;
+  background-color: #19204e;
+  border: none;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+  box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
+}
+.form-style:focus,
+.form-style:active {
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
+}

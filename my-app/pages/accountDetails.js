@@ -4,6 +4,7 @@ import "../styles/accountDetails.css";
 import CustomInput from "../components/customInputField";
 import CustomButton from "../components/customButton";
 
+
 export default function AccountDetails() {
   const router = useRouter();
 
@@ -27,7 +28,6 @@ export default function AccountDetails() {
   }, []);
 
   const fetchDetails = async (e) => {
-   
     setError("");
     try {
       const accessToken = localStorage.getItem("token");
@@ -38,19 +38,14 @@ export default function AccountDetails() {
           authorization: `bearer ${accessToken}`,
         },
       });
-      console.log("TOKEN FEL PROFILE");
-      console.log(`bearer ${accessToken}`);
-
       if (!response.ok) {
         throw new Error("Failed to fetch details");
       }
-
       const data = await response.json();
-      console.log(data);
-      const formattedBirthDate = data.birthDate ? data.birthDate.split("T")[0] : ""; 
+      const formattedBirthDate = data.birthDate
+        ? data.birthDate.split("T")[0]
+        : "";
 
-      console.log("FORMATTED DATE YA NAS B2A");
-      console.log(formattedBirthDate);
       setDetails({
         userName: data.userName,
         firstName: data.firstName,
@@ -98,28 +93,18 @@ export default function AccountDetails() {
       (field) => !details[field] || !details[field].trim()
     );
     if (emptyFields.length > 0) {
-      setError(
-        `Please complete all fields. `
-      );
+      setError(`Please complete all fields. `);
       return;
     }
     const userData = {
       firstName: details.firstName,
       lastName: details.lastName,
-      birthDate: `${details.birthDate}T00:00:00.000+00:00`,      
+      birthDate: `${details.birthDate}T00:00:00.000+00:00`,
       gender: details.gender === "Male" ? "M" : "F",
       city: details.city,
       address: details.address,
       role: details.role,
     };
-    console.log("UPDATEEE USER DETAILS");
-    console.log(userData.firstName);
-    console.log(userData.lastName);
-    console.log(userData.birthDate);
-    console.log(userData.gender);
-    console.log(userData.city);
-    console.log(userData.address);
-    console.log(userData.role);
     try {
       const accessToken = localStorage.getItem("token");
       const response = await fetch("http://localhost:8080/users/updateUser", {
@@ -133,11 +118,15 @@ export default function AccountDetails() {
       console.log(`bearer ${accessToken}`);
 
       const result = await response.json();
-
-      if (result.message === "User Info Updated successfully") {
+      
+      if(result.message === "User Info & Role Updated successfully")
+      {
+        console.log("BOSY ANA UPDATED W HRGA3 AL ROOT BKRAMTY");
+        router.push("/");
+      } else if (result.message === "User Info Updated successfully") {
         router.push("/profile");
       } else {
-        setError(result.message || "Failed to update password");
+        setError(result.message || "Failed to update account details");
       }
     } catch (error) {
       console.error("Failed to update account details:", error);
@@ -178,17 +167,24 @@ export default function AccountDetails() {
               onChange={handleChange}
             />
           </div>
-          <div className="input-fields-container">
-            <div className="input-fields-label">
-              <label htmlFor="homeTeam">Role:</label>
-            </div>
-            <CustomInput
-              type="text"
+
+          <div className="input-fields-label">
+            <label htmlFor="homeTeam">Role:</label>
+          </div>
+          <div className="form-group">
+            <select
               name="role"
-              placeholder={details.role || "Role"}
               value={details.role}
               onChange={handleChange}
-            />
+              className="form-style gender"
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Role
+              </option>
+              <option value="Fan">Fan</option>
+              <option value="Manager">Manager</option>
+            </select>
           </div>
         </div>
         {/* Second Column */}

@@ -11,7 +11,9 @@ const authenticateToken = (req, res, next) => {
   if (token === null) {
     return res.sendStatus(401);
   }
-
+  if (tokenBlacklist.has(token)) {
+    return res.status(401).json({ error: "Token has been logged out" });
+  }
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) {
       return res.sendStatus(403);
@@ -109,10 +111,14 @@ const updateUser = (req, res, next) => {
   User.findOneAndUpdate(filter, update)
     .then((result) => {
       if (result.role === req.USER.result.userName) {
-        result.isConfirmed = 1;
+        console.log("User Info Updated Successfully");
+        res.status(200).json({ message: "User Info Updated successfully" });
+      } else {
+        console.log("User Info & Role Updated Successfully");
+        res
+          .status(200)
+          .json({ message: "User Info & Role Updated successfully" });
       }
-      console.log("User Info Updated Successfully");
-      res.status(200).json({ message: "User Info Updated successfully" });
     })
     .catch((err) => {
       console.log(err);
@@ -215,7 +221,6 @@ const login = (req, res, next) => {
         const user = { result };
         console.log(user);
         const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-
         //return user data and access token
         res.status(200).json({
           message: "Login Successful",
@@ -255,6 +260,7 @@ const forgotPassword = (req, res, next) => {
   }
 };
 
+//Change Password from Profile Page
 const changePassword = (req, res, next) => {
   const oldPassword = req.body.password;
   const newPassword = req.body.newPassword;
@@ -285,7 +291,39 @@ const changePassword = (req, res, next) => {
     res.status(500).json({ message: "Password Mismatch" });
   }
 };
+//Checking All SignUp requests
+const getAllRequests = (req, res, next) => {
+  if (req.USER.result.role !== "Manager") {
+    return res.status(403).json({ error: "not authorized" });
+  }
+  // Query for users who are managers
+  const managersPromise = User.find({ role: "Manager" });
+  // Query for users who have isConfirmed = 1 (Just Signed Up)
+  const confirmedUsersPromise = User.find({ isConfirmed: 1 });
+  Promise.all([managersPromise, confirmedUsersPromise])
+    .then(([managers, nonConfirmedUsers]) => {
+      res.status(200).json({
+        managers,
+        nonConfirmedUsers,
+      });
+    })
+    .catch((err) => {
+      console.log("Couldn't get users");
+      console.log(err);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
+};
 
+//LogOut Functionality
+const tokenBlacklist = new Set();
+const logout = (req, res) => {
+  const token = req.headers["authorization"].split(" ")[1];
+
+  // Ideally, you would store this in a persistent datastore.
+  tokenBlacklist.add(token);
+
+  res.status(200).json({ message: "Logged out successfully" });
+};
 module.exports = {
   getUsers,
   getUser,
@@ -296,7 +334,9 @@ module.exports = {
   updateUser,
   deleteUser,
   login,
+  logout,
   authenticateToken,
   forgotPassword,
   changePassword,
+  getAllRequests,
 };
