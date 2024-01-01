@@ -74,6 +74,7 @@ const createUser = (req, res, next) => {
     address,
     emailAddress,
     role,
+    isConfirmed: 1,
   });
   user
     .save()
@@ -193,6 +194,12 @@ const login = (req, res, next) => {
   User.findOne({ userName: userName, password: password })
     .then((result) => {
       console.log(result);
+      if (result.isConfirmed == 1) {
+        console.log("Your SignUp Request Hasn't Been Reviewed Yet");
+        res.status(500).json({
+          message: "Your SignUp Request Hasn't Been Reviewed Yet",
+        });
+      }
       if (result == null) {
         res.status(404).json({
           message: "User Not Found",
