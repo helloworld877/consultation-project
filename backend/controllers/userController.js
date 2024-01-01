@@ -316,9 +316,9 @@ const getAllRequests = (req, res, next) => {
 
 //LogOut Functionality
 const tokenBlacklist = new Set();
-const logout = (req, res) => {
+const logout = (req, res, next) => {
   const token = req.headers["authorization"].split(" ")[1];
-
+  console.log(token);
   // Ideally, you would store this in a persistent datastore.
   tokenBlacklist.add(token);
 
