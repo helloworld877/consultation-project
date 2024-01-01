@@ -55,7 +55,7 @@ export default function Home() {
       });
       if (!res.ok) throw new Error(res.statusText);
       const result = await res.json();
-      console.log(result);
+      console.log(result.message);
 
       if (result.message === "Login Successful") {
         router.push("/viewMatches");
