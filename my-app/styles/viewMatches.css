@@ -15,41 +15,13 @@ h1 {
 }
 
 .matches-page {
-  background-color: #19204e;
-  font-family: "Poppins", sans-serif;
-  position: relative;
+    background-color: #19204e;
+    font-family: "Poppins", sans-serif;
 }
-
-.add-match-button,
-.add-stadium-button,
-.view-account-button {
-  position: absolute;
-  top: 2%;
-}
-
-.add-match-button {
-  right: 2%;
-}
-
-.add-stadium-button {
-  right: 20%;
-}
-
-.view-account-button {
-  left: 2%;
-}
-
-/* Media Query for smaller screens */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 1.8rem;
+.matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(900px, 1fr)); 
+    gap: 20px; 
+    
   }
-
-  .add-match-button,
-  .add-stadium-button,
-  .view-account-button {
-    position: static;
-    margin-bottom: 10px;
-    width: 100%;
-  }
-}
+  

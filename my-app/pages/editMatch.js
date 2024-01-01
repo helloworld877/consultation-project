@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import "../styles/editMatch.css";
 import CustomInput from "../components/customInputField";
 import CustomButton from "../components/customButton";
 
 export default function EditMatch() {
+  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+
   const {
+    id,
     homeTeam,
     awayTeam,
     venue,
@@ -16,6 +18,7 @@ export default function EditMatch() {
     linesmen: linesmenQuery,
   } = router.query;
 
+  const [matchId, setMatchId] = useState("");
   const [homeTeamState, setHomeTeamState] = useState("");
   const [awayTeamState, setAwayTeamState] = useState("");
   const [venueState, setVenueState] = useState("");
@@ -26,6 +29,7 @@ export default function EditMatch() {
 
   useEffect(() => {
     if (router.isReady) {
+      setMatchId(id || "");
       setHomeTeamState(homeTeam || "");
       setAwayTeamState(awayTeam || "");
       setVenueState(venue || "");
@@ -33,11 +37,11 @@ export default function EditMatch() {
       setDateState(date);
       setTimeState(time);
       setMainRefereeState(mainReferee || "");
-      // Split the linesmen string into an array
       setLinesmenState(linesmenQuery ? linesmenQuery.split(", ") : []);
     }
   }, [
     router.isReady,
+    id,
     homeTeam,
     awayTeam,
     venue,
@@ -46,25 +50,63 @@ export default function EditMatch() {
     linesmenQuery,
   ]);
 
-  const handleSave = () => {
-    // Implement your save logic here
-    // This could involve sending a request to an API endpoint
-    console.log("Saving match details:", {
-      homeTeam: homeTeamState,
-      awayTeam: awayTeamState,
-      venue: venueState,
-      dateTime: dateTimeState,
-      mainReferee: mainRefereeState,
-      linesmen: linesmenState,
-    });
+  const handleSave =async (e) => {
+    e.preventDefault();
+    if (
+      !homeTeamState ||
+      !awayTeamState ||
+      !venueState ||
+      !dateState ||
+      !timeState ||
+      !mainRefereeState ||
+      linesmenState.includes("")
+    ) {
+      setErrorMessage("Please complete all fields.");
+    } else {
+      setErrorMessage("");
 
-    // After saving, you might want to navigate the user away or give a success message
-    // router.push('/some-success-page');
+      const matchDetails = {
+        id: matchId,
+        homeTeam: homeTeamState,
+        awayTeam: awayTeamState,
+        matchVenue: venueState,
+        dateAndTime: `${dateState} ${timeState}`,
+        mainReferee: mainRefereeState,
+        linesMen: linesmenState,
+      };
+      try {
+        const response = await fetch("http://localhost:8080/matches/updateMatch", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(matchDetails),
+        });
+        const result = await response.json();
+        console.log(result);
+        if (result.message === "Edited Match Successfully") {
+          router.push("/viewMatches");
+        } else {
+          setErrorMessage(result.message || "Failed to edit match");
+        }
+      } catch (error){
+        console.error("Failed to update password:", error);
+        setErrorMessage(error.message || "Failed to edit match");
+      }
+    }
   };
 
   return (
     <div className="Edit-Match">
       <h1>Edit match</h1>
+      {errorMessage && (
+        <p
+          className="error-message"
+          style={{ color: "red", textAlign: "center" }}
+        >
+          {errorMessage}
+        </p>
+      )}
       <div className="columns-container">
         <div className="column">
           <div className="input-fields-container">
