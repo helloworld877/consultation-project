@@ -6,10 +6,11 @@ import CustomInput from "../components/customInputField";
 import CustomButton from "../components/customButton";
 
 export default function EditMatch() {
-
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+
   const {
+    id,
     homeTeam,
     awayTeam,
     venue,
@@ -18,6 +19,7 @@ export default function EditMatch() {
     linesmen: linesmenQuery,
   } = router.query;
 
+  const [matchId, setMatchId] = useState("");
   const [homeTeamState, setHomeTeamState] = useState("");
   const [awayTeamState, setAwayTeamState] = useState("");
   const [venueState, setVenueState] = useState("");
@@ -28,6 +30,7 @@ export default function EditMatch() {
 
   useEffect(() => {
     if (router.isReady) {
+      setMatchId(id || "");
       setHomeTeamState(homeTeam || "");
       setAwayTeamState(awayTeam || "");
       setVenueState(venue || "");
@@ -35,11 +38,11 @@ export default function EditMatch() {
       setDateState(date);
       setTimeState(time);
       setMainRefereeState(mainReferee || "");
-      // Split the linesmen string into an array
       setLinesmenState(linesmenQuery ? linesmenQuery.split(", ") : []);
     }
   }, [
     router.isReady,
+    id,
     homeTeam,
     awayTeam,
     venue,
@@ -49,45 +52,59 @@ export default function EditMatch() {
   ]);
 
   const handleSave = () => {
-    if (!homeTeamState || !awayTeamState || !venueState || !dateState || !timeState || !mainRefereeState || linesmenState.includes("")) {
+    if (
+      !homeTeamState ||
+      !awayTeamState ||
+      !venueState ||
+      !dateState ||
+      !timeState ||
+      !mainRefereeState ||
+      linesmenState.includes("")
+    ) {
       setErrorMessage("Please complete all fields.");
-
     } else {
       setErrorMessage("");
 
       const matchDetails = {
+        id: matchId,
         homeTeam: homeTeamState,
         awayTeam: awayTeamState,
-        venue: venueState,
-        dateTime: `${dateState} ${timeState}`,
+        matchVenue: venueState,
+        dateAndTime: `${dateState} ${timeState}`,
         mainReferee: mainRefereeState,
-        linesmen: linesmenState,
+        linesMen: linesmenState,
       };
-
-      // Send a POST request to your backend endpoint
-      fetch('/api/your-endpoint', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(matchDetails),
-      })
-      .then(response => response.json())
-      .then(data => {
-        router.push("/viewMatches");
-        console.log('Success:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        setErrorMessage("Failed to save match details."); 
-      });
+      try {
+        fetch("http://localhost:8080/matches/updateMatch", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(matchDetails),
+        });
+        if (result.message === "Edited Successfully") {
+          router.push("/viewMatches");
+        } else {
+          setErrorMessage(result.message || "Failed to edit match");
+        }
+      } catch (error){
+        console.error("Failed to update password:", error);
+        setErrorMessage(result.message || "Failed to edit match");
+      }
     }
   };
 
   return (
     <div className="Edit-Match">
       <h1>Edit match</h1>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {errorMessage && (
+        <p
+          className="error-message"
+          style={{ color: "red", textAlign: "center" }}
+        >
+          {errorMessage}
+        </p>
+      )}
       <div className="columns-container">
         <div className="column">
           <div className="input-fields-container">
