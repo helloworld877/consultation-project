@@ -176,7 +176,7 @@ export default function Home() {
                         <div className="center-wrap">
                           <div className="section text-center">
                             {loginError && (
-                              <p style={{ color: "red" }}>{loginError}</p>
+                              <p style={{ color: "red" , textAlign: "center"}}>{loginError}</p>
                             )}
                             <h4 className="mb-4 pb-3">Log In</h4>
                             <div className="form-group">
@@ -226,7 +226,7 @@ export default function Home() {
                       <div className="center-wrap">
                         <div className="section text-center">
                           {signUpError && (
-                            <p style={{ color: "red" }}>{signUpError}</p>
+                            <p style={{ color: "red" , textAlign: "center"}}>{signUpError}</p>
                           )}
                           <h4 className="mb-4 pb-3">Sign Up</h4>
                           <form onSubmit={handleSubmit}>
