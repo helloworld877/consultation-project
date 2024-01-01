@@ -109,10 +109,14 @@ const updateUser = (req, res, next) => {
   User.findOneAndUpdate(filter, update)
     .then((result) => {
       if (result.role === req.USER.result.userName) {
-        result.isConfirmed = 1;
+        console.log("User Info Updated Successfully");
+        res.status(200).json({ message: "User Info Updated successfully" });
+      } else {
+        console.log("User Info & Role Updated Successfully");
+        res
+          .status(200)
+          .json({ message: "User Info & Role Updated successfully" });
       }
-      console.log("User Info Updated Successfully");
-      res.status(200).json({ message: "User Info Updated successfully" });
     })
     .catch((err) => {
       console.log(err);
