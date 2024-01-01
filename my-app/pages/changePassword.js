@@ -15,7 +15,6 @@ export default function ChangePassword() {
 
   const router = useRouter();
 
-  // State to track if any changes have been made
   const [isChanged, setIsChanged] = useState(false);
   const [error, setError] = useState("");
 
