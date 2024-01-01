@@ -19,4 +19,10 @@ router.post(
 router.delete("/deleteUser", bodyParser.json(), userController.deleteUser); // delete a user
 router.post("/login", bodyParser.json(), userController.login); // login a user
 router.put("/forgotPassword", bodyParser.json(), userController.forgotPassword);
+router.put(
+  "/changePassword",
+  bodyParser.json(),
+  userController.authenticateToken,
+  userController.changePassword
+);
 module.exports = router;

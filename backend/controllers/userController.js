@@ -4,6 +4,7 @@ require("dotenv").config();
 ///////////////////////////
 
 const authenticateToken = (req, res, next) => {
+  // authorization: bearer <TOKEN>
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
@@ -16,6 +17,7 @@ const authenticateToken = (req, res, next) => {
       return res.sendStatus(403);
     }
     req.PRIVILEGE = user.role;
+    req.USER = user;
     next();
   });
 };
@@ -241,6 +243,10 @@ const forgotPassword = (req, res, next) => {
     console.log("Password Mismatch");
     res.status(500).json({ message: "Password Mismatch" });
   }
+};
+
+const changePassword = (req, res, next) => {
+  //do stuff here
 };
 
 module.exports = {
