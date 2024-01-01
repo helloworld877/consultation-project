@@ -17,3 +17,10 @@ h1
     background-color: #19204e;
     font-family: "Poppins", sans-serif;
 }
+.matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(900px, 1fr)); 
+    gap: 20px; 
+    
+  }
+  
