@@ -134,7 +134,11 @@ export default function AccountDetails() {
 
       const result = await response.json();
 
-      if (result.message === "User Info Updated successfully") {
+      if(result.message==="User Info & Role Updated Successfully")
+      {
+        router.push("/page");
+      }
+      else if (result.message === "User Info Updated successfully") {
         router.push("/profile");
       } else {
         setError(result.message || "Failed to update password");
