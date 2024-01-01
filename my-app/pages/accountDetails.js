@@ -123,7 +123,7 @@ export default function AccountDetails() {
     try {
       const accessToken = localStorage.getItem("token");
       const response = await fetch("http://localhost:8080/users/updateUser", {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           authorization: `bearer ${accessToken}`,
