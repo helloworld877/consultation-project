@@ -10,18 +10,37 @@ h1 {
   color: white;
   font-family: "Poppins", sans-serif;
   color: #fcb300;
-  margin: 2% 5%;
-  text-align: center;
 }
 
 .matches-page {
-    background-color: #19204e;
-    font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #19204e;
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
 }
+
+.page-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
 .matches-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(900px, 1fr)); 
-    gap: 20px; 
-    
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(900px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.add-match-button, .add-stadium-button {
+  margin-bottom: 10px;
+}

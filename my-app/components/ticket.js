@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faEdit } from "@fortawesome/free-solid-svg-icons";
 import CustomButton from "./customButton";
 
-const Ticket = ({ clickable = true, showCancelIcon, seatDetails }) => {
+const Ticket = ({ clickable = false, showCancelIcon, seatDetails }) => {
   const router = useRouter();
 
   const matchDetails = {

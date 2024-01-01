@@ -2,8 +2,8 @@
 
 body {
   background-color: #19204e;
-  margin: 0; /* Reset default margin */
-  padding: 0; /* Reset default padding */
+  margin: 0;
+  padding: 0; 
 }
 
 h1 {
@@ -14,42 +14,22 @@ h1 {
   text-align: center;
 }
 
-.matches-page {
+.tickets-page {
   background-color: #19204e;
   font-family: "Poppins", sans-serif;
   position: relative;
+
 }
 
-.add-match-button,
-.add-stadium-button,
-.view-account-button {
-  position: absolute;
-  top: 2%;
+.tickets-view {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #19204e;
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+  flex-wrap: wrap; 
+  margin-top: 20px;
 }
+  
 
-.add-match-button {
-  right: 2%;
-}
-
-.add-stadium-button {
-  right: 20%;
-}
-
-.view-account-button {
-  left: 2%;
-}
-
-/* Media Query for smaller screens */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  .add-match-button,
-  .add-stadium-button,
-  .view-account-button {
-    position: static;
-    margin-bottom: 10px;
-    width: 100%;
-  }
-}

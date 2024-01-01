@@ -9,11 +9,13 @@ export default function Reservations() {
   ];
 
   return (
-    <div className="matches-page">
+    <div className="tickets-page">
       <h1>Reserved Tickets</h1>
+      <div className="tickets-view">
       {reservedTickets.map((ticket, index) => (
         <Ticket key={index} showCancelIcon={true} seatDetails={ticket} />
       ))}
+      </div>
     </div>
   );
 }

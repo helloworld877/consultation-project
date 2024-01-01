@@ -3,14 +3,122 @@ import React, { useState } from "react";
 import "../styles/onBoarding.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import CustomButton from "../components/customButton";
 
-export default function Login() {
-  const [isLogin, setIsLogin] = useState(true); // State to toggle between login and signup
+export default function Home() {
+  const [isLogin, setIsLogin] = useState(true);
+  const [loginError, setLoginError] = useState("");
+  const [signUpError, setSignUpError] = useState("");
+
+  const router = useRouter();
+
+  const [loginData, setLoginData] = useState({
+    userName: "",
+    password: "",
+  });
+  const [formData, setFormData] = useState({
+    userName: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    birthDate: "",
+    gender: "",
+    city: "",
+    address: "",
+    emailAddress: "",
+    role: "",
+  });
+  const handleLoginChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoginError("");
+
+    try {
+      const data = {
+        userName: loginData.userName,
+        password: loginData.password,
+      };
+      const res = await fetch("http://localhost:8080/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(res.statusText);
+      const result = await res.json();
+      console.log(result.message);
+
+      if (result.message === "Login Successful") {
+        localStorage.setItem("role", result.result.role);
+        localStorage.setItem("token", result.accessToken);
+        router.push("/viewMatches");
+      } else {
+        setLoginError("Login Failed");
+      }
+    } catch (error) {
+      console.error("Failed to login:", error);
+      setLoginError("Login Failed");
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSignUpError("");
+    if (
+      !formData.userName.trim() ||
+      !formData.password.trim() ||
+      !formData.firstName.trim() ||
+      !formData.lastName.trim() ||
+      !formData.birthDate.trim() ||
+      !formData.gender ||
+      !formData.city.trim() ||
+      !formData.address.trim() ||
+      !formData.emailAddress.trim() ||
+      !formData.role
+    ) {
+      setSignUpError("Please complete all fields");
+      return; // Stop the submission
+    }
+
+    try {
+      const res = await fetch("http://localhost:8080/users/createUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      console.log(res);
+      if (!res.ok) throw new Error(res.statusText);
+      const result = await res.json();
+      console.log(result);
+      if (result.message === "User added successfully") {
+        console.log("harohh view matches");
+        router.push("/viewMatches");
+      }
+    } catch (error) {
+      console.error("Failed to register:", error);
+    }
+  };
 
   const toggleForm = () => {
-    setIsLogin(!isLogin); // Toggle the state
+    setIsLogin(!isLogin);
   };
 
   const loginForm = () => {
@@ -64,142 +172,200 @@ export default function Login() {
                 >
                   <div className="card-3d-wrapper">
                     <div className="card-front">
-                      <div className="center-wrap">
-                        <div className="section text-center">
-                          <h4 className="mb-4 pb-3">Log In</h4>
-                          <div className="form-group">
-                            <input
-                              type="email"
-                              name="logemail"
-                              className="form-style"
-                              placeholder="Your Email"
-                              id="logemail"
-                              autoComplete="off"
-                            />
-                            <i className="input-icon uil uil-at"></i>
+                      <form onSubmit={handleLogin}>
+                        <div className="center-wrap">
+                          <div className="section text-center">
+                            {loginError && (
+                              <p style={{ color: "red" }}>{loginError}</p>
+                            )}
+                            <h4 className="mb-4 pb-3">Log In</h4>
+                            <div className="form-group">
+                              <input
+                                type="text"
+                                name="userName"
+                                value={loginData.userName}
+                                onChange={handleLoginChange}
+                                className="form-style"
+                                placeholder="Your Username"
+                                id="logUserName"
+                                autoComplete="off"
+                              />
+                              <i className="input-icon uil uil-at"></i>
+                            </div>
+                            <div className="form-group mt-2">
+                              <input
+                                type="password"
+                                name="password"
+                                value={loginData.password}
+                                onChange={handleLoginChange}
+                                className="form-style"
+                                placeholder="Your Password"
+                                id="logPassword"
+                                autoComplete="off"
+                              />
+                              <i className="input-icon uil uil-lock-alt"></i>
+                            </div>
+                            <button type="submit" className="btn mt-4">
+                              Log In
+                            </button>
+
+                            <p className="mb-0 mt-4 text-center">
+                              <a
+                                className="link"
+                                onClick={() => router.push("/forgotPassword")}
+                                style={{ cursor: "pointer" }}
+                              >
+                                Forgot your password?
+                              </a>
+                            </p>
                           </div>
-                          <div className="form-group mt-2">
-                            <input
-                              type="password"
-                              name="logpass"
-                              className="form-style"
-                              placeholder="Your Password"
-                              id="logpass"
-                              autoComplete="off"
-                            />
-                            <i className="input-icon uil uil-lock-alt"></i>
-                          </div>
-                          <Link href="/viewMatches">
-                          <CustomButton className="btn mt-4">
-                            Login
-                          </CustomButton>
-                          </Link>
-                          <p className="mb-0 mt-4 text-center">
-                            <a href="#0" className="link">
-                              Forgot your password?
-                            </a>
-                          </p>
                         </div>
-                      </div>
+                      </form>
                     </div>
                     <div className="card-back">
                       <div className="center-wrap">
                         <div className="section text-center">
+                          {signUpError && (
+                            <p style={{ color: "red" }}>{signUpError}</p>
+                          )}
                           <h4 className="mb-4 pb-3">Sign Up</h4>
-                          <div className="form-row">
-                            <div className="form-column">
-                              <div className="form-group">
-                                <input
-                                  type="text"
-                                  name="username"
-                                  className="form-style"
-                                  placeholder="Username"
-                                  id="logname"
-                                  autoComplete="off"
-                                />
-                                <i className="input-icon uil uil-user"></i>
+                          <form onSubmit={handleSubmit}>
+                            <div className="form-row">
+                              <div className="form-column">
+                                <div className="form-group">
+                                  <input
+                                    type="text"
+                                    name="userName"
+                                    value={formData.userName}
+                                    onChange={handleInputChange}
+                                    className="form-style"
+                                    placeholder="Username"
+                                    id="signName"
+                                    autoComplete="off"
+                                  />
+                                  <i className="input-icon uil uil-user"></i>
+                                </div>
+                                <div className="form-group">
+                                  <input
+                                    type="text"
+                                    name="firstName"
+                                    value={formData.firstName}
+                                    onChange={handleInputChange}
+                                    className="form-style"
+                                    placeholder="First Name"
+                                    autoComplete="off"
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <input
+                                    type="text"
+                                    name="lastName"
+                                    value={formData.lastName}
+                                    onChange={handleInputChange}
+                                    className="form-style"
+                                    placeholder="Last Name"
+                                    autoComplete="off"
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <input
+                                    type="date"
+                                    name="birthDate"
+                                    value={formData.birthDate}
+                                    onChange={handleInputChange}
+                                    className="form-style"
+                                    placeholder="Birth Date"
+                                    autoComplete="off"
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <select
+                                    name="role"
+                                    value={formData.role}
+                                    onChange={handleInputChange}
+                                    className="form-style gender"
+                                    defaultValue=""
+                                  >
+                                    <option value="" disabled>
+                                      Role
+                                    </option>
+                                    <option value="Fan">Fan</option>
+                                    <option value="Manager">Manager</option>
+                                  </select>
+                                </div>
                               </div>
-                              <div className="form-group">
-                                <input
-                                  type="text"
-                                  name="firstName"
-                                  className="form-style"
-                                  placeholder="First Name"
-                                  autoComplete="off"
-                                />
-                              </div>
-                              <div className="form-group">
-                                <input
-                                  type="text"
-                                  name="lastName"
-                                  className="form-style"
-                                  placeholder="Last Name"
-                                  autoComplete="off"
-                                />
-                              </div>
-                              <div className="form-group">
-                                <input
-                                  type="date"
-                                  name="birthDate"
-                                  className="form-style"
-                                  placeholder="Birth Date"
-                                  autoComplete="off"
-                                />
-                              </div>
-                            </div>
-                            <div className="form-column">
-                              <div className="form-group">
-                                <select
-                                  name="gender"
-                                  className="form-style gender"
-                                  defaultValue=""
-                                >
-                                  <option value="" disabled>
-                                    Gender
-                                  </option>
-                                  <option value="male">Male</option>
-                                  <option value="female">Female</option>
-                                </select>
-                              </div>
+                              <div className="form-column">
+                                <div className="form-group">
+                                  <select
+                                    name="gender"
+                                    value={formData.gender}
+                                    onChange={handleInputChange}
+                                    className="form-style gender"
+                                    defaultValue=""
+                                  >
+                                    <option value="" disabled>
+                                      Gender
+                                    </option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                  </select>
+                                </div>
 
-                              <div className="form-group mt-2">
-                                <input
-                                  type="email"
-                                  name="logemail"
-                                  className="form-style"
-                                  placeholder="Your Email"
-                                  id="logemail"
-                                  autoComplete="off"
-                                />
-                                <i className="input-icon uil uil-at"></i>
-                              </div>
-                              <div className="form-group mt-2">
-                                <input
-                                  type="password"
-                                  name="logpass"
-                                  className="form-style"
-                                  placeholder="Your Password"
-                                  id="logpass"
-                                  autoComplete="off"
-                                />
-                                <i className="input-icon uil uil-lock-alt"></i>
-                              </div>
-                              <div className="form-group">
-                                <input
-                                  type="text"
-                                  name="address"
-                                  className="form-style"
-                                  placeholder="Address"
-                                  autoComplete="off"
-                                />
+                                <div className="form-group mt-2">
+                                  <input
+                                    type="email"
+                                    name="emailAddress"
+                                    value={formData.emailAddress}
+                                    onChange={handleInputChange}
+                                    className="form-style"
+                                    placeholder="Your Email"
+                                    id="emailAddress"
+                                    autoComplete="off"
+                                  />
+                                  <i className="input-icon uil uil-at"></i>
+                                </div>
+                                <div className="form-group mt-2">
+                                  <input
+                                    type="password"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleInputChange}
+                                    className="form-style"
+                                    placeholder="Your Password"
+                                    id="signPass"
+                                    autoComplete="off"
+                                  />
+                                  <i className="input-icon uil uil-lock-alt"></i>
+                                </div>
+                                <div className="form-group">
+                                  <input
+                                    type="text"
+                                    name="city"
+                                    value={formData.city}
+                                    onChange={handleInputChange}
+                                    className="form-style"
+                                    placeholder="City"
+                                    autoComplete="off"
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <input
+                                    type="text"
+                                    name="address"
+                                    value={formData.address}
+                                    onChange={handleInputChange}
+                                    className="form-style"
+                                    placeholder="Address"
+                                    autoComplete="off"
+                                  />
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <Link href="/viewMatches">
-                          <CustomButton className="btn mt-4">
-                            Sign Up
-                          </CustomButton>
-                          </Link>
+                            <button type="submit" className="btn mt-4">
+                              Submit
+                            </button>
+                          </form>{" "}
+                          {/* End of Form */}
                         </div>
                       </div>
                     </div>
