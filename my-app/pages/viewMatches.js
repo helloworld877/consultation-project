@@ -4,6 +4,14 @@ import "../styles/viewMatches.css";
 
 export default function Matches() {
   const [matches, setMatches] = useState([]);
+  function showIcon() {
+    let role=localStorage.getItem("role");
+    if (role === 'Manager' || role === 'Admin') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   useEffect(() => {
     fetch("http://localhost:8080/matches/getAllMatches")
@@ -23,7 +31,7 @@ export default function Matches() {
             <MatchCard
               key={match.id}
               {...match}
-              showEditIcon={true}
+              showEditIcon={showIcon()}
               clickable={true}
             />
           ))
