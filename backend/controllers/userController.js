@@ -186,12 +186,10 @@ const deleteUser = (req, res, next) => {
 
 //login a user
 const login = (req, res, next) => {
-  //get username and password
-
+  //Get username and password
   const userName = req.body.userName;
   const password = req.body.password;
-
-  // check if user is correct
+  // Check if user is correct
   User.findOne({ userName: userName, password: password })
     .then((result) => {
       console.log(result);
@@ -200,9 +198,9 @@ const login = (req, res, next) => {
           message: "User Not Found",
         });
       } else {
-        //give the user the token
+        //Give the user the token
         console.log(result);
-        const user = { role: result.role };
+        const user = { result };
         console.log(user);
         const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
 
@@ -246,15 +244,16 @@ const forgotPassword = (req, res, next) => {
 };
 
 const changePassword = (req, res, next) => {
-  const oldPassword = req.USER.password;
+  const oldPassword = req.body.password;
   const newPassword = req.body.newPassword;
-  const confrimPassword = req.body.confirmPassword;
-  if (newPassword === confrimPassword) {
-    const filter = { userName: req.USER.userName };
+  const confirmPassword = req.body.confirmPassword;
+  if (newPassword === confirmPassword) {
+    console.log(req.USER.result.userName);
+    const filter = { userName: req.USER.result.userName };
     const update = { password: newPassword };
     User.findOneAndUpdate(filter, update)
       .then((result) => {
-        if (result.password === newPassword) {
+        if (oldPassword === newPassword) {
           console.log("You Should Write a New Password");
           res.status(500).json({ message: "You Should Write a New Password" });
         } else {
@@ -287,4 +286,5 @@ module.exports = {
   login,
   authenticateToken,
   forgotPassword,
+  changePassword,
 };
