@@ -95,6 +95,7 @@ const updateUser = (req, res, next) => {
   const gender = req.body.gender;
   const city = req.body.city;
   const address = req.body.address;
+  const role = req.body.role;
   const filter = { userName: req.USER.result.userName };
   const update = {
     firstName: firstName,
@@ -103,9 +104,13 @@ const updateUser = (req, res, next) => {
     gender: gender,
     city: city,
     address: address,
+    role: role,
   };
   User.findOneAndUpdate(filter, update)
     .then((result) => {
+      if (result.role === req.USER.result.userName) {
+        result.isConfirmed = 1;
+      }
       console.log("User Info Updated Successfully");
       res.status(200).json({ message: "User Info Updated successfully" });
     })
