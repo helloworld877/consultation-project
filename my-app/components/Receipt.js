@@ -19,37 +19,30 @@ const ReceiptCard = () => {
         },
     ];
 
-    const groupedReceiptDetails = receiptDetails.reduce((result, seat) => {
-        const rowNumber = seat.row;
-        if (!result[rowNumber]) {
-            result[rowNumber] = [];
-        }
-        result[rowNumber].push(seat);
-        return result;
-    }, {});
-
-    // Calculate the grand total
+    // Calculate the grand total for all tickets
     const grandTotal = receiptDetails.reduce((total, seat) => total + parseFloat(seat.total.replace('EGP', '')), 0);
 
     return (
-        <div className="card">
-            <h2>Receipt Details</h2>
-            {Object.entries(groupedReceiptDetails).map(([row, seats]) => (
-                <div key={row} className="row-section">
-                    <h3>Row {row}</h3>
-                    {seats.map((seat, index) => (
-                        <div key={index} className="seat-section">
-                            <p><strong>Seat:</strong> {seat.itemName}</p>
-                            <p><strong>Price:</strong> {seat.price}</p>
-                            <p><strong>Quantity:</strong> {seat.quantity}</p>
-                            <p><strong>Total:</strong> {seat.total}</p>
+        <div>
+            {receiptDetails.map((ticket, index) => (
+                <div key={index} className="card">
+                    <h2>Receipt Details</h2>
+                    <div className="row-section">
+                        <h3>Row {ticket.row}</h3>
+                        <div className="seat-section">
+                            <p><strong>Seat:</strong> {ticket.itemName}</p>
+                            <p><strong>Price:</strong> {ticket.price}</p>
+                            <p><strong>Quantity:</strong> {ticket.quantity}</p>
+                            <p><strong>Total:</strong> {ticket.total}</p>
                         </div>
-                    ))}
+                    </div>
                 </div>
             ))}
-            <div className="grand-total-section">
-                <h3>Grand Total</h3>
-                <p><strong>Total:</strong> EGP{grandTotal.toFixed(2)}</p>
+            <div className="card grand-total-card">
+                <h2>Grand Total</h2>
+                <div className="grand-total-section">
+                    <p><strong>Total:</strong> EGP{grandTotal.toFixed(2)}</p>
+                </div>
             </div>
         </div>
     );
