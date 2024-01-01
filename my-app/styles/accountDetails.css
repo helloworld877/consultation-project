@@ -1,63 +1,65 @@
-body
-{
-    background-color: #19204e;
-    font-family: "Poppins", sans-serif;
-    font-weight: 300;
-    font-size: 15px;
-    line-height: 1.7;
+body {
+  background-color: #19204e;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.7;
 }
-h1
-{
-    color: white;
-    font-family: "Poppins", sans-serif;
-    color:#fcb300;
-    margin-bottom: 2rem;
-    margin: 50px 50px 50px 50px;
-    text-align: center;
-    
+h1 {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  color: #fcb300;
+  margin-bottom: 2rem;
+  margin: 50px 50px 50px 50px;
+  text-align: center;
 }
 .account-details {
-    width: 80%; 
-    max-width: 1200px; 
-    margin: auto;
-    background-color: #19204e;
-    font-family: "Poppins", sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  background-color: #19204e;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .input-fields-container {
-    width: 90%; 
-    margin-bottom: 20px; 
-    flex-wrap: wrap; 
-    gap: 1rem;
+  width: 90%;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 .columns-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 60px;
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
 }
 
 .column {
-    flex: 1; 
-    min-width: 250px;
+  flex: 1;
+  min-width: 250px;
 }
 
 .column:last-child {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 .custom-button-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .custom-button-container .CustomButton {
-    margin-top: 20px;
-    align-self: center;
+  margin-top: 20px;
+  align-self: center;
 }
 .custom-button-container .CustomButton:disabled {
-    background-color: grey;
-    cursor: not-allowed;
-  }
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.input-fields-label {
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
