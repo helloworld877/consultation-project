@@ -6,6 +6,8 @@ import CustomInput from "../components/customInputField";
 import CustomButton from "../components/customButton";
 
 export default function EditMatch() {
+
+  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   const {
     homeTeam,
@@ -47,24 +49,45 @@ export default function EditMatch() {
   ]);
 
   const handleSave = () => {
-    // Implement your save logic here
-    // This could involve sending a request to an API endpoint
-    console.log("Saving match details:", {
-      homeTeam: homeTeamState,
-      awayTeam: awayTeamState,
-      venue: venueState,
-      dateTime: dateTimeState,
-      mainReferee: mainRefereeState,
-      linesmen: linesmenState,
-    });
+    if (!homeTeamState || !awayTeamState || !venueState || !dateState || !timeState || !mainRefereeState || linesmenState.includes("")) {
+      setErrorMessage("Please complete all fields.");
 
-    // After saving, you might want to navigate the user away or give a success message
-    // router.push('/some-success-page');
+    } else {
+      setErrorMessage("");
+
+      const matchDetails = {
+        homeTeam: homeTeamState,
+        awayTeam: awayTeamState,
+        venue: venueState,
+        dateTime: `${dateState} ${timeState}`,
+        mainReferee: mainRefereeState,
+        linesmen: linesmenState,
+      };
+
+      // Send a POST request to your backend endpoint
+      fetch('/api/your-endpoint', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(matchDetails),
+      })
+      .then(response => response.json())
+      .then(data => {
+        router.push("/viewMatches");
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        setErrorMessage("Failed to save match details."); 
+      });
+    }
   };
 
   return (
     <div className="Edit-Match">
       <h1>Edit match</h1>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
       <div className="columns-container">
         <div className="column">
           <div className="input-fields-container">
