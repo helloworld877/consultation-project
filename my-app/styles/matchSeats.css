@@ -227,7 +227,7 @@ h6 span {
   background-color: #27d024; 
   border: none;
   color: white;
-  padding: 15px 35px;
+  padding: 15px 43px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -269,4 +269,10 @@ h6 span {
   {
   padding-left: 29%;
   width: 180%;
+  }
+
+.header
+  {
+  height: 100%;
+  width: 100%;
   }

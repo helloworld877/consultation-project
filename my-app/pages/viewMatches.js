@@ -25,13 +25,7 @@ export default function Matches() {
   return (
     <div className="matches-page">
       <div className="page-header">
-      <div className="profile-button">
-          <Link href="/profile">
-            <CustomButton >View Profile</CustomButton>
-          </Link>
-        </div>
-        <h1>Upcoming Matches</h1>
-        <div className="header-buttons">
+      <div className="header-buttons">
           {isManager && (
             <Link href="/addStadium">
               <CustomButton>+ Add Stadium</CustomButton>
@@ -43,6 +37,16 @@ export default function Matches() {
             </Link>
           )}
         </div>
+        <h1>Upcoming Matches</h1>
+        <div className="profile-button">
+          <Link href="/profile">
+            <CustomButton >View Profile</CustomButton>
+          </Link>
+          <Link href="/">
+            <CustomButton >Sign Out</CustomButton>
+          </Link>
+        </div>
+        
         
       </div>
       <div className="matches-grid">
