@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import "../../styles/onBoarding.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
@@ -377,23 +378,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </header>
-      {/* <main>
-            <Carousel>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100 match-image"
-                        src="https://egyptianstreets.com/wp-content/uploads/2017/01/2011244-42220367-2560-1440.jpg"
-                    />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100 match-image"
-                        src="https://english.ahram.org.eg/Media/News/2023/9/18/41_2023-638306579125578465-557.jpg"
-                    />
-                </Carousel.Item>
-            </Carousel>
-        </main> */}
+      </div>
     </div>
   );
 }
