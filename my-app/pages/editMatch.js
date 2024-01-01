@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import "../styles/editMatch.css";
 import CustomInput from "../components/customInputField";
 import CustomButton from "../components/customButton";
@@ -51,7 +50,8 @@ export default function EditMatch() {
     linesmenQuery,
   ]);
 
-  const handleSave = () => {
+  const handleSave =async (e) => {
+    e.preventDefault();
     if (
       !homeTeamState ||
       !awayTeamState ||
@@ -82,7 +82,9 @@ export default function EditMatch() {
           },
           body: JSON.stringify(matchDetails),
         });
-        if (result.message === "Edited Successfully") {
+        const result = await response.json();
+
+        if (result.message === "Edited Match Successfully") {
           router.push("/viewMatches");
         } else {
           setErrorMessage(result.message || "Failed to edit match");
