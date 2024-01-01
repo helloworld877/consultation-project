@@ -1,6 +1,17 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
+
+// const seatSchema = new Schema({
+//   row: {
+//     type: Number,
+//     required: true,
+//   },
+//   col: {
+//     type: Number,
+//     required: true,
+//   },
+// });
 const matchSchema = new Schema({
   homeTeam: {
     type: String,
@@ -28,7 +39,8 @@ const matchSchema = new Schema({
     validate: [arrayLimit, "{PATH} exceeds the limit of 2"],
   },
   reservedSeats: {
-    type: [String],
+    type: [[Number]],
+    default: () => [],
   },
 });
 function arrayLimit(val) {
