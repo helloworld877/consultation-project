@@ -80,9 +80,12 @@ const updateMatch = (req, res, next) => {
       .then((result) => {
         console.log("Match Details Updated Successfully");
         console.log(result);
-        res.status(200).json(result);
+        res.status(200).json({ result, message: "Edited Match Successfully" });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ result, message: "Match Not Updated" });
+      });
   });
 };
 
