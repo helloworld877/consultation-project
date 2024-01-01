@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900");
+
+body {
+  background-color: #19204e;
+  margin: 0;
+  padding: 0; 
+}
+
+h1 {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  color: #fcb300;
+  margin: 2% 5%;
+  text-align: center;
+}
+
+.tickets-page {
+  background-color: #19204e;
+  font-family: "Poppins", sans-serif;
+  position: relative;
+
+}
+
+.tickets-view {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #19204e;
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+  flex-wrap: wrap; 
+  margin-top: 20px;
+}
+  
+

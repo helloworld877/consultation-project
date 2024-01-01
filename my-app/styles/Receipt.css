@@ -8,6 +8,7 @@
     text-align: center;
     background: white;
     width: 50%;
+    display: inline-table;
 }
 
 h3 {
@@ -31,6 +32,12 @@ h2 {
     margin-bottom: 12px;
 }
 
+
+.row-section {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
 .seat-section {
     margin-bottom: 20px;
     border-bottom: 1px solid #ccc;

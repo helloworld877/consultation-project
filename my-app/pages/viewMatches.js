@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import MatchCard from "../components/matchCard";
 import "../styles/viewMatches.css";
+import Link from "next/link";
+import CustomButton from "../components/customButton";
 
 export default function Matches() {
   const [matches, setMatches] = useState([]);
+
   function showIcon() {
     let role = localStorage.getItem("role");
-    if (role === "Manager" || role === "Admin") {
-      return true;
-    } else {
-      return false;
-    }
+    return role === "Manager" || role === "Admin";
   }
 
   useEffect(() => {
@@ -19,12 +18,33 @@ export default function Matches() {
       .then((data) => {
         setMatches(data);
       });
-    // write error handling for the fetch operation
   }, []);
+
+  const isManager = showIcon();
 
   return (
     <div className="matches-page">
-      <h1>Upcoming Matches</h1>
+      <div className="page-header">
+      <div className="profile-button">
+          <Link href="/profile">
+            <CustomButton>View Profile</CustomButton>
+          </Link>
+        </div>
+        <h1>Upcoming Matches</h1>
+        <div className="header-buttons">
+          {isManager && (
+            <Link href="/addStadium">
+              <CustomButton>+ Add Stadium</CustomButton>
+            </Link>
+          )}
+          {isManager && (
+            <Link href="/addMatch">
+              <CustomButton>+ Add Match</CustomButton>
+            </Link>
+          )}
+        </div>
+        
+      </div>
       <div className="matches-grid">
         {matches.length > 0 ? (
           matches.map((match) => (

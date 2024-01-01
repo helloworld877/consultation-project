@@ -1,24 +1,23 @@
-body
-{
+body {
     background-color: #19204e;
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-size: 15px;
     line-height: 1.7;
 }
-h1
-{
+
+h1 {
     color: white;
     font-family: "Poppins", sans-serif;
-    color:#fcb300;
+    color: #fcb300;
     margin-bottom: 2rem;
     margin: 50px 50px 50px 50px;
     text-align: center;
-    
 }
+
 .Edit-Match {
-    width: 80%; 
-    max-width: 1200px; 
+    width: 80%;
+    max-width: 1200px;
     margin: auto;
     background-color: #19204e;
     font-family: "Poppins", sans-serif;
@@ -27,12 +26,14 @@ h1
     align-items: center;
     justify-content: center;
 }
+
 .input-fields-container {
-    width: 90%; 
-    margin-bottom: 20px; 
-    flex-wrap: wrap; 
+    width: 90%;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
     gap: 1rem;
 }
+
 .columns-container {
     display: flex;
     justify-content: space-between;
@@ -40,7 +41,7 @@ h1
 }
 
 .column {
-    flex: 1; 
+    flex: 1;
     min-width: 250px;
 }
 
@@ -53,7 +54,8 @@ h1
     display: flex;
     justify-content: center;
 }
-.CustomButton {
-    margin-top: 20px;
-    align-self: center;
+
+.input-fields-label {
+    color: white;
+    font-family: "Poppins", sans-serif;
 }

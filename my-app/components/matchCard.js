@@ -61,7 +61,7 @@ const MatchCard = ({
   }&awayTeam=${matchDetails.awayTeam}&venue=${matchDetails.venue}&dateTime=${
     matchDetails.dateTime
   }&mainReferee=${matchDetails.mainReferee}&linesmen=${encodeURIComponent(
-    matchDetails.linesmen.join(", ")
+    matchDetails.linesmen.join(",")
   )}`;
 
   return (
@@ -104,7 +104,7 @@ const MatchCard = ({
           <strong>Main Referee:</strong> {matchDetails.mainReferee}
         </p>
         <p>
-          <strong>Linesmen:</strong> {matchDetails.linesmen.join(", ")}
+          <strong>Linesmen:</strong> {matchDetails.linesmen ? matchDetails.linesmen.join(","):''}
         </p>
       </a>
     </div>

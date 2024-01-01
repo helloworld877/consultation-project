@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import "../styles/changePassword.css"; 
+import "../styles/changePassword.css";
 import CustomInput from "../components/customInputField";
 import CustomButton from "../components/customButton";
+import { useRouter } from "next/navigation";
+
 
 export default function ChangePassword() {
   // State to hold the password values
@@ -11,31 +13,73 @@ export default function ChangePassword() {
     confirmPassword: "",
   });
 
-  // State to track if any changes have been made
+  const router = useRouter();
+
   const [isChanged, setIsChanged] = useState(false);
+  const [error, setError] = useState("");
 
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setPasswords(prevPasswords => ({
+    setPasswords((prevPasswords) => ({
       ...prevPasswords,
-      [name]: value
+      [name]: value,
     }));
     setIsChanged(true);
   };
 
-  const handleSave = () => {
-    if (passwords.newPassword !== passwords.confirmPassword) {
-      alert("New passwords do not match!");
+  const handleSave = async (e) => {
+    e.preventDefault();
+     setError(""); 
+    if (
+      !passwords.oldPassword.trim() ||
+      !passwords.newPassword.trim() ||
+      !passwords.confirmPassword.trim()
+    ) {
+      setError("Please complete all fields");
       return;
     }
-    console.log("Changing password to:", passwords.newPassword);
-    setIsChanged(false);
+
+    const data = {
+      oldPassword: passwords.oldPassword,
+      newPassword: passwords.newPassword,
+      confirmPassword: passwords.confirmPassword,
+    };
+
+    try {
+      const accessToken = localStorage.getItem("token");
+
+      const response = await fetch(
+        "http://localhost:8080/users/changePassword",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `bearer ${accessToken}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.message === "User Password Changed Successfully") {
+        router.push("/profile");
+      } else {
+        setError(result.message || "Failed to update password");
+      }
+    } catch (error) {
+      console.error("Failed to update password:", error);
+      setError(error.message || "Failed to update password.");
+    }
   };
 
   return (
     <div className="change-password-container">
       <h1>Change Password</h1>
+      {error && (
+        <div style={{ color: "red", textAlign: "center" }}>{error}</div>
+      )}
       <div className="input-fields-container">
         <CustomInput
           type="password"
@@ -62,8 +106,13 @@ export default function ChangePassword() {
       <div className="custom-button-container">
         <CustomButton
           onClick={handleSave}
-          style={{ backgroundColor: isChanged ? "blue" : "grey" }} 
-          disabled={!isChanged || !passwords.oldPassword || !passwords.newPassword || !passwords.confirmPassword}
+          style={{ backgroundColor: isChanged ? "blue" : "grey" }}
+          disabled={
+            !isChanged ||
+            !passwords.oldPassword ||
+            !passwords.newPassword ||
+            !passwords.confirmPassword
+          }
         >
           Change Password
         </CustomButton>
