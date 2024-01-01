@@ -19,6 +19,7 @@ const MatchCard = ({
   const router = useRouter();
 
   const matchDetails = {
+    id:_id,
     homeTeam: homeTeam,
     awayTeam: awayTeam,
     venue: matchVenue,
@@ -30,7 +31,7 @@ const MatchCard = ({
   const onEdit = () => {
     const editUrl =
       `/editMatch?` +
-      `id=${encodeURIComponent(matchDetails._id)}&` +
+      `id=${encodeURIComponent(matchDetails.id)}&` +
       `homeTeam=${encodeURIComponent(matchDetails.homeTeam)}&` +
       `awayTeam=${encodeURIComponent(matchDetails.awayTeam)}&` +
       `venue=${encodeURIComponent(matchDetails.venue)}&` +
