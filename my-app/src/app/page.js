@@ -7,10 +7,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Home() {
-  const [isLogin, setIsLogin] = useState(true); 
+  const [isLogin, setIsLogin] = useState(true);
   const [loginError, setLoginError] = useState("");
   const [signUpError, setSignUpError] = useState("");
-
 
   const router = useRouter();
 
@@ -39,7 +38,7 @@ export default function Home() {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoginError(""); 
+    setLoginError("");
 
     try {
       const data = {
@@ -58,6 +57,8 @@ export default function Home() {
       console.log(result.message);
 
       if (result.message === "Login Successful") {
+        localStorage.setItem("role", result.result.role);
+        localStorage.setItem("token", result.accessToken);
         router.push("/viewMatches");
       } else {
         setLoginError("Login Failed");
@@ -224,7 +225,9 @@ export default function Home() {
                     <div className="card-back">
                       <div className="center-wrap">
                         <div className="section text-center">
-                        {signUpError && <p style={{ color: 'red' }}>{signUpError}</p>}
+                          {signUpError && (
+                            <p style={{ color: "red" }}>{signUpError}</p>
+                          )}
                           <h4 className="mb-4 pb-3">Sign Up</h4>
                           <form onSubmit={handleSubmit}>
                             <div className="form-row">
