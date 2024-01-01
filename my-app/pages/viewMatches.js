@@ -27,7 +27,7 @@ export default function Matches() {
       <div className="page-header">
       <div className="profile-button">
           <Link href="/profile">
-            <CustomButton>View Profile</CustomButton>
+            <CustomButton >View Profile</CustomButton>
           </Link>
         </div>
         <h1>Upcoming Matches</h1>

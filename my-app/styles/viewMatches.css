@@ -44,3 +44,7 @@ h1 {
 .add-match-button, .add-stadium-button {
   margin-bottom: 10px;
 }
+.btn
+{
+  margin-left: 20px !important;
+}
