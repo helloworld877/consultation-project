@@ -65,29 +65,36 @@ const createUser = (req, res, next) => {
   const address = req.body.address;
   const emailAddress = req.body.emailAddress;
   const role = req.body.role;
-  const user = new User({
-    userName,
-    password,
-    firstName,
-    lastName,
-    birthDate,
-    gender,
-    city,
-    address,
-    emailAddress,
-    role,
-    isConfirmed: 1,
+  User.findOne({ userName: userName }).then((result) => {
+    if (result) {
+      console.log(result);
+      res.status(200).json({ result, message: "User Already Exists" });
+    } else {
+      const user = new User({
+        userName,
+        password,
+        firstName,
+        lastName,
+        birthDate,
+        gender,
+        city,
+        address,
+        emailAddress,
+        role,
+        isConfirmed: 1,
+      });
+      user
+        .save()
+        .then((result) => {
+          console.log("User added Successfully");
+          res.status(200).json({ message: "User added successfully" });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json({ error: err.message });
+        });
+    }
   });
-  user
-    .save()
-    .then((result) => {
-      console.log("User added Successfully");
-      res.status(200).json({ message: "User added successfully" });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ error: err.message });
-    });
 };
 
 const updateUser = (req, res, next) => {
