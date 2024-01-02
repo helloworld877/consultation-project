@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import "../styles/managerAuthority.css";
 
 export default function Admin() {
@@ -6,59 +6,70 @@ export default function Admin() {
   const [managerRequests, setManagerRequests] = useState([]);
 
   useEffect(() => {
-    console.log("ana d5alt ahw hgeb al arrays");
+    console.log("Fetching manager arrays...");
+
     const accessToken = localStorage.getItem("token");
+
     async function fetchManagerDetails() {
       try {
-        const response = await fetch('http://localhost:8080/users/getSignUpRequests', {
-          headers: {
-            authorization: `bearer ${accessToken}`,
+        const response = await fetch(
+          "http://localhost:8080/users/getSignUpRequests",
+          {
+            headers: {
+              authorization: `bearer ${accessToken}`,
+            },
           }
-        });
-        console.log(`bearer ${accessToken}`);
+        );
 
-        if (response.data) {
-          setExistingManagers(response.data.managers);
-          setManagerRequests(response.data.confirmedUsers);
-          console.log(response.data.managers);
-          console.log(response.data.confirmedUsers);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+
+        const data = await response.json();
+        console.log("Data fetched:", data);
+
+        setExistingManagers(data.managers || []);
+        setManagerRequests(data.nonConfirmedUsers || []);
+
+        console.log(data.managers);
+        console.log(data.confirmedUsers);
       } catch (error) {
-        console.error("There was an error!", error);
+        console.error(
+          "There was an error fetching the manager details!",
+          error
+        );
       }
     }
- 
-    console.log(existingManagers);
-    console.log(managerRequests);
 
     fetchManagerDetails();
   }, []);
 
   return (
     <div className="container">
-      <h1>Admin view</h1>
-      <div className="listSection">
-        <h2>Manager Details</h2>
-        <ul className="managerList">
-          {existingManagers.map(manager => (
-            <li key={manager._id}>
+      <div className="managerSection">
+        <h2>Existing Managers</h2>
+        {existingManagers.map((manager) => (
+          <div key={manager._id} className="managerEntry">
+            <span className="name">
               {manager.firstName} {manager.lastName}
-              <button className="removeButton">Remove</button>
-            </li>
-          ))}
-        </ul>
+            </span>
+
+            <button className="removeButton">Remove</button>
+          </div>
+        ))}
       </div>
       <div className="requestSection">
-        <h2>Join us & Become a Manager</h2>
-        <ul className="managerList">
-          {managerRequests.map(request => (
-            <li key={request._id}>
+        <h2>Manager Requests</h2>
+        {managerRequests.map((request) => (
+          <div key={request._id} className="requestEntry">
+            {" "}
+            <span className="name">
               {request.firstName} {request.lastName}
-              <button className="acceptButton">Accept</button>
-              <button className="declineButton">Decline</button>
-            </li>
-          ))}
-        </ul>
+            </span>
+            <button className="acceptButton">Accept</button>
+            <button className="declineButton">Decline</button>
+          </div>
+        ))}
       </div>
     </div>
   );

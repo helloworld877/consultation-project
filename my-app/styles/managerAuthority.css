@@ -1,103 +1,103 @@
-body
-{
-    background: #19204e;
-    font-family: "Poppins", sans-serif;
-
+body {
+  background: #19204e;
+  font-family: "Poppins", sans-serif;
 }
-h1
-{
-    color: #fcb300; 
+h1 {
+  color: #fcb300;
 }
-h2
-{
-    color: #fcb300; 
+h2 {
+  color: #fcb300;
 }
 .container {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 1rem;
-    
-    border: 2px solid white; 
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
-  .listSection,
-  .requestSection {
-    margin-bottom: 1rem;
-    border: 2px solid white; 
-    padding: 1rem;
-  }
-  
-  .managerList {
-    list-style: none;
-    padding-left: 0;
-  }
-  
-  .managerList li {
-    margin-bottom: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-  }
-  
-  .button {
-    padding: 0.5rem 1rem;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .removeButton {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 10px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .acceptButton {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 5px 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 10px ;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .declineButton {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 10px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .managerList {
-    display: grid;
-    grid-template-columns: 1fr auto auto; 
-    gap: 10px; 
-  }
-  
-  .managerList li {
-    display: contents; 
-  }
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+
+  border: 2px solid white;
+}
+
+h1 {
+  text-align: center;
+}
+
+.listSection,
+.requestSection {
+  margin-bottom: 1rem;
+  border: 2px solid white;
+  padding: 1rem;
+}
+
+.managerList {
+  list-style: none;
+  padding-left: 0;
+}
+
+.managerList li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.removeButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.name {
+  font-weight: bold;
+  color: white;
+  flex-grow: 1; 
+  margin-right: 300px;
+  font-family: "Poppins", sans-serif;
+}
+
+
+.acceptButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.declineButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.managerEntry, .requestEntry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  margin-bottom: 10px;
+}
