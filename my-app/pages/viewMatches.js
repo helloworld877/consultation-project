@@ -26,14 +26,19 @@ export default function Matches() {
     <div className="matches-page">
       <div className="page-header">
       <div className="header-buttons">
-          {isManager && (
+          {/* {isManager && (
             <Link href="/addStadium">
               <CustomButton>+ Add Stadium</CustomButton>
             </Link>
-          )}
+          )} */}
           {isManager && (
             <Link href="/addMatch">
               <CustomButton>+ Add Match</CustomButton>
+            </Link>
+          )}
+          {isManager && (
+            <Link href="/stadiums">
+              <CustomButton>View Stadiums</CustomButton>
             </Link>
           )}
         </div>
