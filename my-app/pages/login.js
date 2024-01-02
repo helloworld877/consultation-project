@@ -78,7 +78,15 @@ export default function Home() {
         if (typeof window !== "undefined") {
           localStorage.setItem("role", result.result.role);
           localStorage.setItem("token", result.accessToken);
-          router.push("/viewMatches");
+          if(result.result.role === "Admin")
+          {
+            router.push("/managerAuthority");
+          }
+          else
+          {
+            router.push("/viewMatches");
+          }
+          
         }
         router.push("/viewMatches");
       } else if (result.message === "Your SignUp Request Hasn't Been Reviewed Yet") {
