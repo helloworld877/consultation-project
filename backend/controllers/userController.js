@@ -236,6 +236,7 @@ const login = (req, res, next) => {
           });
       } else {
         //Give the user the token
+        console.log("HENAAAA");
         console.log(result);
         const user = { result };
         console.log(user);

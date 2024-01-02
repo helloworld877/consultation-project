@@ -8,6 +8,18 @@ h1 {
 h2 {
   color: #fcb300;
 }
+p {
+  color: red;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  text-align: center;
+}
+.alert {
+  color: red;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  text-align: center;
+}
 .container {
   max-width: 600px;
   margin: 2rem auto;
@@ -62,11 +74,10 @@ h1 {
 .name {
   font-weight: bold;
   color: white;
-  flex-grow: 1; 
+  flex-grow: 1;
   margin-right: 300px;
   font-family: "Poppins", sans-serif;
 }
-
 
 .acceptButton {
   background-color: #4caf50;
@@ -94,27 +105,26 @@ h1 {
   cursor: pointer;
   border-radius: 5px;
 }
-.managerEntry, .requestEntry {
+.managerEntry,
+.requestEntry {
   display: flex;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
   margin-bottom: 10px;
 }
 .userInfo {
-  display: flex; 
+  display: flex;
   align-items: center;
 }
 
-.name, .role {
-  margin-right: 10px; 
+.name,
+.role {
+  margin-right: 10px;
 }
-.role
-{
-  color:#fcb300; 
-  margin-left: 10px; 
-
+.role {
+  color: #fcb300;
+  margin-left: 10px;
 }
-.ContainerButtons
-{
+.ContainerButtons {
   align-items: flex-end;
 }

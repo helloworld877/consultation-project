@@ -64,7 +64,8 @@ export default function Admin() {
           body: JSON.stringify(actionObject),
         }
       );
-      console.log(JSON.stringify(actionObject));
+      //console.log(JSON.stringify(actionObject));
+      console.log(response);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -95,7 +96,7 @@ export default function Admin() {
       <h1>Requests</h1>
       {showAlert && (
         <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
-          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+          <Alert.Heading className="alert">Oh snap! You got an error!</Alert.Heading>
           <p>{alertContent}</p>
         </Alert>
       )}
