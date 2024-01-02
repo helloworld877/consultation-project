@@ -63,6 +63,65 @@ const createMatch = (req, res, next) => {
     });
 };
 
+const updateMatchValidate = (req, res, next) => {
+  const matchId = req.body.id;
+  const homeTeam = req.body.homeTeam;
+  const awayTeam = req.body.awayTeam;
+  const matchVenue = req.body.matchVenue;
+  const dateAndTime = req.body.dateAndTime;
+  const mainReferee = req.body.mainReferee;
+  const linesMen = req.body.linesMen;
+  let reservedSeats;
+  let match_venue_original;
+
+  // Assuming Match and Stadium are your Mongoose models for matches and stadiums respectively
+  Match.findOne({ _id: matchId })
+    .then((match) => {
+      if (!match) {
+        return res.status(404).json({ error: "Match not found" });
+      }
+
+      // Update matchVenue and reservedSeats
+      match_venue_original = match.matchVenue;
+      reservedSeats = match.reservedSeats;
+    })
+    .then((updatedMatch) => {
+      // Find the stadium with the given name
+      console.log(matchVenue);
+      return Stadium.findOne({ name: matchVenue });
+    })
+    .then((foundStadium) => {
+      if (!foundStadium) {
+        // Handle case where the stadium with the given name is not found
+        return res.status(404).json({ error: "Stadium not found" });
+      }
+
+      // Perform operations using the found stadium document
+      console.log("Found stadium:", foundStadium);
+
+      const rows = foundStadium.rows;
+      const cols = foundStadium.columns;
+      console.log(reservedSeats);
+      for (let seat of reservedSeats) {
+        // console.log(`seats[0]${seat[0]} seats[1]${seat[1]}`);
+        if (seat[0] > rows - 1 || seat[1] > cols - 1) {
+          return res.status(400).json({
+            message: "invalid new stadium size",
+          });
+        }
+      }
+
+      next();
+    })
+    .catch((error) => {
+      // Handle any errors that may occur during the process
+      console.error("Error:", error);
+      return res
+        .status(500)
+        .json({ error: "An error occurred while updating the match" });
+    });
+};
+
 //Update Match Info
 const updateMatch = (req, res, next) => {
   const matchId = req.body.id;
@@ -111,4 +170,5 @@ module.exports = {
   createMatch,
   updateMatch,
   deleteMatch,
+  updateMatchValidate,
 };
