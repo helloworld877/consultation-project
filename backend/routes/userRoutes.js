@@ -46,6 +46,16 @@ router.get(
   userController.getAllRequests
 );
 //Logout User
-router.post("/logout", userController.authenticateToken, userController.logout);
-
+router.post(
+  "/logout",
+  bodyParser.json(),
+  userController.authenticateToken,
+  userController.logout
+);
+//Handle Requests
+router.post(
+  "/handleRequest",
+  bodyParser.json(),
+  userController.handleRequest
+);
 module.exports = router;
