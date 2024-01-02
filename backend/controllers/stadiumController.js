@@ -5,10 +5,14 @@ const createStadium = (req, res, next) => {
   const name = req.body.name;
   const rows = req.body.rows;
   const columns = req.body.columns;
+  const city = req.body.city;
+  const address = req.body.address;
   const stadium = new Stadium({
     name,
     rows,
     columns,
+    city,
+    address,
   });
   stadium
     .save()

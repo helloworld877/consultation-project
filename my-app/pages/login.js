@@ -6,6 +6,7 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import CustomButton from "../components/customButton";
+import { Modal } from "react-bootstrap";
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true);
@@ -13,6 +14,11 @@ export default function Home() {
   const [signUpError, setSignUpError] = useState("");
 
   const router = useRouter();
+
+  const handleShowModal = (message) => {
+    setModalMessage(message);
+    setShowModal(true);
+  };
 
   const [loginData, setLoginData] = useState({
     userName: "",
@@ -40,12 +46,16 @@ export default function Home() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoginError("");
+    console.log("EL LOGIN AHWWW B2A  AHEHHHHHH");
+
 
     try {
       const data = {
         userName: loginData.userName,
         password: loginData.password,
       };
+      console.log("DATAAAA");
+      console.log(data);
       const res = await fetch("http://localhost:8080/users/login", {
         method: "POST",
         headers: {
@@ -53,14 +63,30 @@ export default function Home() {
         },
         body: JSON.stringify(data),
       });
+      console.log("EL JSONNNN AHW");
+      console.log(JSON.stringify(data));
+      console.log("EL ressss AHW");
+      console.log(res.status);
       if (!res.ok) throw new Error(res.statusText);
+      
+
       const result = await res.json();
-      console.log(result.message);
+      console.log("EL MESSAGE LEL LOGIN AHEHHHHHH");
+      console.log(result);
 
       if (result.message === "Login Successful") {
-        localStorage.setItem("role", result.result.role);
-        localStorage.setItem("token", result.accessToken);
+        if (typeof window !== "undefined") {
+          localStorage.setItem("role", result.result.role);
+          localStorage.setItem("token", result.accessToken);
+          router.push("/viewMatches");
+        }
         router.push("/viewMatches");
+      } else if (result.message === "Your SignUp Request Hasn't Been Reviewed Yet") {
+        console.log("ana msh reviewed");
+        setLoginError("Your SignUp Request Hasn't Been Reviewed Yet");
+      } else if (result.message === "Your SignUp Request Has Been Declined") {
+        console.log("ana declined");
+        setLoginError("Your SignUp Request Has Been Declined");
       } else {
         setLoginError("Login Failed");
       }
@@ -109,16 +135,12 @@ export default function Home() {
       if (!res.ok) throw new Error(res.statusText);
       const result = await res.json();
       console.log(result);
-      if(result.message==="User Already Exists")
-      {
+      if (result.message === "User Already Exists") {
         setSignUpError("User Already Exists");
-      }
-      else if (result.message === "User added successfully") {
+      } else if (result.message === "User added successfully") {
         console.log("harohh view matches");
         router.push("/viewMatches");
-      }
-      else
-      {
+      } else {
         setSignUpError("Failed to Sign Up");
       }
     } catch (error) {
@@ -143,9 +165,8 @@ export default function Home() {
           <div className="row full-height justify-content-center">
             <div className="col-12 text-center align-self-center py-5">
               <div className="section pb-5 pt-5 pt-sm-2 text-center">
-              
                 <div className="button-container">
-                <Link href="/">
+                  <Link href="/">
                     <CustomButton>Home</CustomButton>
                   </Link>
                   <Link href="/viewMatches">
