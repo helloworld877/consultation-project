@@ -50,6 +50,7 @@ export default function Admin() {
   const handleUserAction = async (user, actionType) => {
     const userName = `${user.userName} `;
     const actionObject = { userName, message: actionType };
+    console.log("ANA HSHOF AL ZARAYER");
 
     try {
       const response = await fetch(
@@ -63,12 +64,14 @@ export default function Admin() {
           body: JSON.stringify(actionObject),
         }
       );
+      console.log(JSON.stringify(actionObject));
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
+      console.log("DATAAAA MN ZOZ AHEH ");
       console.log("Server response:", data);
       if (
         data.message === "SignUp Request Accepted Successfully" ||
