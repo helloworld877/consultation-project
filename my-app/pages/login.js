@@ -6,13 +6,22 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import CustomButton from "../components/customButton";
+import { Modal } from "react-bootstrap";
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true);
   const [loginError, setLoginError] = useState("");
   const [signUpError, setSignUpError] = useState("");
 
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
   const router = useRouter();
+
+  const handleShowModal = (message) => {
+    setModalMessage(message);
+    setShowModal(true);
+  };
 
   const [loginData, setLoginData] = useState({
     userName: "",
@@ -55,12 +64,22 @@ export default function Home() {
       });
       if (!res.ok) throw new Error(res.statusText);
       const result = await res.json();
+      console.log("EL MESSAGE LEL LOGIN AHEHHHHHH");
       console.log(result.message);
 
       if (result.message === "Login Successful") {
-        localStorage.setItem("role", result.result.role);
-        localStorage.setItem("token", result.accessToken);
+        if (typeof window !== "undefined") {
+          localStorage.setItem("role", result.result.role);
+          localStorage.setItem("token", result.accessToken);
+          router.push("/viewMatches");
+        }
         router.push("/viewMatches");
+      } else if (
+        result.message == "Your SignUp Request Hasn't Been Reviewed Yet"
+      ) {
+        handleShowModal("Your SignUp Request Hasn't Been Reviewed Yet");
+      } else if (result.message == "Your SignUp Request Has Been Declined") {
+        handleShowModal("Your SignUp Request Has Been Declined");
       } else {
         setLoginError("Login Failed");
       }
@@ -109,16 +128,12 @@ export default function Home() {
       if (!res.ok) throw new Error(res.statusText);
       const result = await res.json();
       console.log(result);
-      if(result.message==="User Already Exists")
-      {
+      if (result.message === "User Already Exists") {
         setSignUpError("User Already Exists");
-      }
-      else if (result.message === "User added successfully") {
+      } else if (result.message === "User added successfully") {
         console.log("harohh view matches");
         router.push("/viewMatches");
-      }
-      else
-      {
+      } else {
         setSignUpError("Failed to Sign Up");
       }
     } catch (error) {
@@ -138,14 +153,27 @@ export default function Home() {
   };
   return (
     <div className="page-container">
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Notice</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <button
+            onClick={() => setShowModal(false)}
+            className="btn btn-secondary"
+          >
+            Close
+          </button>
+        </Modal.Footer>
+      </Modal>
       <div className="section">
         <div className="container">
           <div className="row full-height justify-content-center">
             <div className="col-12 text-center align-self-center py-5">
               <div className="section pb-5 pt-5 pt-sm-2 text-center">
-              
                 <div className="button-container">
-                <Link href="/">
+                  <Link href="/">
                     <CustomButton>Home</CustomButton>
                   </Link>
                   <Link href="/viewMatches">
