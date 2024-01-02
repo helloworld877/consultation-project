@@ -80,7 +80,7 @@ export default function AddStadium() {
 
   return (
     <div className="Edit-Match">
-      <h1 style={{ color: "white" }}>Add New Stadium</h1>
+      <h1>Add New Stadium</h1>
       <div className="columns-container">
         <div className="column">
           <div className="input-fields-container">
