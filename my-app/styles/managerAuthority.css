@@ -77,7 +77,6 @@ h1 {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 10px;
   cursor: pointer;
   border-radius: 5px;
 }
@@ -100,4 +99,22 @@ h1 {
   justify-content: space-between;
   align-items: center; 
   margin-bottom: 10px;
+}
+.userInfo {
+  display: flex; 
+  align-items: center;
+}
+
+.name, .role {
+  margin-right: 10px; 
+}
+.role
+{
+  color:#fcb300; 
+  margin-left: 10px; 
+
+}
+.ContainerButtons
+{
+  align-items: flex-end;
 }

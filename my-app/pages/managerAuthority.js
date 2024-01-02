@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../styles/managerAuthority.css";
+import Alert from "react-bootstrap/Alert";
 
 export default function Admin() {
-  const [existingManagers, setExistingManagers] = useState([]);
-  const [managerRequests, setManagerRequests] = useState([]);
+  const [existingUsers, setExistingManagers] = useState([]);
+  const [userRequests, setManagerRequests] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState("");
 
   useEffect(() => {
     console.log("Fetching manager arrays...");
@@ -44,30 +47,105 @@ export default function Admin() {
     fetchManagerDetails();
   }, []);
 
+  const handleUserAction = async (user, actionType) => {
+    const userName = `${user.userName} `;
+    const actionObject = { userName, message: actionType };
+
+    try {
+      const response = await fetch(
+        "http://localhost:8080/users/handleRequest",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // authorization: `bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(actionObject),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Server response:", data);
+      if (
+        data.message === "SignUp Request Accepted Successfully" ||
+        data.message === "SignUp Request Declined Successfully" ||
+        data.message === "Manager Account Removed Successfully"
+      ) {
+        setExistingManagers(existingUsers.filter((u) => u._id !== user._id));
+        setManagerRequests(userRequests.filter((u) => u._id !== user._id));
+      } else {
+        console.log("Action was not completed successfully:", data.message);
+      }
+    } catch (error) {
+      console.error("There was an error sending the user action!", error);
+      setAlertContent("Failed to send the request");
+      setShowAlert(true);
+    }
+  };
+
   return (
     <div className="container">
+      <h1>Requests</h1>
+      {showAlert && (
+        <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+          <p>{alertContent}</p>
+        </Alert>
+      )}
       <div className="managerSection">
-        <h2>Existing Managers</h2>
-        {existingManagers.map((manager) => (
+        <h2>Existing Users</h2>
+        {existingUsers.map((manager) => (
           <div key={manager._id} className="managerEntry">
-            <span className="name">
-              {manager.firstName} {manager.lastName}
-            </span>
-
-            <button className="removeButton">Remove</button>
+            <span className="userInfo">
+              {" "}
+              {/* Wrapper for user info */}
+              <span className="name">
+                {manager.firstName} {manager.lastName}
+              </span>
+              <span className="role">({manager.role})</span>
+            </span>{" "}
+            {/* End of user info */}
+            <button
+              className="removeButton"
+              onClick={() => handleUserAction(manager, "remove")}
+            >
+              Remove
+            </button>
           </div>
         ))}
       </div>
       <div className="requestSection">
-        <h2>Manager Requests</h2>
-        {managerRequests.map((request) => (
+        <h2>User Requests</h2>
+        {userRequests.map((request) => (
           <div key={request._id} className="requestEntry">
             {" "}
-            <span className="name">
-              {request.firstName} {request.lastName}
-            </span>
-            <button className="acceptButton">Accept</button>
-            <button className="declineButton">Decline</button>
+            <span className="userInfo">
+              {" "}
+              {/* Wrapper for user info */}
+              <span className="name">
+                {request.firstName} {request.lastName}
+              </span>
+              <span className="role">({request.role})</span>
+            </span>{" "}
+            {/* End of user info */}
+            <div className="ContainerButtons">
+              <button
+                className="acceptButton"
+                onClick={() => handleUserAction(request, "accept")}
+              >
+                Accept
+              </button>
+              <button
+                className="declineButton"
+                onClick={() => handleUserAction(request, "decline")}
+              >
+                Decline
+              </button>
+            </div>
           </div>
         ))}
       </div>
