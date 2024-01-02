@@ -8,6 +8,8 @@ export default function Profile() {
 
   const router = useRouter();
   const [logoutError, setLogoutError] = useState(""); 
+  const [role, setRole] = useState('');
+
   const [details, setDetails] = useState({
     userName: "",
     firstName: "",
@@ -23,6 +25,8 @@ export default function Profile() {
   const userProfileImage = "/images/football.jpg";
   useEffect(() => {
     fetchDetails();
+    const userRole = localStorage.getItem('role');
+    setRole(userRole);
   }, []);
 
   console.log("HA FETCHH");
@@ -132,9 +136,12 @@ export default function Profile() {
             <h1 className="link changePassword">Change Password</h1>
           </Link>
 
-          <Link href="/reservations" passHref>
-            <h1 className="link reservations">View Tickets</h1>
-          </Link>
+          {role !== 'Manager' && (
+            <Link href="/reservations" passHref>
+              <h1 className="link reservations">View Tickets</h1>
+            </Link>
+          )}
+          
           <button onClick={logout} className="link logOut">
             Log Out
           </button>
