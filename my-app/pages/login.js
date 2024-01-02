@@ -13,9 +13,6 @@ export default function Home() {
   const [loginError, setLoginError] = useState("");
   const [signUpError, setSignUpError] = useState("");
 
-  const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-
   const router = useRouter();
 
   const handleShowModal = (message) => {
@@ -49,12 +46,16 @@ export default function Home() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoginError("");
+    console.log("EL LOGIN AHWWW B2A  AHEHHHHHH");
+
 
     try {
       const data = {
         userName: loginData.userName,
         password: loginData.password,
       };
+      console.log("DATAAAA");
+      console.log(data);
       const res = await fetch("http://localhost:8080/users/login", {
         method: "POST",
         headers: {
@@ -62,7 +63,13 @@ export default function Home() {
         },
         body: JSON.stringify(data),
       });
+      console.log("EL JSONNNN AHW");
+      console.log(JSON.stringify(data));
+      console.log("EL ressss AHW");
+      console.log(res.status);
       if (!res.ok) throw new Error(res.statusText);
+      
+
       const result = await res.json();
       console.log("EL MESSAGE LEL LOGIN AHEHHHHHH");
       console.log(result.message);
@@ -74,12 +81,10 @@ export default function Home() {
           router.push("/viewMatches");
         }
         router.push("/viewMatches");
-      } else if (
-        result.message == "Your SignUp Request Hasn't Been Reviewed Yet"
-      ) {
-        handleShowModal("Your SignUp Request Hasn't Been Reviewed Yet");
-      } else if (result.message == "Your SignUp Request Has Been Declined") {
-        handleShowModal("Your SignUp Request Has Been Declined");
+      } else if (result.message === "Your SignUp Request Hasn't Been Reviewed Yet") {
+        setLoginError("Your SignUp Request Hasn't Been Reviewed Yet");
+      } else if (result.message === "Your SignUp Request Has Been Declined") {
+        setLoginError("Your SignUp Request Has Been Declined");
       } else {
         setLoginError("Login Failed");
       }
@@ -153,20 +158,6 @@ export default function Home() {
   };
   return (
     <div className="page-container">
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Notice</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{modalMessage}</Modal.Body>
-        <Modal.Footer>
-          <button
-            onClick={() => setShowModal(false)}
-            className="btn btn-secondary"
-          >
-            Close
-          </button>
-        </Modal.Footer>
-      </Modal>
       <div className="section">
         <div className="container">
           <div className="row full-height justify-content-center">
