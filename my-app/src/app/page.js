@@ -20,7 +20,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="button-container">
-            <Link href="/viewMatches">
+            <Link href="/viewMatchesGuest">
               <CustomButton>View Matches</CustomButton>
             </Link>
           </div>
