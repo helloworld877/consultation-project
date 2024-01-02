@@ -72,7 +72,7 @@ export default function Home() {
 
       const result = await res.json();
       console.log("EL MESSAGE LEL LOGIN AHEHHHHHH");
-      console.log(result.message);
+      console.log(result);
 
       if (result.message === "Login Successful") {
         if (typeof window !== "undefined") {
@@ -82,8 +82,10 @@ export default function Home() {
         }
         router.push("/viewMatches");
       } else if (result.message === "Your SignUp Request Hasn't Been Reviewed Yet") {
+        console.log("ana msh reviewed");
         setLoginError("Your SignUp Request Hasn't Been Reviewed Yet");
       } else if (result.message === "Your SignUp Request Has Been Declined") {
+        console.log("ana declined");
         setLoginError("Your SignUp Request Has Been Declined");
       } else {
         setLoginError("Login Failed");
