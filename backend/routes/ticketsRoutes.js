@@ -12,11 +12,11 @@ router.post(
   ticketController.createTicket
 );
 //Get Users Requests
-// router.get(
-//   "/getUsersTickets",
-//   bodyParser.json(),
-//   userController.authenticateToken,
-//   ticketController.getUserTickets
-// );
+router.get(
+  "/getUsersTickets",
+  bodyParser.json(),
+  userController.authenticateToken,
+  ticketController.getUserTickets
+);
 
 module.exports = router;

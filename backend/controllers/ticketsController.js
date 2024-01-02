@@ -40,7 +40,21 @@ const createTicket = (req, res, next) => {
 };
 
 //Get User Tickets
-const getUserTickets = (req, res, next) => {};
+const getUserTickets = (req, res, next) => {
+  const userName = req.USER.result.userName;
+  console.log(req.USER.result.userName);
+  Ticket.find({ ticketHolder: userName })
+    .then((tickets) => {
+      console.log(tickets);
+      res
+        .status(200)
+        .json({ tickets, message: "Ticket Retrieved Successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(404).json({ err, message: "This User Has No Tickets" });
+    });
+};
 module.exports = {
   createTicket,
   getUserTickets,
