@@ -20,7 +20,21 @@ const createStadium = (req, res, next) => {
       res.status(500).json({ error: err.message });
     });
 };
-
+//Get All Stadiums
+const getStadiums = (req, res, next) => {
+  Stadium.find()
+    .then((stadiums) => {
+      console.log(stadiums);
+      res
+        .status(200)
+        .json({ stadiums, message: "Fetched All Stadiums Successfully" });
+    })
+    .catch((err) => {
+      console.log("Couldn't Get Stadiums");
+      console.log(err);
+      res.status(500).json({ err, message: "Error while retrieving Stadiums" });
+    });
+};
 //Update Stadium Info
 const updateStadium = (req, res, next) => {
   const name = req.body.name;
@@ -55,6 +69,7 @@ const deleteStadium = (req, res, next) => {
 
 module.exports = {
   createStadium,
+  getStadiums,
   updateStadium,
   deleteStadium,
 };
