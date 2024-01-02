@@ -123,7 +123,6 @@ export default function Home() {
       !formData.birthDate.trim() ||
       !formData.gender ||
       !formData.city.trim() ||
-      !formData.address.trim() ||
       !formData.emailAddress.trim() ||
       !formData.role
     ) {
