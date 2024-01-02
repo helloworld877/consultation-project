@@ -41,6 +41,7 @@ export default function Checkout() {
 
 
   const selectedSeats = router.query.selectedSeats ? router.query.selectedSeats.split(",") : [];
+  
   const receiptDetails = selectedSeats.map((seat) => {
     const [col, row] = seat.split("-");
     const seatId = `${String.fromCharCode(65 + parseInt(col, 10))}${parseInt(row, 10) + 1}`;
@@ -55,6 +56,7 @@ export default function Checkout() {
     };
   });
 
+
   const matchPageDetailsUrl = `/matchSeats?matchID=${router.query.matchID}`;
 
   const grandTotal = receiptDetails.reduce((total, ticket) => total + parseFloat(ticket.total.replace('EGP', '')), 0);
@@ -63,8 +65,11 @@ export default function Checkout() {
     showPurchaseConfirmationDialog();
 
     const accessToken = localStorage.getItem("token");
+    console.log(accessToken);
     const matchId = router.query.matchID;
+    console.log(matchId);
     const seats = router.query.selectedSeats;
+    console.log(seats);
 
     const ticketData = {  
       ticketHolder: accessToken,
@@ -88,6 +93,10 @@ export default function Checkout() {
         console.error("Error adding ticket:", error);
         // Handle error, display an error message, etc.
       });
+      console.log(ticketData);
+      console.log(data);
+      console.log(response);
+      console.log(JSON.stringify(ticketData));
 
 
   };
