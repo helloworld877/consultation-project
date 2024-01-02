@@ -61,15 +61,30 @@ export default function AddStadium() {
       return;
     }
 
-    // Implement your save logic here
-    // This could involve sending a request to an API endpoint
-    console.log("Saving Stadium details:", {
-      stadiumName: stadiumNameState,
-      stadiumAddress: stadiumAddressState,
-      stadiumCity: stadiumCityState,
-      stadiumCapacityRows: stadiumCapacityRowsState,
-      stadiumCapacityColumns: stadiumCapacityColumnsState,
-    });
+    const stadiumDetails = {
+      name: stadiumNameState,
+      address: stadiumAddressState,
+      city: stadiumCityState,
+      rows: stadiumCapacityRowsState,
+      columns: stadiumCapacityColumnsState,
+    };
+
+    fetch("http://localhost:8080/stadiums/createStadium", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(stadiumDetails),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Stadium added successfully:", data);
+        // Redirect or perform any other action after successful save
+      })
+      .catch((error) => {
+        console.error("Error adding stadium:", error);
+        // Handle error, display an error message, etc.
+      });
 
     // Reset error state
     setError("");
@@ -80,7 +95,8 @@ export default function AddStadium() {
 
   return (
     <div className="Edit-Match">
-      <h1 style={{ color: "white" }}>Add New Stadium</h1>
+      <h1 >Add New Stadium</h1>
+      {error && <p className="error-message" style={{ color: "red" }}>{error}</p>}
       <div className="columns-container">
         <div className="column">
           <div className="input-fields-container">
@@ -166,9 +182,9 @@ export default function AddStadium() {
           </div>
         </div>
       </div>
-      {error && <p className="error-message" style={{ color: "white" }}>{error}</p>}
+      
       <div className="custom-button-container">
-        <CustomButton onClick={handleSave} style={{ color: "white" }}>
+        <CustomButton onClick={handleSave} style={{ color: "red" }}>
           Save
         </CustomButton>
       </div>
