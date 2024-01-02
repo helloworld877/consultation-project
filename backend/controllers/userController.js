@@ -1,4 +1,5 @@
 const User = require("../models/user");
+
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 ///////////////////////////
@@ -44,7 +45,7 @@ const getUsers = (req, res, next) => {
 
 //gets a user based on a username
 const getUser = (req, res, next) => {
-  // userName = req.params.userName;
+  console.log(req.USER.result.userName);
   User.findOne({ userName: req.USER.result.userName })
     .then((result) => {
       console.log(result);

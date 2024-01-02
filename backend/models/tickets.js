@@ -8,13 +8,15 @@ const ticketsSchema = new Schema({
     required: true,
   },
   ticketHolder: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
     required: true,
   },
   matchId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Match",
+    type: String,
+    required: true,
+  },
+  seats: {
+    type: [Number],
     required: true,
   },
 });

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Ticket = require("../models/tickets");
 
 const Schema = mongoose.Schema;
 const userSchema = new Schema({
@@ -46,6 +47,10 @@ const userSchema = new Schema({
   isConfirmed: {
     type: Number,
     required: true,
+  },
+  tickets: {
+    type: [Ticket],
+    required: false,
   },
 });
 
