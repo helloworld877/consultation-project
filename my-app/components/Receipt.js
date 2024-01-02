@@ -4,6 +4,7 @@ import styles from '../styles/Receipt.css';
 const ReceiptCard = ({ ticket }) => {
     return (
         <div className='receipt-container'>
+            
             <div className="card">
                 <h2>Receipt Details</h2>
                 <div className="row-section">
