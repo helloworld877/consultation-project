@@ -40,7 +40,7 @@ const createTicket = (req, res, next) => {
 };
 
 //Get User Tickets
-const getUserTickets = (req, res, next) => {};
+// const getUserTickets = (req, res, next) => {};
 module.exports = {
   createTicket,
   getUserTickets,
