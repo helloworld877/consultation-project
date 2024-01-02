@@ -16,7 +16,7 @@ export default function Matches() {
   return (
     <div className="matches-page">
       <div className="page-header">
-        <h1 >Past Matches</h1>
+        <h1  style={{ textAlign: 'center', width: '100%' }}>Past Matches</h1>
       </div>
       <div className="matches-grid">
         {matches.length > 0 ? (

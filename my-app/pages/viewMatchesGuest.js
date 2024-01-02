@@ -18,24 +18,9 @@ export default function Matches() {
   return (
     <div className="matches-page">
       <div className="page-header">
-        <div className="header-buttons">
-          <Link href="/addStadium">
-            <CustomButton>+ Add Stadium</CustomButton>
-          </Link>
-
-          <Link href="/addMatch">
-            <CustomButton>+ Add Match</CustomButton>
-          </Link>
-        </div>
-        <h1>Upcoming Matches</h1>
-        <div className="profile-button">
-          <Link href="/profile">
-            <CustomButton>View Profile</CustomButton>
-          </Link>
-          <Link href="/">
-            <CustomButton>Sign Out</CustomButton>
-          </Link>
-        </div>
+      
+        <h1 style={{ textAlign: 'center', width: '100%' }}>Upcoming Matches</h1>
+        
       </div>
       <div className="matches-grid">
         {matches.length > 0 ? (
