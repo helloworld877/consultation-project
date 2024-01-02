@@ -26,7 +26,7 @@ const createTeam = (req, res, next) => {
   });
 };
 
-//Get All Matches
+//Get All Teams
 const getAllTeams = (req, res, next) => {
   Team.find()
     .then((teams) => {
@@ -40,7 +40,19 @@ const getAllTeams = (req, res, next) => {
     });
 };
 
+//gets a user based on a username
+const getTeam = (req, res, next) => {
+  name = req.params.name;
+  Team.findOne({ name: name })
+    .then((result) => {
+      console.log(result);
+      res.status(200).json(result);
+    })
+    .catch((err) => console.log(err));
+};
+
 module.exports = {
   createTeam,
   getAllTeams,
+  getTeam,
 };
