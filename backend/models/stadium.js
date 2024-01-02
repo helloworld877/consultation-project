@@ -15,6 +15,14 @@ const stadiumSchema = new Schema({
     type: Number,
     required: true,
   },
+  city: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Stadium", stadiumSchema, "stadiums");
