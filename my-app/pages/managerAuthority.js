@@ -64,7 +64,8 @@ export default function Admin() {
           body: JSON.stringify(actionObject),
         }
       );
-      console.log(JSON.stringify(actionObject));
+      //console.log(JSON.stringify(actionObject));
+      console.log(response);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
