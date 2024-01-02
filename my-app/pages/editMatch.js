@@ -60,9 +60,13 @@ export default function EditMatch() {
         const teamOptions = data.map((team) => ({
           label: team.name,
           value: team.name,
+          
         }));
+        console.log("DATAA HENA");
+        console.log(data);
         setTeamOptions(teamOptions);
       });
+     
   }, []);
 
   useEffect(() => {
@@ -156,7 +160,7 @@ export default function EditMatch() {
               options={homeTeamOptions}
               placeholder={homeTeamState}
               id="homeTeam"
-              onChange={(selectedOption) => setHomeTeamState(selectedOption)}
+              onChange={(selectedOption) => setHomeTeamState(selectedOption.value)}
               value={homeTeamState}
             />
           </div>
@@ -169,7 +173,7 @@ export default function EditMatch() {
               options={awayTeamOptions}
               placeholder={awayTeamState}
               id="awayTeam"
-              onChange={(selectedOption) => setAwayTeamState(selectedOption)}
+              onChange={(selectedOption) => setAwayTeamState(selectedOption.value)}
               value={awayTeamState}
             />
           </div>
@@ -182,7 +186,7 @@ export default function EditMatch() {
               options={venueOptions}
               placeholder={venueState}
               id="venue"
-              onChange={(selectedOption) => setVenueState(selectedOption)}
+              onChange={(selectedOption) => setVenueState(selectedOption.value)}
               value={venueState}
             />
           </div>
