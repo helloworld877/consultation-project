@@ -13,6 +13,7 @@ export default function Seats() {
   const [reservedSeats, setReservedSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [stadiumSize, setStadiumSize] = useState([]);
+  const [isManager, setIsManager] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -31,6 +32,11 @@ export default function Seats() {
             const seatId = `${row}-${col}`;
             allReservedSeats.push(seatId);
           }
+          function showIcon() {
+            let role = localStorage.getItem("role");
+            return role === "Manager" || role === "Admin";
+          }
+          setIsManager(showIcon());
         }
         setReservedSeats(allReservedSeats);
         setStadiumSize(data.size || []);
@@ -43,6 +49,9 @@ export default function Seats() {
   const matchPageDetailsUrl = `/Checkout?matchID=${router.query.matchID}&selectedSeats=${selectedSeats.join(",")}`;
 
   const handleSeatToggle = (row, col) => {
+    if (isManager) {
+      return;
+    }
     const seatId = `${row}-${col}`;
     const isSelected = selectedSeats.includes(seatId);
     const isReserved = reservedSeats.includes(seatId);
@@ -58,29 +67,31 @@ export default function Seats() {
 
   return (
     <div className="page-container">
-      
+
       <div className="section">
         <div className="row full-height justify-content-center">
           <div className="col-12 text-center align-self-center py-5">
             <div className="section pb-5 pt-5 pt-sm-2 text-center">
-            < div className="button-container">
+              <div className="button-container">
+                {!isManager && (
                   <Link href={matchPageDetailsUrl} passHref>
                     <button type="button" className="checkout-btn-matches">
                       Checkout
                     </button>
                   </Link>
+                )}
+              </div>
+              <Link href="/viewMatches" passHref>
+                <div className="back-btn-container">
+                  <label htmlFor="reg-log" className="back-btn-label">
+                    <FontAwesomeIcon
+                      icon={faArrowLeft}
+                      className="back-btn-icon"
+                    />
+                  </label>
+                  <span className="back-btn-label-text">Return To Matches</span>
                 </div>
-                <Link href="/viewMatches" passHref>
-                  <div className="back-btn-container">
-                    <label htmlFor="reg-log" className="back-btn-label">
-                      <FontAwesomeIcon
-                        icon={faArrowLeft}
-                        className="back-btn-icon"
-                      />
-                    </label>
-                    <span className="back-btn-label-text">Return To Matches</span>
-                  </div>
-                </Link>
+              </Link>
               <div className="card-container">
                 <MatchCard
                   homeTeam={matchDetails.homeTeam}
@@ -116,9 +127,9 @@ export default function Seats() {
                   </div>
                 ))}
               </div>
-              
+
             </div>
-           
+
           </div>
         </div>
       </div>
