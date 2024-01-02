@@ -362,7 +362,7 @@ const handleRequest = (req, res, next) => {
       })
       .catch((err) => {
         console.log(err);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ err, message: "Error Accepting Request" });
       });
   } else if (message === "decline") {
     const filter = { userName: username };
@@ -377,7 +377,7 @@ const handleRequest = (req, res, next) => {
       })
       .catch((err) => {
         console.log(err);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ err, message: "Error Declining Request" });
       });
   } else {
     const filter = { userName: username };
@@ -395,7 +395,7 @@ const handleRequest = (req, res, next) => {
       })
       .catch((err) => {
         console.log(err);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ err, message: "Error Removing Manager" });
       });
   }
 };
