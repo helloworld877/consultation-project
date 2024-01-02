@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import "../styles/editMatch.css";
 import CustomInput from "../components/customInputField";
 import CustomButton from "../components/customButton";
+import CustomDropdown from "../components/customDropDown";
 
 export default function EditMatch() {
   const [errorMessage, setErrorMessage] = useState("");
@@ -26,6 +27,8 @@ export default function EditMatch() {
   const [timeState, setTimeState] = useState("");
   const [mainRefereeState, setMainRefereeState] = useState("");
   const [linesmenState, setLinesmenState] = useState([]);
+  const [teamOptions, setTeamOptions] = useState([]);
+  const [venueOptions, setVenueOptions] = useState([]);
 
   useEffect(() => {
     if (router.isReady) {
@@ -49,6 +52,31 @@ export default function EditMatch() {
     mainReferee,
     linesmenQuery,
   ]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/teams/getAllTeams")
+      .then((response) => response.json())
+      .then((data) => {
+        const teamOptions = data.map((team) => ({
+          label: team.name,
+          value: team.name,
+        }));
+        setTeamOptions(teamOptions);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/stadiums/getAllStadiums")
+      .then((response) => response.json())
+      .then((data) => {
+        data = data.stadiums;
+        const venueOptions = data.map((stadium) => ({
+          label: stadium.name,
+          value: stadium.name,
+        }));
+        setVenueOptions(venueOptions);
+      });
+  }, []);
 
   const handleSave =async (e) => {
     e.preventDefault();
@@ -95,7 +123,12 @@ export default function EditMatch() {
       }
     }
   };
-
+  const awayTeamOptions = teamOptions.filter(
+    (option) => option !== homeTeamState
+  );
+  const homeTeamOptions = teamOptions.filter(
+    (option) => option !== awayTeamState
+  );
   return (
     <div className="Edit-Match">
       <h1>Edit match</h1>
@@ -113,39 +146,39 @@ export default function EditMatch() {
             <div className="input-fields-label">
           <label htmlFor="homeTeam">Home Team:</label>
           </div>
-            <CustomInput
-              type="text"
+          <CustomDropdown
               name="homeTeam"
+              options={homeTeamOptions}
               placeholder={homeTeamState}
               id="homeTeam"
+              onChange={(selectedOption) => setHomeTeamState(selectedOption)}
               value={homeTeamState}
-              onChange={(e) => setHomeTeamState(e.target.value)}
             />
           </div>
           <div className="input-fields-container">
           <div className="input-fields-label">
           <label htmlFor="awayTeam">Away Team:</label>
           </div>
-            <CustomInput
-              type="text"
+          <CustomDropdown
               name="awayTeam"
+              options={awayTeamOptions}
               placeholder={awayTeamState}
               id="awayTeam"
+              onChange={(selectedOption) => setAwayTeamState(selectedOption)}
               value={awayTeamState}
-              onChange={(e) => setAwayTeamState(e.target.value)}
             />
           </div>
           <div className="input-fields-container">
           <div className="input-fields-label">
           <label htmlFor="venue">Venue:</label>
           </div>
-            <CustomInput
-              type="text"
+          <CustomDropdown
               name="venue"
+              options={venueOptions}
               placeholder={venueState}
               id="venue"
+              onChange={(selectedOption) => setVenueState(selectedOption)}
               value={venueState}
-              onChange={(e) => setVenueState(e.target.value)}
             />
           </div>
           <div className="input-fields-container">

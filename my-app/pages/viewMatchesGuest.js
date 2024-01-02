@@ -7,11 +7,6 @@ import CustomButton from "../components/customButton";
 export default function Matches() {
   const [matches, setMatches] = useState([]);
 
-  function showIcon() {
-    let role = localStorage.getItem("role");
-    return role === "Manager" || role === "Admin";
-  }
-
   useEffect(() => {
     fetch("http://localhost:8080/matches/getAllMatches")
       .then((response) => response.json())
@@ -20,34 +15,11 @@ export default function Matches() {
       });
   }, []);
 
-  const isManager = showIcon();
-
   return (
     <div className="matches-page">
       <div className="page-header">
-      <div className="header-buttons">
-         
-          {isManager && (
-            <Link href="/addMatch">
-              <CustomButton>+ Add Match</CustomButton>
-            </Link>
-          )}
-          {isManager && (
-            <Link href="/stadiums">
-              <CustomButton>View Stadiums</CustomButton>
-            </Link>
-          )}
-        </div>
-        <h1>Upcoming Matches</h1>
-        <div className="profile-button">
-          <Link href="/profile">
-            <CustomButton >View Profile</CustomButton>
-          </Link>
-          <Link href="/">
-            <CustomButton >Sign Out</CustomButton>
-          </Link>
-        </div>
-        
+      
+        <h1 style={{ textAlign: 'center', width: '100%' }}>Upcoming Matches</h1>
         
       </div>
       <div className="matches-grid">
@@ -56,8 +28,8 @@ export default function Matches() {
             <MatchCard
               key={match.id}
               {...match}
-              showEditIcon={showIcon()}
-              clickable={true}
+              showEditIcon={false}
+              clickable={false}
             />
           ))
         ) : (

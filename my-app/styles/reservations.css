@@ -23,13 +23,23 @@ h1 {
 
 .tickets-view {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: #19204e;
-  font-family: "Poppins", sans-serif;
-  padding: 20px;
-  flex-wrap: wrap; 
-  margin-top: 20px;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+    gap: 20px;
+    width: 100%;
+
 }
   
 
+.page-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+}

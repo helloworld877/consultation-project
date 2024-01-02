@@ -5,44 +5,89 @@ import "../styles/addStadium.css";
 import CustomInput from "../components/customInputField";
 import CustomButton from "../components/customButton";
 
-export default function addStadium() {
+export default function AddStadium() {
   const router = useRouter();
   const {
     stadiumName,
     stadiumAddress,
     stadiumCity,
-    stadiumCapacity,
+    stadiumCapacityRows,
+    stadiumCapacityColumns,
   } = router.query;
 
   const [stadiumNameState, setStadiumNameState] = useState("");
   const [stadiumAddressState, setStadiumAddressState] = useState("");
   const [stadiumCityState, setStadiumCityState] = useState("");
-  const [stadiumCapacityState, setStadiumCapacityState] = useState("");
+  const [stadiumCapacityRowsState, setStadiumCapacityRowsState] = useState("");
+  const [stadiumCapacityColumnsState, setStadiumCapacityColumnsState] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (router.isReady) {
       setStadiumNameState(stadiumName || "");
       setStadiumAddressState(stadiumAddress || "");
       setStadiumCityState(stadiumCity || "");
-      setStadiumCapacityState(stadiumCapacity || "");
+      setStadiumCapacityRowsState(stadiumCapacityRows || "");
+      setStadiumCapacityColumnsState(stadiumCapacityColumns || "");
     }
   }, [
     router.isReady,
     stadiumName,
     stadiumAddress,
     stadiumCity,
-    stadiumCapacity,
+    stadiumCapacityRows,
+    stadiumCapacityColumns,
   ]);
 
   const handleSave = () => {
-    // Implement your save logic here
-    // This could involve sending a request to an API endpoint
-    console.log("Saving Stadium details:", {
-      stadiumName: stadiumNameState,
-      stadiumAddress: stadiumAddressState,
-      stadiumCity: stadiumCityState,
-      stadiumCapacity: stadiumCapacityState,
-    });
+    // Validation: Check if any field is empty
+    if (
+      !stadiumNameState ||
+      !stadiumAddressState ||
+      !stadiumCityState ||
+      !stadiumCapacityRowsState ||
+      !stadiumCapacityColumnsState
+    ) {
+      setError("All fields must be filled out.");
+      return;
+    }
+
+    // Validation: Rows and columns should not be bigger than 7
+    if (
+      parseInt(stadiumCapacityRowsState, 10) > 7 ||
+      parseInt(stadiumCapacityColumnsState, 10) > 7
+    ) {
+      setError("Rows and columns cannot be bigger than 7.");
+      return;
+    }
+
+    const stadiumDetails = {
+      name: stadiumNameState,
+      address: stadiumAddressState,
+      city: stadiumCityState,
+      rows: stadiumCapacityRowsState,
+      columns: stadiumCapacityColumnsState,
+    };
+
+    fetch("http://localhost:8080/stadiums/createStadium", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(stadiumDetails),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Stadium added successfully:", data);
+        // Redirect or perform any other action after successful save
+      })
+      .catch((error) => {
+        console.error("Error adding stadium:", error);
+        // Handle error, display an error message, etc.
+      });
+
+    // Reset error state
+    setError("");
 
     // After saving, you might want to navigate the user away or give a success message
     // router.push('/some-success-page');
@@ -50,13 +95,16 @@ export default function addStadium() {
 
   return (
     <div className="Edit-Match">
-      <h1>Add New Stadium</h1>
+      <h1 >Add New Stadium</h1>
+      {error && <p className="error-message" style={{ color: "red" }}>{error}</p>}
       <div className="columns-container">
         <div className="column">
           <div className="input-fields-container">
-          <div className="input-fields-label">
-          <label htmlFor="stadiumName">Stadium Name:</label>
-          </div>
+            <div className="input-fields-label">
+              <label htmlFor="stadiumName" style={{ color: "white" }}>
+                Stadium Name:
+              </label>
+            </div>
             <CustomInput
               type="text"
               name="stadiumName"
@@ -66,11 +114,13 @@ export default function addStadium() {
               onChange={(e) => setStadiumNameState(e.target.value)}
             />
           </div>
-         
+
           <div className="input-fields-container">
-          <div className="input-fields-label">
-          <label htmlFor="stadiumCity">City:</label>
-          </div>
+            <div className="input-fields-label">
+              <label htmlFor="stadiumCity" style={{ color: "white" }}>
+                City:
+              </label>
+            </div>
             <CustomInput
               type="text"
               name="stadiumCity"
@@ -80,13 +130,14 @@ export default function addStadium() {
               onChange={(e) => setStadiumCityState(e.target.value)}
             />
           </div>
-         
         </div>
         <div className="column">
-        <div className="input-fields-container">
-        <div className="input-fields-label">
-          <label htmlFor="stadiumAddress">Address:</label>
-          </div>
+          <div className="input-fields-container">
+            <div className="input-fields-label">
+              <label htmlFor="stadiumAddress" style={{ color: "white" }}>
+                Address:
+              </label>
+            </div>
             <CustomInput
               type="text"
               name="stadiumAddress"
@@ -97,23 +148,45 @@ export default function addStadium() {
             />
           </div>
           <div className="input-fields-container">
-          <div className="input-fields-label">
-          <label htmlFor="stadiumCapacity">Capacity:</label>
-          </div>
+            <div className="input-fields-label">
+              <label htmlFor="stadiumCapacityRows" style={{ color: "white" }}>
+                Rows:
+              </label>
+            </div>
             <CustomInput
               type="number"
               name="stadiumCapacity"
-              placeholder="Stadium Capacity"
-              id="stadiumCapacity"
-              value={stadiumCapacityState}
-              onChange={(e) => setStadiumCapacityState(e.target.value)}
+              placeholder="Rows"
+              id="stadiumCapacityRows"
+              value={stadiumCapacityRowsState}
+              onChange={(e) => setStadiumCapacityRowsState(e.target.value)}
             />
           </div>
-
+          <div className="input-fields-container">
+            <div className="input-fields-label">
+              <label
+                htmlFor="stadiumCapacityColumns"
+                style={{ color: "white" }}
+              >
+                Columns:
+              </label>
+            </div>
+            <CustomInput
+              type="number"
+              name="stadiumCapacity"
+              placeholder="Columns"
+              id="stadiumCapacityColumns"
+              value={stadiumCapacityColumnsState}
+              onChange={(e) => setStadiumCapacityColumnsState(e.target.value)}
+            />
+          </div>
         </div>
       </div>
+      
       <div className="custom-button-container">
-        <CustomButton onClick={handleSave}>Save</CustomButton>
+        <CustomButton onClick={handleSave} style={{ color: "red" }}>
+          Save
+        </CustomButton>
       </div>
     </div>
   );
