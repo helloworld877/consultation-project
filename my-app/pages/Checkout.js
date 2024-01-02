@@ -7,7 +7,6 @@ import PaymentCard from '../components/paymentMethod';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
-import CustomButton from '../components/customButton';
 
 export default function Checkout() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('Card');
@@ -40,6 +39,7 @@ export default function Checkout() {
     setShowPurchaseConfirmation(false);
   };
 
+
   const selectedSeats = router.query.selectedSeats ? router.query.selectedSeats.split(",") : [];
   const receiptDetails = selectedSeats.map((seat) => {
     const [col, row] = seat.split("-");
@@ -60,8 +60,36 @@ export default function Checkout() {
   const grandTotal = receiptDetails.reduce((total, ticket) => total + parseFloat(ticket.total.replace('EGP', '')), 0);
 
   const handleCheckout = () => {
-    // Perform checkout logic here
     showPurchaseConfirmationDialog();
+
+    const accessToken = localStorage.getItem("token");
+    const matchId = router.query.matchID;
+    const seats = router.query.selectedSeats;
+
+    const ticketData = {  
+      ticketHolder: accessToken,
+      matchId,
+      seats: seats
+    };
+    fetch("http://localhost:8080/tickets/createTicket", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${accessToken}`,
+      },
+      body: JSON.stringify(ticketData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Ticket added successfully:", data);
+        // Redirect or perform any other action after successful save
+      })
+      .catch((error) => {
+        console.error("Error adding ticket:", error);
+        // Handle error, display an error message, etc.
+      });
+
+
   };
 
   return (
