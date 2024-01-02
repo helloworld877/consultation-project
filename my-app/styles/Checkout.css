@@ -1,7 +1,7 @@
 body {
   background-color: #19204e;
   background-size: cover;
-  background-image: url("https://media.istockphoto.com/id/1502846052/photo/textured-soccer-game-field-with-neon-fog-center-midfield.webp?b=1&s=170667a&w=0&k=20&c=VMhKl2mgCFBZ06FMBcxzZRj-z_ITg-Wvj7PAX11Qr4I=");
+  /* background-image: url("https://media.istockphoto.com/id/1502846052/photo/textured-soccer-game-field-with-neon-fog-center-midfield.webp?b=1&s=170667a&w=0&k=20&c=VMhKl2mgCFBZ06FMBcxzZRj-z_ITg-Wvj7PAX11Qr4I="); */
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -12,7 +12,7 @@ body {
 .checkout-page {
   background-color: #19204e;
   background-size: cover;
-  background-image: url("https://media.istockphoto.com/id/1502846052/photo/textured-soccer-game-field-with-neon-fog-center-midfield.webp?b=1&s=170667a&w=0&k=20&c=VMhKl2mgCFBZ06FMBcxzZRj-z_ITg-Wvj7PAX11Qr4I=");
+  /* background-image: url("https://media.istockphoto.com/id/1502846052/photo/textured-soccer-game-field-with-neon-fog-center-midfield.webp?b=1&s=170667a&w=0&k=20&c=VMhKl2mgCFBZ06FMBcxzZRj-z_ITg-Wvj7PAX11Qr4I="); */
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -133,15 +133,13 @@ body {
 }
 
 .button-container {
-  position: absolute;
-  bottom: 10px;
-  left: 55%;
-  transform: translateX(-50%);
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-  padding-left: 200px;
+  justify-content: flex-end;
+  padding: 10px;
+  width: auto;
 }
 .grand-total-card {
   align-items: center;
@@ -152,4 +150,22 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   background: white;
+}
+
+.purchase-confirmation-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  text-align: center;
+  z-index: 100; /* Make it appear above other elements */
+}
+
+.purchase-confirmation-dialog p {
+  margin-bottom: 10px;
 }

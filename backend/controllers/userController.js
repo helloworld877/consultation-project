@@ -212,16 +212,28 @@ const login = (req, res, next) => {
   User.findOne({ userName: userName, password: password })
     .then((result) => {
       console.log(result);
-      if (result.isConfirmed == 1) {
-        console.log("Your SignUp Request Hasn't Been Reviewed Yet");
-        res.status(500).json({
-          message: "Your SignUp Request Hasn't Been Reviewed Yet",
-        });
-      }
       if (result == null) {
         res.status(404).json({
           message: "User Not Found",
         });
+      } else if (result.isConfirmed == 1) {
+        console.log("Your SignUp Request Hasn't Been Reviewed Yet");
+        res.status(500).json({
+          message: "Your SignUp Request Hasn't Been Reviewed Yet",
+        });
+      } else if (result.isConfirmed == -1) {
+        User.deleteOne({ userName: userName })
+          .then(() => {
+            console.log("Your SignUp Request Has Been Declined");
+            res.status(200).json({
+              message: "Your SignUp Request Has Been Declined",
+            });
+            return;
+          })
+          .catch((err) => {
+            console.error(err);
+            res.status(500).json({ error: "Internal Server Error" });
+          });
       } else {
         //Give the user the token
         console.log(result);
@@ -300,11 +312,11 @@ const changePassword = (req, res, next) => {
 };
 //Checking All SignUp requests
 const getAllRequests = (req, res, next) => {
-  if (req.USER.result.role !== "Manager") {
+  if (req.USER.result.role !== "Admin") {
     return res.status(403).json({ error: "not authorized" });
   }
   // Query for users who are managers
-  const managersPromise = User.find({ role: "Manager" });
+  const managersPromise = User.find({ role: "Manager", isConfirmed: 0 });
   // Query for users who have isConfirmed = 1 (Just Signed Up)
   const confirmedUsersPromise = User.find({ isConfirmed: 1 });
   Promise.all([managersPromise, confirmedUsersPromise])
@@ -321,7 +333,7 @@ const getAllRequests = (req, res, next) => {
     });
 };
 
-//LogOut Functionality
+//Logout Functionality
 const tokenBlacklist = new Set();
 const logout = (req, res, next) => {
   const token = req.headers["authorization"].split(" ")[1];
@@ -330,6 +342,62 @@ const logout = (req, res, next) => {
   tokenBlacklist.add(token);
 
   res.status(200).json({ message: "Logged out successfully" });
+};
+
+//Handle Request
+const handleRequest = (req, res, next) => {
+  const message = req.body.message;
+  const username = req.body.userName;
+  console.log(req.body.message);
+  if (message === "accept") {
+    const filter = { userName: username };
+    const update = { isConfirmed: 0 };
+    User.findOneAndUpdate(filter, update)
+      .then((user) => {
+        console.log(user.isConfirmed);
+        console.log("SignUp Request Accepted Successfully");
+        res
+          .status(200)
+          .json({ message: "SignUp Request Accepted Successfully" });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: "Internal Server Error" });
+      });
+  } else if (message === "decline") {
+    const filter = { userName: username };
+    const update = { isConfirmed: -1 };
+    User.findOneAndUpdate(filter, update)
+      .then((user) => {
+        console.log(user.isConfirmed);
+        console.log("SignUp Request Declined Successfully");
+        res
+          .status(200)
+          .json({ message: "SignUp Request Declined Successfully" });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: "Internal Server Error" });
+      });
+  } else {
+    const filter = { userName: username };
+    User.deleteOne(filter)
+      .then((result) => {
+        if (result.deletedCount === 0) {
+          console.log("No manager account found with the given username.");
+          res.status(404).json({ message: "Manager Account Not Found" });
+        } else {
+          console.log("Manager Account Removed Successfully");
+          res
+            .status(200)
+            .json({ message: "Manager Account Removed Successfully" });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: "Internal Server Error" });
+      });
+  }
 };
 module.exports = {
   getUsers,
@@ -346,4 +414,5 @@ module.exports = {
   forgotPassword,
   changePassword,
   getAllRequests,
+  handleRequest,
 };
