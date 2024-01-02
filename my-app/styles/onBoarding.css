@@ -332,7 +332,7 @@ h6 span {
 
 .button-container {
   display: flex;
-  justify-content: flex-end; /* Aligns the button to the right */
+  justify-content: space-between; /* Aligns the button to the right */
   padding: 10px; /* Adjust padding as needed */
 }
 
@@ -353,4 +353,11 @@ h6 span {
 /* Add hover effect for button */
 .view-matches-btn:hover {
   background-color: #d6d6d6;
+}
+
+
+.button-container2 {
+  display: flex;
+  justify-content: flex-start; /* Aligns the button to the right */
+  padding: 10px; /* Adjust padding as needed */
 }

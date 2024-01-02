@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import CustomButton from "../components/customButton";
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true);
@@ -142,9 +143,12 @@ export default function Home() {
           <div className="row full-height justify-content-center">
             <div className="col-12 text-center align-self-center py-5">
               <div className="section pb-5 pt-5 pt-sm-2 text-center">
+              
                 <div className="button-container">
+                <Link href="/">
+                    <CustomButton>Home</CustomButton>
+                  </Link>
                   <Link href="/viewMatches">
-                    {/* <a className="view-matches-btn">View Matches</a>{" "} */}
                     <button type="button" className="btn btn-primary">
                       View Matches
                     </button>
@@ -184,7 +188,9 @@ export default function Home() {
                         <div className="center-wrap">
                           <div className="section text-center">
                             {loginError && (
-                              <p style={{ color: "red" , textAlign: "center"}}>{loginError}</p>
+                              <p style={{ color: "red", textAlign: "center" }}>
+                                {loginError}
+                              </p>
                             )}
                             <h4 className="mb-4 pb-3">Log In</h4>
                             <div className="form-group">
@@ -234,7 +240,9 @@ export default function Home() {
                       <div className="center-wrap">
                         <div className="section text-center">
                           {signUpError && (
-                            <p style={{ color: "red" , textAlign: "center"}}>{signUpError}</p>
+                            <p style={{ color: "red", textAlign: "center" }}>
+                              {signUpError}
+                            </p>
                           )}
                           <h4 className="mb-4 pb-3">Sign Up</h4>
                           <form onSubmit={handleSubmit}>

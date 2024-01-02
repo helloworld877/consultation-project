@@ -71,6 +71,9 @@ h1
     box-sizing: border-box;
   }
   
-  .input-fields-container label {
-    color: #fcb300; /* Match the font color of the header */
-  }
+ 
+
+  .input-fields-label {
+    color: #fcb300;
+    font-family: "Poppins", sans-serif;
+}
