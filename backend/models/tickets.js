@@ -1,20 +1,22 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
-const stadiumSchema = new Schema({
-  name: {
+const ticketsSchema = new Schema({
+  ticketId: {
     type: String,
     unique: true,
     required: true,
   },
-  rows: {
-    type: Number,
+  ticketHolder: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
-  columns: {
-    type: Number,
+  matchId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Match",
     required: true,
   },
 });
 
-module.exports = mongoose.model("Stadium", stadiumSchema, "stadiums");
+module.exports = mongoose.model("Ticket", ticketsSchema, "tickets");
