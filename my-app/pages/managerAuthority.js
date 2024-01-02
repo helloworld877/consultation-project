@@ -48,10 +48,9 @@ export default function Admin() {
   }, []);
 
   const handleUserAction = async (user, actionType) => {
-    const userName = `${user.userName} `;
-    const actionObject = { userName, message: actionType };
-    console.log("ANA HSHOF AL ZARAYER");
-
+    const userName = `${user.userName}`;
+    const actionObject = {userName,message:actionType};
+   
     try {
       const response = await fetch(
         "http://localhost:8080/users/handleRequest",
@@ -66,6 +65,7 @@ export default function Admin() {
       );
       //console.log(JSON.stringify(actionObject));
       console.log(response);
+      console.log(JSON.stringify(actionObject));
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -115,7 +115,7 @@ export default function Admin() {
             {/* End of user info */}
             <button
               className="removeButton"
-              onClick={() => handleUserAction(manager, "remove")}
+              onClick={() => handleUserAction(manager,"remove")}
             >
               Remove
             </button>
@@ -139,13 +139,13 @@ export default function Admin() {
             <div className="ContainerButtons">
               <button
                 className="acceptButton"
-                onClick={() => handleUserAction(request, "accept")}
+                onClick={() => handleUserAction(request,"accept")}
               >
                 Accept
               </button>
               <button
                 className="declineButton"
-                onClick={() => handleUserAction(request, "decline")}
+                onClick={() => handleUserAction(request,"decline")}
               >
                 Decline
               </button>
