@@ -109,9 +109,17 @@ export default function Home() {
       if (!res.ok) throw new Error(res.statusText);
       const result = await res.json();
       console.log(result);
-      if (result.message === "User added successfully") {
+      if(result.message==="User Already Exists")
+      {
+        setSignUpError("User Already Exists");
+      }
+      else if (result.message === "User added successfully") {
         console.log("harohh view matches");
         router.push("/viewMatches");
+      }
+      else
+      {
+        setSignUpError("Failed to Sign Up");
       }
     } catch (error) {
       console.error("Failed to register:", error);
