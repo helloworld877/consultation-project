@@ -10,14 +10,13 @@ body {
   color: #19204e;
   background-color: #19204e;
   overflow-x: hidden;
-  margin:0;
+  margin: 0;
 }
 
 .page-container {
-  background-size:auto;
-  /* background-image: url("https://media.istockphoto.com/id/1502846052/photo/textured-soccer-game-field-with-neon-fog-center-midfield.webp?b=1&s=170667a&w=0&k=20&c=VMhKl2mgCFBZ06FMBcxzZRj-z_ITg-Wvj7PAX11Qr4I="); */
-  background-repeat:round;
-  background-attachment:scroll;
+  background-size: auto;
+  background-repeat: round;
+  background-attachment: scroll;
   background-size: 100% 100%;
   min-height: 100vh;
   margin: 0;
@@ -27,14 +26,17 @@ a {
   cursor: pointer;
   transition: all 200ms linear;
 }
+
 p {
   font-weight: 500;
   font-size: 14px;
   line-height: 1.7;
 }
+
 h4 {
   font-weight: 600;
 }
+
 h6 span {
   padding: 0 20px;
   text-transform: uppercase;
@@ -47,15 +49,17 @@ h6 span {
   width: 100%;
   display: block;
 }
+
 .full-height {
   min-height: 100vh;
 }
 
 .back-btn {
-  opacity: 0; 
+  opacity: 0;
   position: absolute;
-  z-index: -1; 
+  z-index: -1;
 }
+
 .back-btn-label-text {
   color: #fcb300;
   font-size: 14px;
@@ -63,32 +67,31 @@ h6 span {
   margin: 10px 30px 10px 30px;
   font-weight: 500;
 }
+
 .back-btn-container {
   position: absolute;
   top: 10px;
   left: 20px;
   display: flex;
-  justify-content: center; 
-  margin: 20px 0; 
+  justify-content: center;
+  margin: 20px 0;
 }
-
 
 .back-btn-label {
   position: relative;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 40px; 
+  width: 40px;
   height: 40px;
-  border-radius: 50%; 
+  border-radius: 50%;
   background-color: #102770;
   cursor: pointer;
-  transition: all 0.5s ease; 
+  transition: all 0.5s ease;
 }
 
-
 .back-btn-label:hover {
-  background-color: #0d1f33; 
+  background-color: #0d1f33;
 }
 
 .back-btn-icon {
@@ -97,19 +100,12 @@ h6 span {
   padding: 5px 5px 5px 5px;
 }
 
-/* .card-3d-wrap {
-  position: relative;
-  width: 700px;
-  max-width: 100%;
-  height: 400px;
-  margin-top:10px;
-} */
 .card-3d-wrapper {
   width: 100%;
   height: 100%;
   position: absolute;
-  
 }
+
 .card-front {
   width: 150%;
   height: 150%;
@@ -123,6 +119,7 @@ h6 span {
   left: 0;
   top: 0;
 }
+
 .center-wrap {
   position: absolute;
   width: 550px;
@@ -133,6 +130,7 @@ h6 span {
   z-index: 20;
   display: block;
 }
+
 .form-style {
   padding: 13px;
   padding-left: 20px;
@@ -151,36 +149,31 @@ h6 span {
   transition: all 200ms linear;
   box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
 }
+
 .form-style:focus,
 .form-style:active {
   border: none;
   outline: none;
   box-shadow: 0 4px 8px 0 rgba(21, 21, 21, 0.2);
 }
+
 .form-row {
   display: flex;
   justify-content: space-between;
 }
+
 .form-column {
   display: flex;
   flex-direction: column;
-  width: calc(100% - 10px); 
+  width: calc(100% - 10px);
 }
 
 .form-row .form-column:not(:last-child) {
-  margin-right: 20px; 
+  margin-right: 20px;
 }
 
-
-.button-container {
-  display: flex;
-  justify-content: flex-end; 
-  padding: 10px; 
-  width: auto;
-}
-
-.checkout-btn {
-  background-color: #df183f; 
+.checkout-btn-matches {
+  background-color: #df183f;
   border: none;
   color: white;
   padding: 15px 35px;
@@ -188,12 +181,11 @@ h6 span {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 10px 60px;
   cursor: pointer;
   border-radius: 5px;
 }
 
-.checkout-btn:hover {
+.checkout-btn-matches:hover {
   background-color: #d6d6d6;
 }
 
@@ -201,23 +193,24 @@ h6 span {
   background-color: #0d6b0c;
   border: none;
   color: white;
-  padding: 15px 18.2vw; 
+  padding: 15px 18.2vw;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 10px 10px;
   border-radius: 5px;
-  width: auto; 
+  width: auto;
 }
 
-.check-seat-btn{
+.check-seat-btn {
   position: absolute;
   padding: 15px 35px;
 }
+
 .seat-btn {
   position: relative;
-  background-color: #27d024; 
+  background-color: #27d024;
   border: none;
   color: white;
   padding: 20px 40px;
@@ -231,18 +224,18 @@ h6 span {
   width: 120px;
   height: 70px;
 }
+
 .seat-btn.reserved {
-  background-color: #df183f; 
-  pointer-events: none; 
+  background-color: #df183f;
+  pointer-events: none;
 }
 
 .seat-btn.selected {
-  background-color: #fcb300; 
+  background-color: #fcb300;
 }
 
-
 .seat-btn .check-seat-btn {
-  opacity: 0; 
+  opacity: 0;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -250,44 +243,48 @@ h6 span {
   cursor: pointer;
 }
 
-
 .seat-btn .check-seat-btn:checked + label {
-  background-color: #df183f; 
+  background-color: #df183f;
 }
-
 
 .seat-btn:not(.reserved):hover {
-  background-color: #d6d6d6; 
+  background-color: #d6d6d6;
 }
 
-.card-container
-  {
+.card-container {
   padding-left: 29%;
   width: 180%;
-  }
+}
 
-.header
-  {
+.header {
   height: 100%;
   width: 100%;
-  }
+}
 
-  .seats 
-  {
-    background-color:white;
-    max-width: 70%;
-    margin-left: 15%;
-    display: flex;
-    border-radius: 20px;
-    flex-direction: row;
-    height: 600px;
-    align-items: center;
-    max-height: 70%;
-    justify-content: center;
-  }
+.seats {
+  background-color: white;
+  max-width: 70%;
+  margin-left: 15%;
+  display: flex;
+  border-radius: 20px;
+  flex-direction: row;
+  height: 600px;
+  align-items: center;
+  max-height: 70%;
+  justify-content: center;
+}
 
-  .seat-row 
-  {
-    flex-direction: row;
-    width: 160px;
-  }
+.seat-row {
+  flex-direction: row;
+  width: 160px;
+}
+
+.button-container {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  width: auto;
+}

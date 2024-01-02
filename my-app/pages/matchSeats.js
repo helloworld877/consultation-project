@@ -1,3 +1,5 @@
+// Seats component
+
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import MatchCard from "../components/matchCard";
@@ -38,7 +40,7 @@ export default function Seats() {
       });
   }, [router.query.matchID]);
 
-  const matchPageDetailsUrl = `/Checkout?matchID=${router.query.matchID}`;
+  const matchPageDetailsUrl = `/Checkout?matchID=${router.query.matchID}&selectedSeats=${selectedSeats.join(",")}`;
 
   const handleSeatToggle = (row, col) => {
     const seatId = `${row}-${col}`;
@@ -56,14 +58,14 @@ export default function Seats() {
 
   return (
     <div className="page-container">
+      
       <div className="section">
         <div className="row full-height justify-content-center">
           <div className="col-12 text-center align-self-center py-5">
             <div className="section pb-5 pt-5 pt-sm-2 text-center">
-              <header>
-                <div className="button-container">
+            < div className="button-container">
                   <Link href={matchPageDetailsUrl} passHref>
-                    <button type="button" className="checkout-btn">
+                    <button type="button" className="checkout-btn-matches">
                       Checkout
                     </button>
                   </Link>
@@ -79,7 +81,6 @@ export default function Seats() {
                     <span className="back-btn-label-text">Return To Matches</span>
                   </div>
                 </Link>
-              </header>
               <div className="card-container">
                 <MatchCard
                   homeTeam={matchDetails.homeTeam}
@@ -115,7 +116,9 @@ export default function Seats() {
                   </div>
                 ))}
               </div>
+              
             </div>
+           
           </div>
         </div>
       </div>

@@ -7,94 +7,105 @@ import PaymentCard from '../components/paymentMethod';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
+import CustomButton from '../components/customButton';
 
 export default function Checkout() {
-    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('Card');
-    const [matchDetails, setMatchDetails] = useState({});
-    const [receiptDetails, setReceiptDetails] = useState([]);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('Card');
+  const [matchDetails, setMatchDetails] = useState({});
+  const [showPurchaseConfirmation, setShowPurchaseConfirmation] = useState(false);
 
-    const router = useRouter();
+  const router = useRouter();
 
-    useEffect(() => {
-        const matchId = router.query.matchID;
-        fetch(`http://localhost:8080/matches/getMatch/${matchId}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setMatchDetails(data);
-                // Sample receipt details for testing
-                setReceiptDetails([
-                    {
-                        itemName: 'A1',
-                        price: 'EGP250.00',
-                        quantity: 1,
-                        total: 'EGP250.00',
-                        row: 1,
-                    },
-                    {
-                        itemName: 'B3',
-                        price: 'EGP200.00',
-                        quantity: 1,
-                        total: 'EGP200.00',
-                        row: 3,
-                    },
-                ]);
-            })
-            .catch((error) => {
-                console.error("Error fetching match details:", error);
-            });
-    }, [router.query.matchID]);
+  useEffect(() => {
+    const matchId = router.query.matchID;
+    fetch(`http://localhost:8080/matches/getMatch/${matchId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMatchDetails(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching match details:", error);
+      });
+  }, [router.query.matchID]);
 
-    const handlePaymentMethodChange = (newPaymentMethod) => {
-        setSelectedPaymentMethod(newPaymentMethod);
+  const handlePaymentMethodChange = (newPaymentMethod) => {
+    setSelectedPaymentMethod(newPaymentMethod);
+  };
+
+  const showPurchaseConfirmationDialog = () => {
+    setShowPurchaseConfirmation(true);
+  };
+
+  const hidePurchaseConfirmationDialog = () => {
+    setShowPurchaseConfirmation(false);
+  };
+
+  const selectedSeats = router.query.selectedSeats ? router.query.selectedSeats.split(",") : [];
+  const receiptDetails = selectedSeats.map((seat) => {
+    const [col, row] = seat.split("-");
+    const seatId = `${String.fromCharCode(65 + parseInt(col, 10))}${parseInt(row, 10) + 1}`;
+    const price = 'EGP200.00';
+    return {
+      itemName: seatId,
+      price,
+      quantity: 1,
+      total: price,
+      row: parseInt(row, 10) + 1,
+      col: parseInt(col, 10)
     };
+  });
 
-    const matchPageDetailsUrl = `/matchSeats?matchID=${router.query.matchID}`;
+  const matchPageDetailsUrl = `/matchSeats?matchID=${router.query.matchID}`;
 
-    // Calculate the grand total for all tickets
-    const grandTotal = receiptDetails.reduce((total, ticket) => total + parseFloat(ticket.total.replace('EGP', '')), 0);
+  const grandTotal = receiptDetails.reduce((total, ticket) => total + parseFloat(ticket.total.replace('EGP', '')), 0);
 
-    return (
-        <div className="checkout-page">
-            <div className="card-container">
-                <MatchCard
-                    homeTeam={matchDetails.homeTeam}
-                    awayTeam={matchDetails.awayTeam}
-                    matchVenue={matchDetails.matchVenue}
-                    dateAndTime={matchDetails.dateAndTime}
-                    mainReferee={matchDetails.mainReferee}
-                    linesMen={matchDetails.linesMen}
-                    clickable={false}
-                    showEditIcon={false}
-                />
-            </div>
-            <div className="receipt-container">
-                {receiptDetails.map((ticket, index) => (
-                    <ReceiptCard key={index} ticket={ticket} />
-                ))}
-            </div>
-            <div className="card grand-total-card">
-                <h2>Grand Total</h2>
-                <div className="grand-total-section">
-                    <p><strong>Total:</strong> EGP{grandTotal.toFixed(2)}</p>
-                </div>
-            </div>
-            <div className="payment-container">
-                <PaymentCard
-                    selectedPaymentMethod={selectedPaymentMethod}
-                    handlePaymentMethodChange={handlePaymentMethodChange}
-                />
-            </div>
-            <div className="button-container">
-                <button className="checkout-btn">Checkout</button>
-            </div>
-            <Link href={matchPageDetailsUrl} passHref>
-                <div className="back-btn-container">
-                    <label htmlFor="reg-log" className="back-btn-label">
-                        <FontAwesomeIcon icon={faArrowLeft} className="back-btn-icon" />
-                    </label>
-                    <span className="back-btn-label-text">Return To Seats</span>
-                </div>
-            </Link>
+  const handleCheckout = () => {
+    // Perform checkout logic here
+    showPurchaseConfirmationDialog();
+  };
+
+  return (
+    <div className="checkout-page">
+      <div className="card-container">
+        <MatchCard
+          homeTeam={matchDetails.homeTeam}
+          awayTeam={matchDetails.awayTeam}
+          matchVenue={matchDetails.matchVenue}
+          dateAndTime={matchDetails.dateAndTime}
+          mainReferee={matchDetails.mainReferee}
+          linesMen={matchDetails.linesMen}
+          clickable={false}
+          showEditIcon={false}
+        />
+      </div>
+      <div className="receipt-container">
+        {receiptDetails.map((ticket, index) => (
+          <ReceiptCard key={index} ticket={ticket} />
+        ))}
+      </div>
+      <div className="card grand-total-card">
+        <h2>Grand Total</h2>
+        <div className="grand-total-section">
+          <p><strong>Total:</strong> EGP{grandTotal.toFixed(2)}</p>
         </div>
-    );
+      </div>
+      <div className="payment-container">
+        <PaymentCard
+          selectedPaymentMethod={selectedPaymentMethod}
+          handlePaymentMethodChange={handlePaymentMethodChange}
+          handleCheckout={handleCheckout} // Pass the checkout callback
+        />
+      </div>
+      
+
+      <Link href={matchPageDetailsUrl} passHref>
+        <div className="back-btn-container">
+          <label htmlFor="reg-log" className="back-btn-label">
+            <FontAwesomeIcon icon={faArrowLeft} className="back-btn-icon" />
+          </label>
+          <span className="back-btn-label-text">Return To Seats</span>
+        </div>
+      </Link>
+    </div>
+  );
 }
