@@ -218,7 +218,7 @@ const login = (req, res, next) => {
         });
       } else if (result.isConfirmed == 1) {
         console.log("Your SignUp Request Hasn't Been Reviewed Yet");
-        res.status(500).json({
+        res.status(200).json({
           message: "Your SignUp Request Hasn't Been Reviewed Yet",
         });
       } else if (result.isConfirmed == -1) {
@@ -228,15 +228,13 @@ const login = (req, res, next) => {
             res.status(200).json({
               message: "Your SignUp Request Has Been Declined",
             });
-            return;
           })
           .catch((err) => {
             console.error(err);
-            res.status(500).json({ error: "Internal Server Error" });
+            res.status(500).json({ err, message: "Error Declining Request" });
           });
       } else {
         //Give the user the token
-        console.log("HENAAAA");
         console.log(result);
         const user = { result };
         console.log(user);
