@@ -316,7 +316,7 @@ const getAllRequests = (req, res, next) => {
     return res.status(403).json({ error: "not authorized" });
   }
   // Query for users who are managers
-  const managersPromise = User.find({ role: "Manager" });
+  const managersPromise = User.find({ role: "Manager", isConfirmed: 0 });
   // Query for users who have isConfirmed = 1 (Just Signed Up)
   const confirmedUsersPromise = User.find({ isConfirmed: 1 });
   Promise.all([managersPromise, confirmedUsersPromise])
