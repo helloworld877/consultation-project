@@ -20,7 +20,6 @@ export default function Seats() {
       .then((data) => {
         setMatchDetails(data);
         setReservedSeats(data.reservedSeats || []);
-        console.log(data.reservedSeats);
         let size = data.reservedSeats.length;
         let allReservedSeats = new Array(size);
         if (data.reservedSeats) {
@@ -31,7 +30,6 @@ export default function Seats() {
             allReservedSeats.push(seatId);
           }
         }
-        console.log(allReservedSeats);
         setReservedSeats(allReservedSeats);
         setStadiumSize(data.size || []);
       })
@@ -99,7 +97,6 @@ export default function Seats() {
                   <div key={row} className="seat-row">
                     {[...Array(stadiumSize[1])].map((_, col) => {
                       const seatId = `${row}-${col}`;
-                      console.log(seatId);
                       const isReserved = reservedSeats.includes(seatId);
                       return (
                         <button
