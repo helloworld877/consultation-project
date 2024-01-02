@@ -121,7 +121,6 @@ export default function AccountDetails() {
       
       if(result.message === "User Info & Role Updated successfully")
       {
-        console.log("BOSY ANA UPDATED W HRGA3 AL ROOT BKRAMTY");
         router.push("/");
       } else if (result.message === "User Info Updated successfully") {
         router.push("/profile");
