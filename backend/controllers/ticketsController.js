@@ -38,27 +38,12 @@ const createTicket = (req, res, next) => {
             // console.log(updatedSeats);
             Match.findOne({ _id: result.matchId }).then((resultMatch) => {
               console.log("GEBT EL MATCH");
-              const filter = { _id: resultMatch._id };
               const updatedSeats = resultMatch.reservedSeats;
               updatedSeats.push(seats[i]);
-              const update = {
-                reservedSeats: updatedSeats,
-              };
-              Match.findOneAndUpdate(filter, update).then((match) => {
-                console.log("Match Reserved Seats Updated Successfully");
-                console.log(match);
-                // res.status(200).json({
-                //   match,
-                //   message: "Reserved Seats Updated Successfully",
-                // });
-              });
+              console.log(updatedSeats);
+              resultMatch.reservedSeats = updatedSeats;
+              resultMatch.save();
             });
-            // .catch((err) => {
-            //   console.log(err);
-            //   res
-            //     .status(404)
-            //     .json({ err, message: "Error Updating Reserved Seats" });
-            // });
             console.log("Ticket added Successfully");
             res.status(200).json({ message: "Ticket added successfully" });
           })
