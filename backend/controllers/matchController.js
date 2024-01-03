@@ -49,7 +49,7 @@ const createMatch = (req, res, next) => {
       { matchVenue: matchVenue },
       { linesMen: { $in: linesMen } },
     ],
-    dateAndTime: { $eq: dateAndTime }, // Uncomment if you want to check for the specific date and time as well
+    dateAndTime: { $eq: dateAndTime },
   })
     .then((existingMatch) => {
       if (existingMatch) {
