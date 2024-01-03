@@ -176,9 +176,8 @@ const updateMatch = (req, res, next) => {
   const { homeTeam, awayTeam, matchVenue, dateAndTime, mainReferee, linesMen } =
     req.body;
 
-  // First, check for existing conflicts
   Match.findOne({
-    _id: { $ne: matchId }, // Exclude the match being updated from the conflict check
+    _id: { $ne: matchId },
     $or: [
       { mainReferee: mainReferee },
       { homeTeam: homeTeam },
@@ -190,20 +189,17 @@ const updateMatch = (req, res, next) => {
   })
     .then((conflictMatch) => {
       if (conflictMatch) {
-        // Conflict found, don't update the match and inform the user
         return res
           .status(200)
           .json({ message: "There is a conflict with an existing match." });
+      } else {
+        return Match.findOne({ _id: matchId });
       }
-
-      // No conflicts found, proceed to update the match
-      return Match.findOne({ _id: matchId });
     })
     .then((match) => {
       if (!match) {
         return res.status(404).json({ message: "Match not found" });
       }
-      // Update match details
       match.homeTeam = homeTeam;
       match.awayTeam = awayTeam;
       match.matchVenue = matchVenue;
@@ -214,13 +210,13 @@ const updateMatch = (req, res, next) => {
       return match.save();
     })
     .then((result) => {
-      console.log("Match Details Updated Successfully");
-      console.log(result);
-      res.status(200).json({ result, message: "Edited Match Successfully" });
+      if (result) {
+        res.status(201).json({ message: "Edited Match Successfully" });
+      }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).json({ err, message: "Match Not Updated" });
+      console.error(err);
+      res.status(500).json({ error: err.message });
     });
 };
 
