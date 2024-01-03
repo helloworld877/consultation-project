@@ -129,7 +129,10 @@ export default function EditMatch() {
           router.push("/viewMatches");
         } else if (result.message === "invalid new stadium size") {
           setErrorMessage("Invalid new stadium size");
-        } else {
+        } else if(result.message === "There is a conflict with an existing match."){
+          setErrorMessage("There is a conflict with an existing match.");
+        }
+        else {
           setErrorMessage(result.message || "Failed to edit match");
         }
       } catch (error) {
