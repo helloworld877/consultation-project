@@ -2,13 +2,22 @@
 
 body {
   background-color: #19204e;
-  margin: 0; /* Reset default margin */
-  padding: 0; /* Reset default padding */
+  margin: 0; 
+  padding: 0; 
+  font-family: "Poppins", sans-serif;
+  color: #fff; 
 }
 
 h1 {
-  font-family: "Poppins", sans-serif;
   color: #fcb300;
+  text-align: center;
+  margin-bottom: 1rem; 
+}
+
+.photo {
+  width: 30px; 
+  height: auto; 
+  margin-right: 8px; 
 }
 
 .matches-page {
@@ -16,7 +25,6 @@ h1 {
   flex-direction: column;
   align-items: center;
   background-color: #19204e;
-  font-family: "Poppins", sans-serif;
   padding: 20px;
 }
 
@@ -28,22 +36,24 @@ h1 {
   margin-bottom: 20px;
 }
 
-.header-buttons {
+.icon-container {
   display: flex;
-  gap: 10px;
+  align-items: center; 
+  justify-content: flex-start ; 
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.icon:hover {
+  opacity: 0.8; 
 }
 
 .matches-grid {
   display: flex;
-flex-wrap: wrap;
+  flex-wrap: wrap;
   gap: 20px;
+  justify-content: center; 
   width: 100%;
-}
-
-.add-match-button, .add-stadium-button {
-  margin-bottom: 10px;
-}
-.btn
-{
-  margin-left: 20px !important;
 }

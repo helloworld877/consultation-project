@@ -31,6 +31,7 @@ export default function Home() {
           </div>
         </div>
       </header>
+      <main>
       <Carousel className="carousel-container">
         <Carousel.Item>
           <img
@@ -42,11 +43,12 @@ export default function Home() {
         <Carousel.Item>
           <img
             className="d-block w-100 match-image"
-            src="https://www.arabnews.com/sites/default/files/styles/n_670_395/public/2021/08/18/2768866-940610078.jpg?itok=JNO6oq8c"
+            src="https://www.reuters.com/resizer/DaZNkKYEDCaD9pFrpFcB9PIvpXw=/960x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/OZGVLVWZ4JLBJEBQLN5L3ZOAUE.jpg"
             alt="Second slide"
           />
         </Carousel.Item>
       </Carousel>
+      </main>
     </div>
   );
 }

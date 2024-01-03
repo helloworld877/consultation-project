@@ -41,6 +41,7 @@ h1 {
 .button-container{
     margin-left: 10px;
     display: inline-block;
+    margin-top: 25px;
 }
 
 main {
@@ -52,6 +53,14 @@ main {
     overflow: hidden;
     white-space: nowrap;
 }
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    height: 100vh; 
+    padding: 10px;
+  }
+  
 
 .match-image {
     height: 100%;
@@ -59,7 +68,9 @@ main {
   }
 
   .carousel-container {
-    height: 100%; 
+    height: 90%; 
+    width: 90%;
+    margin: auto;
     overflow: hidden;
   }
   
