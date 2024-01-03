@@ -29,6 +29,7 @@ const createTicket = (req, res, next) => {
         ticket
           .save()
           .then((result) => {
+            console.log("HENAAAA");
             console.log(result.matchId);
             const filter = { _id: result.matchId };
             const update = {
