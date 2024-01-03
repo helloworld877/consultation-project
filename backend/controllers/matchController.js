@@ -171,53 +171,58 @@ const updateMatchValidate = (req, res, next) => {
 //       });
 //   });
 // };
-const updateMatch = (req, res, next) => {
-  const matchId = req.body.id;
-  const { homeTeam, awayTeam, matchVenue, dateAndTime, mainReferee, linesMen } =
-    req.body;
+const updateMatch = async (req, res, next) => {
+  try {
+    const matchId = req.body.id;
+    const {
+      homeTeam,
+      awayTeam,
+      matchVenue,
+      dateAndTime,
+      mainReferee,
+      linesMen,
+    } = req.body;
 
-  Match.findOne({
-    _id: { $ne: matchId },
-    $or: [
-      { mainReferee: mainReferee },
-      { homeTeam: homeTeam },
-      { awayTeam: awayTeam },
-      { matchVenue: matchVenue },
-      { linesMen: { $in: linesMen } },
-    ],
-    dateAndTime: { $eq: dateAndTime },
-  })
-    .then((conflictMatch) => {
-      if (conflictMatch) {
-        return res
-          .status(200)
-          .json({ message: "There is a conflict with an existing match." });
-      } else {
-        return Match.findOne({ _id: matchId });
-      }
-    })
-    .then((match) => {
-      if (!match) {
-        return res.status(404).json({ message: "Match not found" });
-      }
-      match.homeTeam = homeTeam;
-      match.awayTeam = awayTeam;
-      match.matchVenue = matchVenue;
-      match.dateAndTime = dateAndTime;
-      match.mainReferee = mainReferee;
-      match.linesMen = linesMen;
-
-      return match.save();
-    })
-    .then((result) => {
-      if (result) {
-        res.status(201).json({ message: "Edited Match Successfully" });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: err.message });
+    const conflictMatch = await Match.findOne({
+      _id: { $ne: matchId },
+      $or: [
+        { mainReferee: mainReferee },
+        { homeTeam: homeTeam },
+        { awayTeam: awayTeam },
+        { matchVenue: matchVenue },
+        { linesMen: { $in: linesMen } },
+      ],
+      dateAndTime: { $eq: dateAndTime },
     });
+
+    if (conflictMatch) {
+      return res
+        .status(400)
+        .json({ message: "There is a conflict with an existing match." });
+    }
+
+    const match = await Match.findById(matchId);
+    if (!match) {
+      return res.status(404).json({ message: "Match not found" });
+    }
+
+    // Update match details
+    match.homeTeam = homeTeam || match.homeTeam;
+    match.awayTeam = awayTeam || match.awayTeam;
+    match.matchVenue = matchVenue || match.matchVenue;
+    match.dateAndTime = dateAndTime || match.dateAndTime;
+    match.mainReferee = mainReferee || match.mainReferee;
+    match.linesMen = linesMen || match.linesMen;
+
+    await match.save();
+    res.status(200).json({ message: "Edited Match Successfully" });
+  } catch (err) {
+    console.error(err);
+    // This ensures no further attempts to set headers after an error.
+    if (!res.headersSent) {
+      res.status(500).json({ error: err.message });
+    }
+  }
 };
 
 //delete a match
