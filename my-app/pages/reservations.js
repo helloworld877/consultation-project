@@ -1,7 +1,6 @@
 import Ticket from "../components/ticket";
 import "../styles/reservations.css";
 import Link from "next/link";
-import CustomButton from "../components/customButton";
 import React, { useEffect, useState } from "react";
 
 export default function Reservations() {
