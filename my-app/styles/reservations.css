@@ -3,7 +3,18 @@
 body {
   background-color: #19204e;
   margin: 0;
-  padding: 0; 
+  padding: 0;
+}
+.reservationsIcon-container {
+  justify-content: flex-start;
+  padding: 10px;
+}
+.reservationsIcon {
+  margin-right: 10px;
+  width: 2%;
+  height: 2%;
+  margin-left: 20px;
+  margin-top: 10px;
 }
 
 h1 {
@@ -18,28 +29,20 @@ h1 {
   background-color: #19204e;
   font-family: "Poppins", sans-serif;
   position: relative;
-
 }
 
 .tickets-view {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap; /* Allow items to wrap to the next line */
-    gap: 20px;
-    width: 100%;
-
+  gap: 20px;
+  width: 100%;
 }
-  
 
 .page-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
-  margin-top: 20px;
-
-}
-
-.header-buttons {
-  display: flex;
-  gap: 10px;
 }

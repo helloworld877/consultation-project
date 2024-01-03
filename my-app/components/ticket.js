@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCancel, faEdit } from "@fortawesome/free-solid-svg-icons";
 import CustomButton from "./customButton";
 
-const Ticket = ({ clickable = false, showCancelIcon, seatDetails }) => {
+const Ticket = ({ clickable = false, showCancelIcon, ticketNumber, seatNumber, matchId }) => {
   const router = useRouter();
 
   const matchDetails = {
@@ -52,10 +52,10 @@ const Ticket = ({ clickable = false, showCancelIcon, seatDetails }) => {
 
       <div className="ticket-details">
         <p>
-          <strong>Ticket Number:</strong> {seatDetails.ticketNumber}
+          <strong>Ticket ID:</strong> {ticketNumber}
         </p>
         <p>
-          <strong>Seat Number:</strong> {seatDetails.seatNumber}
+          <strong>Seat Number:</strong> {seatNumber}
         </p>
       </div>
 

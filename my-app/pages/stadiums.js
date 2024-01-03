@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import StadiumCard from "../components/StadiumCard";
 import "../styles/stadiums.css";
 import Link from "next/link";
-import CustomButton from "../components/customButton";
 
 export default function Stadiums() {
   const [stadiums, setStadiums] = useState([]);
@@ -18,26 +17,47 @@ export default function Stadiums() {
 
   return (
     <div className="stadiums-page">
-      <div className="page-header">
+      <div className="stadiumsPage-header">
         <div className="header-buttons">
           <Link href="/addStadium">
-            <CustomButton>+ Add Stadium</CustomButton>
+          <img
+                src="/plus.png"
+                alt="Add Stadium"
+                className="stadiumIcon stadiumPhoto"
+                title="Add Stadium"
+              />
           </Link>
 
           <Link href="/viewMatches">
-            <CustomButton>View Matches</CustomButton>
+          <img
+                src="/football-field.png"
+                alt="View Matches"
+                className="stadiumIcon stadiumPhoto"
+                title="View Matches"
+              />
           </Link>
         </div>
-        <h1>Stadiums</h1>
+       
         <div className="profile-button">
           <Link href="/profile">
-            <CustomButton>View Profile</CustomButton>
+          <img
+                src="/user.png"
+                alt="View Profile"
+                className="stadiumIcon stadiumPhoto"
+                title="View Profile"
+              />
           </Link>
           <Link href="/">
-            <CustomButton>Sign Out</CustomButton>
+          <img
+                src="/logout.png"
+                alt="Sign Out"
+                className="stadiumIcon stadiumPhoto"
+                title="Sign Out"
+              />
           </Link>
         </div>
       </div>
+      <div> <h1>Stadiums</h1></div>
       <div className="stadiums-grid">
         {stadiums.map((stadium) => (
           <StadiumCard
@@ -47,7 +67,7 @@ export default function Stadiums() {
             columns={stadium.columns}
             rows={stadium.rows}
             clickable={true}
-            showEditIcon={true}
+            showEditIcon={false}
           />
         ))}
       </div>

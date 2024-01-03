@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import MatchCard from "../components/matchCard";
 import "../styles/viewMatches.css";
 import Link from "next/link";
-import CustomButton from "../components/customButton";
 
 export default function Matches() {
   const [matches, setMatches] = useState([]);
@@ -24,31 +23,48 @@ export default function Matches() {
 
   return (
     <div className="matches-page">
-      <div className="page-header">
-      <div className="header-buttons">
-         
+      <div className="viewMatchesPage-header">
+        <div className="icon-container">
           {isManager && (
             <Link href="/addMatch">
-              <CustomButton>+ Add Match</CustomButton>
+              <img
+                src="/match-box.png"
+                alt="Add Match"
+                className="viewMatchesIcon viewMatchesphoto"
+                title="Add Match"
+              />
             </Link>
           )}
           {isManager && (
             <Link href="/stadiums">
-              <CustomButton>View Stadiums</CustomButton>
+              <img
+                src="/stadium.png"
+                alt="View Stadiums"
+                className="viewMatchesIcon viewMatchesphoto"
+                title="View Stadiums"
+              />
             </Link>
           )}
-        </div>
-        <h1>Upcoming Matches</h1>
-        <div className="profile-button">
           <Link href="/profile">
-            <CustomButton >View Profile</CustomButton>
+            <img
+              src="/user.png"
+              alt="Profile"
+              className="viewMatchesIcon viewMatchesphoto"
+              title="View Profile"
+            />
           </Link>
           <Link href="/">
-            <CustomButton >Sign Out</CustomButton>
+            <img
+              src="/logout.png"
+              alt="Sign Out"
+              className="viewMatchesIcon viewMatchesphoto"
+              title="Sign Out"
+            />
           </Link>
         </div>
-        
-        
+      </div>
+      <div>
+        <h1>Upcoming Matches</h1>
       </div>
       <div className="matches-grid">
         {matches.length > 0 ? (

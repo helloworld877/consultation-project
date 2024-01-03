@@ -48,7 +48,6 @@ export default function Home() {
     setLoginError("");
     console.log("EL LOGIN AHWWW B2A  AHEHHHHHH");
 
-
     try {
       const data = {
         userName: loginData.userName,
@@ -68,7 +67,6 @@ export default function Home() {
       console.log("EL ressss AHW");
       console.log(res.status);
       if (!res.ok) throw new Error(res.statusText);
-      
 
       const result = await res.json();
       console.log("EL MESSAGE LEL LOGIN AHEHHHHHH");
@@ -78,18 +76,16 @@ export default function Home() {
         if (typeof window !== "undefined") {
           localStorage.setItem("role", result.result.role);
           localStorage.setItem("token", result.accessToken);
-          if(result.result.role === "Admin")
-          {
+          if (result.result.role === "Admin") {
             router.push("/managerAuthority");
-          }
-          else
-          {
+          } else {
             router.push("/viewMatches");
           }
-          
         }
         router.push("/viewMatches");
-      } else if (result.message === "Your SignUp Request Hasn't Been Reviewed Yet") {
+      } else if (
+        result.message === "Your SignUp Request Hasn't Been Reviewed Yet"
+      ) {
         console.log("ana msh reviewed");
         setLoginError("Your SignUp Request Hasn't Been Reviewed Yet");
       } else if (result.message === "Your SignUp Request Has Been Declined") {
@@ -123,7 +119,6 @@ export default function Home() {
       !formData.birthDate.trim() ||
       !formData.gender ||
       !formData.city.trim() ||
-      !formData.address.trim() ||
       !formData.emailAddress.trim() ||
       !formData.role
     ) {
@@ -173,14 +168,22 @@ export default function Home() {
           <div className="row full-height justify-content-center">
             <div className="col-12 text-center align-self-center py-5">
               <div className="section pb-5 pt-5 pt-sm-2 text-center">
-                <div className="button-container">
+                <div className="LoginIcon-container">
                   <Link href="/">
-                    <CustomButton>Home</CustomButton>
+                  <img
+                      src="/home.png"
+                      alt="Home"
+                      className="Loginicon photo"
+                      title="Home"
+                    />
                   </Link>
-                  <Link href="/viewMatches">
-                    <button type="button" className="btn btn-primary">
-                      View Matches
-                    </button>
+                  <Link href="/viewMatchesGuest">
+                    <img
+                      src="/football-field.png"
+                      alt="View Matches"
+                      className="Loginicon photo"
+                      title="View Matches"
+                    />
                   </Link>
                 </div>
                 <input

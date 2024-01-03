@@ -60,9 +60,13 @@ export default function EditMatch() {
         const teamOptions = data.map((team) => ({
           label: team.name,
           value: team.name,
+          
         }));
+        console.log("DATAA HENA");
+        console.log(data);
         setTeamOptions(teamOptions);
       });
+     
   }, []);
 
   useEffect(() => {
@@ -78,7 +82,7 @@ export default function EditMatch() {
       });
   }, []);
 
-  const handleSave =async (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
     if (
       !homeTeamState ||
@@ -103,21 +107,26 @@ export default function EditMatch() {
         linesMen: linesmenState,
       };
       try {
-        const response = await fetch("http://localhost:8080/matches/updateMatch", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(matchDetails),
-        });
+        const response = await fetch(
+          "http://localhost:8080/matches/updateMatch",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(matchDetails),
+          }
+        );
         const result = await response.json();
         console.log(result);
         if (result.message === "Edited Match Successfully") {
           router.push("/viewMatches");
+        } else if (result.message === "invalid new stadium size") {
+          setErrorMessage("Invalid new stadium size");
         } else {
           setErrorMessage(result.message || "Failed to edit match");
         }
-      } catch (error){
+      } catch (error) {
         console.error("Failed to update password:", error);
         setErrorMessage(error.message || "Failed to edit match");
       }
@@ -144,47 +153,47 @@ export default function EditMatch() {
         <div className="column">
           <div className="input-fields-container">
             <div className="input-fields-label">
-          <label htmlFor="homeTeam">Home Team:</label>
-          </div>
-          <CustomDropdown
+              <label htmlFor="homeTeam">Home Team:</label>
+            </div>
+            <CustomDropdown
               name="homeTeam"
               options={homeTeamOptions}
               placeholder={homeTeamState}
               id="homeTeam"
-              onChange={(selectedOption) => setHomeTeamState(selectedOption)}
+              onChange={(selectedOption) => setHomeTeamState(selectedOption.value)}
               value={homeTeamState}
             />
           </div>
           <div className="input-fields-container">
-          <div className="input-fields-label">
-          <label htmlFor="awayTeam">Away Team:</label>
-          </div>
-          <CustomDropdown
+            <div className="input-fields-label">
+              <label htmlFor="awayTeam">Away Team:</label>
+            </div>
+            <CustomDropdown
               name="awayTeam"
               options={awayTeamOptions}
               placeholder={awayTeamState}
               id="awayTeam"
-              onChange={(selectedOption) => setAwayTeamState(selectedOption)}
+              onChange={(selectedOption) => setAwayTeamState(selectedOption.value)}
               value={awayTeamState}
             />
           </div>
           <div className="input-fields-container">
-          <div className="input-fields-label">
-          <label htmlFor="venue">Venue:</label>
-          </div>
-          <CustomDropdown
+            <div className="input-fields-label">
+              <label htmlFor="venue">Venue:</label>
+            </div>
+            <CustomDropdown
               name="venue"
               options={venueOptions}
               placeholder={venueState}
               id="venue"
-              onChange={(selectedOption) => setVenueState(selectedOption)}
+              onChange={(selectedOption) => setVenueState(selectedOption.value)}
               value={venueState}
             />
           </div>
           <div className="input-fields-container">
-          <div className="input-fields-label">
-          <label htmlFor="date">Date:</label>
-          </div>
+            <div className="input-fields-label">
+              <label htmlFor="date">Date:</label>
+            </div>
             <CustomInput
               type="date"
               name="date"
@@ -197,9 +206,9 @@ export default function EditMatch() {
         </div>
         <div className="column">
           <div className="input-fields-container">
-          <div className="input-fields-label">
-          <label htmlFor="time">Time:</label>
-          </div>
+            <div className="input-fields-label">
+              <label htmlFor="time">Time:</label>
+            </div>
             <CustomInput
               type="time"
               name="time"
@@ -210,9 +219,9 @@ export default function EditMatch() {
             />
           </div>
           <div className="input-fields-container">
-          <div className="input-fields-label">
-          <label htmlFor="mainReferee">Main Referee:</label>
-          </div>
+            <div className="input-fields-label">
+              <label htmlFor="mainReferee">Main Referee:</label>
+            </div>
             <CustomInput
               type="text"
               name="mainReferee"
@@ -224,7 +233,7 @@ export default function EditMatch() {
           </div>
 
           <div className="input-fields-label">
-          <label htmlFor="linesMen">Linesmen:</label>
+            <label htmlFor="linesMen">Linesmen:</label>
           </div>
           {linesmenState.map((linesman, index) => (
             <div className="input-fields-container">
