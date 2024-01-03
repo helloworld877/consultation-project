@@ -8,6 +8,7 @@ const createTicket = (req, res, next) => {
   const ticketHolder = req.USER.result.userName;
   const matchId = req.body.matchId;
   const seats = req.body.seats;
+  const updatedSeats = [];
   for (let i = 0; i < seats.length; i++) {
     console.log("These Are The Seats");
     console.log(seats[i][0]);
@@ -15,6 +16,7 @@ const createTicket = (req, res, next) => {
     const row = seats[i][0];
     const column = seats[i][1];
     const ticketId = ticketHolder + row + column + matchId;
+    console.log(ticketId);
     Ticket.findOne({ ticketId: ticketId }).then((result) => {
       if (result) {
         console.log(result);
@@ -30,26 +32,33 @@ const createTicket = (req, res, next) => {
           .save()
           .then((result) => {
             console.log("HENAAAA");
-            log(result);
-            // console.log(result.matchId);
-            const filter = { _id: result.matchId };
-            const update = {
-              reservedSeats: result.matchId.reservedSeats.append(seats[i]),
-            };
-            Match.findOneAndUpdate(filter, update)
-              .then((match) => {
+            console.log(result);
+            console.log(seats[i]);
+            // updatedSeats.push(seats[i]);
+            // console.log(updatedSeats);
+            Match.findOne({ _id: result.matchId }).then((resultMatch) => {
+              console.log("GEBT EL MATCH");
+              const filter = { _id: resultMatch._id };
+              const updatedSeats = resultMatch.reservedSeats;
+              updatedSeats.push(seats[i]);
+              const update = {
+                reservedSeats: updatedSeats,
+              };
+              Match.findOneAndUpdate(filter, update).then((match) => {
+                console.log("Match Reserved Seats Updated Successfully");
                 console.log(match);
-                res.status(200).json({
-                  match,
-                  message: "Reserved Seats Updated Successfully",
-                });
-              })
-              .catch((err) => {
-                console.log(err);
-                res
-                  .status(404)
-                  .json({ err, message: "Error Updating Reserved Seats" });
+                // res.status(200).json({
+                //   match,
+                //   message: "Reserved Seats Updated Successfully",
+                // });
               });
+            });
+            // .catch((err) => {
+            //   console.log(err);
+            //   res
+            //     .status(404)
+            //     .json({ err, message: "Error Updating Reserved Seats" });
+            // });
             console.log("Ticket added Successfully");
             res.status(200).json({ message: "Ticket added successfully" });
           })
