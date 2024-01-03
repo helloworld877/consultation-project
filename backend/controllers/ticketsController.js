@@ -72,7 +72,7 @@ const getUserTickets = (req, res, next) => {
 
 //Cancel Ticket
 const cancelTicket = (req, res, next) => {
-  const ticketId = req.body.ticketId;
+  const ticketId = req.params.ticketId;
   Ticket.findOneAndDelete({ ticketId: ticketId })
     .then((ticket) => {
       if (ticket) {
