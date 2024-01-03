@@ -7,7 +7,6 @@ import PaymentCard from '../components/paymentMethod';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
-import CustomButton from '../components/customButton';
 
 export default function Checkout() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('Card');
@@ -40,7 +39,9 @@ export default function Checkout() {
     setShowPurchaseConfirmation(false);
   };
 
+
   const selectedSeats = router.query.selectedSeats ? router.query.selectedSeats.split(",") : [];
+  
   const receiptDetails = selectedSeats.map((seat) => {
     const [col, row] = seat.split("-");
     const seatId = `${String.fromCharCode(65 + parseInt(col, 10))}${parseInt(row, 10) + 1}`;
@@ -55,13 +56,49 @@ export default function Checkout() {
     };
   });
 
+
   const matchPageDetailsUrl = `/matchSeats?matchID=${router.query.matchID}`;
 
   const grandTotal = receiptDetails.reduce((total, ticket) => total + parseFloat(ticket.total.replace('EGP', '')), 0);
 
   const handleCheckout = () => {
-    // Perform checkout logic here
     showPurchaseConfirmationDialog();
+
+    const accessToken = localStorage.getItem("token");
+    console.log(accessToken);
+    const matchId = router.query.matchID;
+    console.log(matchId);
+    const seats = router.query.selectedSeats;
+    console.log(seats);
+
+    const ticketData = {  
+      ticketHolder: accessToken,
+      matchId,
+      seats: seats
+    };
+    fetch("http://localhost:8080/tickets/createTicket", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${accessToken}`,
+      },
+      body: JSON.stringify(ticketData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Ticket added successfully:", data);
+        // Redirect or perform any other action after successful save
+      })
+      .catch((error) => {
+        console.error("Error adding ticket:", error);
+        // Handle error, display an error message, etc.
+      });
+      console.log(ticketData);
+      console.log(data);
+      console.log(response);
+      console.log(JSON.stringify(ticketData));
+
+
   };
 
   return (
