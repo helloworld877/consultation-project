@@ -15,19 +15,37 @@ export default function Reservations() {
   return (
     <div className="tickets-page">
       <div className="page-header">
-        <h1>Reserved Tickets</h1>
-
         <div className="header-buttons">
-          <Link href="/profile">
-            <CustomButton>View Profile</CustomButton>
-          </Link>
-          <Link href="/viewMatches">
-            <CustomButton>View Matches</CustomButton>
-          </Link>
-          <Link href="/">
-            <CustomButton>Sign Out</CustomButton>
-          </Link>
+          <div className="icon-container">
+            <Link href="/profile">
+              <img
+                src="/user.png"
+                alt="Profile"
+                className="icon photo"
+                title="View Profile"
+              />
+            </Link>
+            <Link href="/viewMatches">
+              <img
+                src="/football-field.png"
+                alt="View Matches"
+                className="icon photo"
+                title="View Matches"
+              />
+            </Link>
+            <Link href="/">
+              <img
+                src="/logout.png"
+                alt="Sign Out"
+                className="icon photo"
+                title="Sign Out"
+              />
+            </Link>
+          </div>
         </div>
+      </div>
+      <div>
+        <h1>Reserved Tickets</h1>
       </div>
       <div className="tickets-view">
         {reservedTickets.map((ticket, index) => (

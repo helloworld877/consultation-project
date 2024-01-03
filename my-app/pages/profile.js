@@ -3,12 +3,10 @@ import Link from "next/link";
 import "../styles/profile.css";
 import { useRouter } from "next/router";
 
-
 export default function Profile() {
-
   const router = useRouter();
-  const [logoutError, setLogoutError] = useState(""); 
-  const [role, setRole] = useState('');
+  const [logoutError, setLogoutError] = useState("");
+  const [role, setRole] = useState("");
 
   const [details, setDetails] = useState({
     userName: "",
@@ -25,7 +23,7 @@ export default function Profile() {
   const userProfileImage = "/images/football.jpg";
   useEffect(() => {
     fetchDetails();
-    const userRole = localStorage.getItem('role');
+    const userRole = localStorage.getItem("role");
     setRole(userRole);
   }, []);
 
@@ -88,7 +86,6 @@ export default function Profile() {
       });
       console.log(`bearer ${accessToken}`);
 
-
       if (!response.ok) {
         throw new Error("Logout failed");
       }
@@ -97,17 +94,15 @@ export default function Profile() {
       console.log("RESULT BTA3 LOG OUT");
       console.log(result);
       console.log(result.message);
-      if(result.message === "Logged out successfully")
-      {
+      if (result.message === "Logged out successfully") {
         localStorage.removeItem("token");
         router.push("/");
-      } else
-      {
-        setLogoutError("Not logged out. Please try again."); 
+      } else {
+        setLogoutError("Not logged out. Please try again.");
       }
     } catch (error) {
       console.error("Error logging out:", error);
-      setLogoutError("An error occurred. Please try again."); 
+      setLogoutError("An error occurred. Please try again.");
     }
   };
 
@@ -136,12 +131,12 @@ export default function Profile() {
             <h1 className="link changePassword">Change Password</h1>
           </Link>
 
-          {role !== 'Manager' && (
+          {role !== "Manager" && (
             <Link href="/reservations" passHref>
               <h1 className="link reservations">View Tickets</h1>
             </Link>
           )}
-          
+
           <button onClick={logout} className="link logOut">
             Log Out
           </button>

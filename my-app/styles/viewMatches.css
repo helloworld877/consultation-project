@@ -2,22 +2,22 @@
 
 body {
   background-color: #19204e;
-  margin: 0; 
-  padding: 0; 
+  margin: 0;
+  padding: 0;
   font-family: "Poppins", sans-serif;
-  color: #fff; 
+  color: #fff;
 }
 
 h1 {
   color: #fcb300;
   text-align: center;
-  margin-bottom: 1rem; 
+  margin-bottom: 1rem;
 }
 
 .photo {
-  width: 30px; 
-  height: auto; 
-  margin-right: 8px; 
+  width: 30px;
+  height: auto;
+  margin-right: 8px;
 }
 
 .matches-page {
@@ -38,8 +38,8 @@ h1 {
 
 .icon-container {
   display: flex;
-  align-items: center; 
-  justify-content: flex-start ; 
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .icon {
@@ -47,13 +47,13 @@ h1 {
 }
 
 .icon:hover {
-  opacity: 0.8; 
+  opacity: 0.8;
 }
 
 .matches-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: center; 
+  justify-content: center;
   width: 100%;
 }
