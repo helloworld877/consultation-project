@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import CustomButton from "../components/customButton";
-import { Modal } from "react-bootstrap";
+
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true);

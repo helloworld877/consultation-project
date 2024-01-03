@@ -146,10 +146,10 @@ export default function EditMatch() {
     }
   };
   const awayTeamOptions = teamOptions.filter(
-    (option) => option !== homeTeamState
+    (option) => option.value !== homeTeamState
   );
   const homeTeamOptions = teamOptions.filter(
-    (option) => option !== awayTeamState
+    (option) => option.value !== awayTeamState
   );
   return (
     <div className="Edit-Match">
