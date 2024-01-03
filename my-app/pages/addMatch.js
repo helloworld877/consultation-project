@@ -119,6 +119,7 @@ export default function AddMatch() {
         } else {
           console.log("Match added successfully:", data);
           setError(""); // Clear any previous errors
+          router.push("/viewMatches");
         }
       })
       .catch((error) => {
