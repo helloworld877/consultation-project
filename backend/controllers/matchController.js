@@ -2,8 +2,25 @@
 const Match = require("../models/match");
 const Stadium = require("../models/stadium");
 
+// const getAllMatches = (req, res, next) => {
+//   Match.find()
+//     .then((matches) => {
+//       console.log(matches);
+//       res.status(200).json(matches);
+//     })
+//     .catch((err) => {
+//       console.log("Couldn't get matches");
+//       console.log(err);
+//       res.status(500).json({ error: "Internal Server Error" });
+//     });
+// };
+//Get All Matches
 const getAllMatches = (req, res, next) => {
-  Match.find()
+  // Get today's date at the start of the day
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set time to 00:00:00 for consistent comparison
+
+  Match.find({ dateAndTime: { $gte: today } })
     .then((matches) => {
       console.log(matches);
       res.status(200).json(matches);
@@ -14,6 +31,7 @@ const getAllMatches = (req, res, next) => {
       res.status(500).json({ error: "Internal Server Error" });
     });
 };
+
 //gets a match based on ID
 const getMatch = (req, res, next) => {
   const id = req.params.id;
