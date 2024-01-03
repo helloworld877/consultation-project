@@ -36,49 +36,51 @@ const getMatch = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 //Adding a Match
-const createMatch = (req, res, next) => {
-  const { homeTeam, awayTeam, matchVenue, dateAndTime, mainReferee, linesMen } =
-    req.body;
+const createMatch = async (req, res, next) => {
+  try {
+    const {
+      homeTeam,
+      awayTeam,
+      matchVenue,
+      dateAndTime,
+      mainReferee,
+      linesMen,
+    } = req.body;
 
-  // Check for existing match conflicts
-  Match.findOne({
-    $or: [
-      { mainReferee: mainReferee },
-      { homeTeam: homeTeam },
-      { awayTeam: awayTeam },
-      { matchVenue: matchVenue },
-      { linesMen: { $in: linesMen } },
-    ],
-    dateAndTime: { $eq: dateAndTime },
-  })
-    .then((existingMatch) => {
-      if (existingMatch) {
-        return res
-          .status(200)
-          .json({ message: "There is a conflict with an existing match." });
-      }
-
-      // If no conflicts, create the new match
-      const match = new Match({
-        homeTeam,
-        awayTeam,
-        matchVenue,
-        dateAndTime,
-        mainReferee,
-        linesMen,
-      });
-
-      return match.save();
-    })
-    .then((result) => {
-      if (result) {
-        res.status(201).json({ message: "Match added successfully" });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: err.message });
+    // Check for existing match conflicts
+    const existingMatch = await Match.findOne({
+      $or: [
+        { mainReferee: mainReferee },
+        { homeTeam: homeTeam },
+        { awayTeam: awayTeam },
+        { matchVenue: matchVenue },
+        { linesMen: { $in: linesMen } },
+      ],
+      dateAndTime: { $eq: dateAndTime },
     });
+
+    if (existingMatch) {
+      return res
+        .status(200)
+        .json({ message: "There is a conflict with an existing match." });
+    }
+
+    // If no conflicts, create the new match
+    const match = new Match({
+      homeTeam,
+      awayTeam,
+      matchVenue,
+      dateAndTime,
+      mainReferee,
+      linesMen,
+    });
+
+    const result = await match.save();
+    res.status(201).json({ message: "Match added successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
 };
 
 // const createMatch = (req, res, next) => {
