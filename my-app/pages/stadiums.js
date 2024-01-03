@@ -17,13 +17,13 @@ export default function Stadiums() {
 
   return (
     <div className="stadiums-page">
-      <div className="page-header">
+      <div className="stadiumsPage-header">
         <div className="header-buttons">
           <Link href="/addStadium">
           <img
                 src="/plus.png"
                 alt="Add Stadium"
-                className="icon photo"
+                className="stadiumIcon stadiumPhoto"
                 title="Add Stadium"
               />
           </Link>
@@ -32,7 +32,7 @@ export default function Stadiums() {
           <img
                 src="/football-field.png"
                 alt="View Matches"
-                className="icon photo"
+                className="stadiumIcon stadiumPhoto"
                 title="View Matches"
               />
           </Link>
@@ -43,7 +43,7 @@ export default function Stadiums() {
           <img
                 src="/user.png"
                 alt="View Profile"
-                className="icon photo"
+                className="stadiumIcon stadiumPhoto"
                 title="View Profile"
               />
           </Link>
@@ -51,7 +51,7 @@ export default function Stadiums() {
           <img
                 src="/logout.png"
                 alt="Sign Out"
-                className="icon photo"
+                className="stadiumIcon stadiumPhoto"
                 title="Sign Out"
               />
           </Link>

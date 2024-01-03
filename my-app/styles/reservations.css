@@ -5,11 +5,11 @@ body {
   margin: 0;
   padding: 0;
 }
-.icon-container {
+.reservationsIcon-container {
   justify-content: flex-start;
   padding: 10px;
 }
-.icon {
+.reservationsIcon {
   margin-right: 10px;
   width: 2%;
   height: 2%;

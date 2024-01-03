@@ -14,7 +14,7 @@ h1 {
   margin-bottom: 1rem; 
 }
 
-.photo {
+.stadiumPhoto {
   width: 30px; 
   height: auto; 
   margin-right: 8px; 
@@ -28,7 +28,7 @@ h1 {
   padding: 20px;
 }
 
-.page-header {
+.stadiumsPage-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -42,11 +42,11 @@ h1 {
   justify-content: flex-start ; 
 }
 
-.icon {
+.stadiumIcon {
   cursor: pointer;
 }
 
-.icon:hover {
+.stadiumIcon:hover {
   opacity: 0.8; 
 }
 

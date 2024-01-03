@@ -14,7 +14,7 @@ h1 {
   margin-bottom: 1rem;
 }
 
-.photo {
+.viewMatchesphoto {
   width: 30px;
   height: auto;
   margin-right: 8px;
@@ -28,7 +28,7 @@ h1 {
   padding: 20px;
 }
 
-.page-header {
+.viewMatchesPage-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -42,11 +42,11 @@ h1 {
   justify-content: flex-start;
 }
 
-.icon {
+.viewMatchesIcon {
   cursor: pointer;
 }
 
-.icon:hover {
+.viewMatchesIcon:hover {
   opacity: 0.8;
 }
 

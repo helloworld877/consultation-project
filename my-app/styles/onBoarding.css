@@ -324,11 +324,11 @@ h6 span {
   box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
 }
 
-.icon-container {
+.LoginIcon-container {
   justify-content: flex-start;
   padding: 10px;
 }
-.icon {
+.Loginicon {
   margin-right: 10px;
   width: 2%;
   height: 2%;

@@ -168,12 +168,12 @@ export default function Home() {
           <div className="row full-height justify-content-center">
             <div className="col-12 text-center align-self-center py-5">
               <div className="section pb-5 pt-5 pt-sm-2 text-center">
-                <div className="icon-container">
+                <div className="LoginIcon-container">
                   <Link href="/">
                   <img
                       src="/home.png"
                       alt="Home"
-                      className="icon photo"
+                      className="Loginicon photo"
                       title="Home"
                     />
                   </Link>
@@ -181,7 +181,7 @@ export default function Home() {
                     <img
                       src="/football-field.png"
                       alt="View Matches"
-                      className="icon photo"
+                      className="Loginicon photo"
                       title="View Matches"
                     />
                   </Link>

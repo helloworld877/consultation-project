@@ -23,14 +23,14 @@ export default function Matches() {
 
   return (
     <div className="matches-page">
-      <div className="page-header">
+      <div className="viewMatchesPage-header">
         <div className="icon-container">
           {isManager && (
             <Link href="/addMatch">
               <img
                 src="/match-box.png"
                 alt="Add Match"
-                className="icon photo"
+                className="viewMatchesIcon viewMatchesphoto"
                 title="Add Match"
               />
             </Link>
@@ -40,7 +40,7 @@ export default function Matches() {
               <img
                 src="/stadium.png"
                 alt="View Stadiums"
-                className="icon photo"
+                className="viewMatchesIcon viewMatchesphoto"
                 title="View Stadiums"
               />
             </Link>
@@ -49,7 +49,7 @@ export default function Matches() {
             <img
               src="/user.png"
               alt="Profile"
-              className="icon photo"
+              className="viewMatchesIcon viewMatchesphoto"
               title="View Profile"
             />
           </Link>
@@ -57,7 +57,7 @@ export default function Matches() {
             <img
               src="/logout.png"
               alt="Sign Out"
-              className="icon photo"
+              className="viewMatchesIcon viewMatchesphoto"
               title="Sign Out"
             />
           </Link>

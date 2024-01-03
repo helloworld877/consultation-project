@@ -16,12 +16,12 @@ export default function Reservations() {
     <div className="tickets-page">
       <div className="page-header">
         <div className="header-buttons">
-          <div className="icon-container">
+          <div className="reservationsIcon-container">
             <Link href="/profile">
               <img
                 src="/user.png"
                 alt="Profile"
-                className="icon photo"
+                className="reservationsIcon reservationsPhoto"
                 title="View Profile"
               />
             </Link>
@@ -29,7 +29,7 @@ export default function Reservations() {
               <img
                 src="/football-field.png"
                 alt="View Matches"
-                className="icon photo"
+                className="reservationsIcon reservationsPhoto"
                 title="View Matches"
               />
             </Link>
@@ -37,7 +37,7 @@ export default function Reservations() {
               <img
                 src="/logout.png"
                 alt="Sign Out"
-                className="icon photo"
+                className="reservationsIcon reservationsPhoto"
                 title="Sign Out"
               />
             </Link>
