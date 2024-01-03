@@ -76,9 +76,16 @@ export default function AddMatch() {
       });
   }, []);
 
+  const toInputDateValue = (date) => {
+    const local = new Date(date);
+    local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    return local.toJSON().slice(0, 10);
+  };
+
   const handleSave = () => {
     const selectedDate = new Date(dateState);
-    const minDate = new Date("2024-01-01");
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
     if (
       !homeTeamState ||
       !awayTeamState ||
@@ -91,8 +98,8 @@ export default function AddMatch() {
     ) {
       setError("All fields must be filled out.");
       return;
-    } else if (selectedDate < minDate) {
-      setError("The date must be after January 1, 2024.");
+    } else if (selectedDate < currentDate) {
+      setError("The date must be today or later.");
       return;
     }
 
@@ -195,7 +202,7 @@ export default function AddMatch() {
               id="date"
               value={dateState}
               onChange={(e) => setDateState(e.target.value)}
-              min="2024-01-01"
+              min={toInputDateValue(new Date())} 
             />
           </div>
         </div>

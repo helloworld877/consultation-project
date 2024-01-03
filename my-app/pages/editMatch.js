@@ -60,13 +60,11 @@ export default function EditMatch() {
         const teamOptions = data.map((team) => ({
           label: team.name,
           value: team.name,
-          
         }));
         console.log("DATAA HENA");
         console.log(data);
         setTeamOptions(teamOptions);
       });
-     
   }, []);
 
   useEffect(() => {
@@ -82,11 +80,17 @@ export default function EditMatch() {
       });
   }, []);
 
+  const toInputDateValue = (date) => {
+    const local = new Date(date);
+    local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    return local.toJSON().slice(0, 10);
+  };
+
   const handleSave = async (e) => {
     e.preventDefault();
     const selectedDate = new Date(dateState);
-    const minDate = new Date("2024-01-01");
-  
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
     if (
       !homeTeamState ||
       !awayTeamState ||
@@ -97,11 +101,10 @@ export default function EditMatch() {
       linesmenState.includes("")
     ) {
       setErrorMessage("Please complete all fields.");
-    } else if (selectedDate < minDate) {
-      setErrorMessage("The date must be on or after January 1, 2024.");
+    } else if (selectedDate < currentDate) {
+      setErrorMessage("The date must be today or later.");
     } else {
       setErrorMessage("");
-  
 
       const matchDetails = {
         id: matchId,
@@ -129,10 +132,11 @@ export default function EditMatch() {
           router.push("/viewMatches");
         } else if (result.message === "invalid new stadium size") {
           setErrorMessage("Invalid new stadium size");
-        } else if(result.message === "There is a conflict with an existing match."){
+        } else if (
+          result.message === "There is a conflict with an existing match."
+        ) {
           setErrorMessage("There is a conflict with an existing match.");
-        }
-        else {
+        } else {
           setErrorMessage(result.message || "Failed to edit match");
         }
       } catch (error) {
@@ -169,7 +173,9 @@ export default function EditMatch() {
               options={homeTeamOptions}
               placeholder={homeTeamState}
               id="homeTeam"
-              onChange={(selectedOption) => setHomeTeamState(selectedOption.value)}
+              onChange={(selectedOption) =>
+                setHomeTeamState(selectedOption.value)
+              }
               value={homeTeamState}
             />
           </div>
@@ -182,7 +188,9 @@ export default function EditMatch() {
               options={awayTeamOptions}
               placeholder={awayTeamState}
               id="awayTeam"
-              onChange={(selectedOption) => setAwayTeamState(selectedOption.value)}
+              onChange={(selectedOption) =>
+                setAwayTeamState(selectedOption.value)
+              }
               value={awayTeamState}
             />
           </div>
@@ -210,7 +218,7 @@ export default function EditMatch() {
               id="date"
               value={dateState}
               onChange={(e) => setDateState(e.target.value)}
-              min="2024-01-01"
+              min={toInputDateValue(new Date())}
             />
           </div>
         </div>
