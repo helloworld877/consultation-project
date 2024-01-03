@@ -31,3 +31,31 @@ strong {
     color: black;
 }
 
+
+/* Add space between labels */
+.payment-info label {
+    display: block; /* Make label block-level to fill width */
+    margin-bottom: 8px; /* Space between labels */
+  }
+  
+  /* Add space between label text and input */
+  .payment-info label span {
+    display: inline-block; /* Make span inline-block */
+    margin-right: 8px; /* Space between label text and input */
+  }
+  
+  /* Adjust input fields for consistent width and margin */
+  .payment-info input[type="text"],
+  .payment-info input[type="password"] {
+    margin-top: 4px; /* Space above input */
+    margin-bottom: 4px; /* Space below input */
+    width: calc(100% - 10px); /* Adjust width to fit container */
+    padding: 6px 5px; /* Padding inside input */
+  }
+  
+  /* Add padding inside the card-details div for spacing */
+  .card-details {
+    padding: 10px 0; /* Top and bottom padding */
+  }
+  
+

@@ -75,11 +75,10 @@ const PaymentCard = ({ selectedPaymentMethod, handlePaymentMethodChange }) => {
       const matchId = router.query.matchID;
       console.log(matchId);
       const selectedSeatsQuery = router.query.selectedSeats;
-      const seatPairs = selectedSeatsQuery.split(","); 
-
+      const seatPairs = selectedSeatsQuery.split(",");
 
       const seats = seatPairs.map((pair) => {
-        const [column, row] = pair.split("-"); 
+        const [column, row] = pair.split("-");
         const rowNumber = parseInt(row, 10) + 1;
         const columnNumber = parseInt(column, 10);
         return [columnNumber, rowNumber];
@@ -142,6 +141,7 @@ const PaymentCard = ({ selectedPaymentMethod, handlePaymentMethodChange }) => {
         />
         Card
       </label>
+
       <label>
         <input
           type="radio"
@@ -155,7 +155,7 @@ const PaymentCard = ({ selectedPaymentMethod, handlePaymentMethodChange }) => {
         <div className="payment-info">
           <div className="card-details">
             <label>
-              Card Number:
+              <span>Card Number:</span>
               <input
                 type="text"
                 value={cardNumber}
@@ -165,7 +165,8 @@ const PaymentCard = ({ selectedPaymentMethod, handlePaymentMethodChange }) => {
             <span className="error-message">{formErrors.cardNumber}</span>
             <br />
             <label>
-              Expiration Date:
+              <span>Expiration Date:</span>
+
               <input
                 type="text"
                 placeholder="MM/YY"
@@ -177,13 +178,15 @@ const PaymentCard = ({ selectedPaymentMethod, handlePaymentMethodChange }) => {
             <span className="error-message">{formErrors.expirationDate}</span>
             <br />
             <label>
-              Name on Card:
+              <span>Name on Card:</span>
+
               <input type="text" value={name} onChange={handleNameChange} />
             </label>
             <span className="error-message">{formErrors.name}</span>
             <br />
             <label>
-              CVV:
+              <span>CVV:</span>
+
               <input
                 type="password"
                 value={cvv}
@@ -195,8 +198,9 @@ const PaymentCard = ({ selectedPaymentMethod, handlePaymentMethodChange }) => {
           </div>
         </div>
       )}
+      <div> <CustomButton onClick={handleSubmit}>Checkout</CustomButton></div>
 
-      <CustomButton onClick={handleSubmit}>Checkout</CustomButton>
+      
 
       {showConfirmation && (
         <div className="purchase-confirmation-dialog">
