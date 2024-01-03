@@ -60,10 +60,12 @@ h1
 .name {
   font-weight: bold;
   font-size: 25px;
+  color: #19204e;
 }
 
 .role {
   font-size: 18px;
+  color: #19204e;
 }
 
 .links {

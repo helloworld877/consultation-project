@@ -16,7 +16,7 @@ export default function Home() {
         <div className="header-buttons">
           <div className="button-container">
             <Link href="/login">
-              <CustomButton>Login</CustomButton>
+              <CustomButton>Login & SignUp</CustomButton>
             </Link>
           </div>
           <div className="button-container">
@@ -24,11 +24,7 @@ export default function Home() {
               <CustomButton>View Matches</CustomButton>
             </Link>
           </div>
-          <div className="button-container">
-            <Link href="/pastMatches">
-              <CustomButton>View Past Matches</CustomButton>
-            </Link>
-          </div>
+         
         </div>
       </header>
       <main>

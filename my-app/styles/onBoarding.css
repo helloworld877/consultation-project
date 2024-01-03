@@ -65,9 +65,9 @@ h6 span {
 }
 
 .checkbox {
-  opacity: 0; 
+  opacity: 0;
   position: absolute;
-  z-index: -1; 
+  z-index: -1;
 }
 .toggle-label-text {
   color: #fcb300;
@@ -78,28 +78,27 @@ h6 span {
 }
 .toggle-container {
   display: flex;
-  justify-content: center; margin-right: 50px;
+  justify-content: center;
+  margin-right: 50px;
   margin-top: 30px;
 }
 
 .toggle-label {
   position: relative;
-  display: inline-flex; 
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 40px; 
-  height: 40px; 
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background-color: #102770; 
+  background-color: #102770;
   cursor: pointer;
-  transition: all 0.5s ease; 
+  transition: all 0.5s ease;
 }
-
 
 .toggle-label:hover {
   background-color: #0d1f33; /* Darker shade when hovered */
 }
-
 
 .toggle-icon {
   color: #fcb300; /* Color of the icon */
@@ -112,7 +111,7 @@ h6 span {
 }
 
 .checkbox:checked + .toggle-label {
-  background-color: #fcb300; 
+  background-color: #fcb300;
 }
 
 .card-3d-wrap {
@@ -158,7 +157,6 @@ h6 span {
   -moz-backface-visibility: hidden;
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
-  
 }
 
 .card-back {
@@ -326,16 +324,14 @@ h6 span {
   box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
 }
 
-.button-container {
-  display: flex;
+.icon-container {
   justify-content: flex-start;
-  padding: 10px; 
+  padding: 10px;
 }
-.icon
-{
+.icon {
   margin-right: 10px;
-  width: 20%;
-  height: 20%;
+  width: 2%;
+  height: 2%;
   margin-left: 20px;
   margin-top: 10px;
 }
@@ -358,7 +354,6 @@ h6 span {
 .view-matches-btn:hover {
   background-color: #d6d6d6;
 }
-
 
 .button-container2 {
   display: flex;
