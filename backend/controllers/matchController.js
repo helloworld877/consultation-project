@@ -35,33 +35,78 @@ const getMatch = (req, res, next) => {
     })
     .catch((err) => console.log(err));
 };
-
+//Adding a Match
 const createMatch = (req, res, next) => {
-  const homeTeam = req.body.homeTeam;
-  const awayTeam = req.body.awayTeam;
-  const matchVenue = req.body.matchVenue;
-  const dateAndTime = req.body.dateAndTime;
-  const mainReferee = req.body.mainReferee;
-  const linesMen = req.body.linesMen;
-  const match = new Match({
-    homeTeam,
-    awayTeam,
-    matchVenue,
-    dateAndTime,
-    mainReferee,
-    linesMen,
-  });
+  const { homeTeam, awayTeam, matchVenue, dateAndTime, mainReferee, linesMen } =
+    req.body;
 
-  match
-    .save()
+  // Check for existing match conflicts
+  Match.findOne({
+    $or: [
+      { mainReferee: mainReferee },
+      { homeTeam: homeTeam },
+      { awayTeam: awayTeam },
+      { matchVenue: matchVenue },
+      { linesMen: { $in: linesMen } },
+    ],
+    dateAndTime: { $eq: dateAndTime },
+  })
+    .then((existingMatch) => {
+      if (existingMatch) {
+        return res
+          .status(400)
+          .json({ message: "There is a conflict with an existing match." });
+      }
+
+      // If no conflicts, create the new match
+      const match = new Match({
+        homeTeam,
+        awayTeam,
+        matchVenue,
+        dateAndTime,
+        mainReferee,
+        linesMen,
+      });
+
+      return match.save();
+    })
     .then((result) => {
-      res.status(201).json({ message: "Match added successfully" });
+      if (result) {
+        res.status(201).json({ message: "Match added successfully" });
+      }
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
       res.status(500).json({ error: err.message });
     });
 };
+
+// const createMatch = (req, res, next) => {
+//   const homeTeam = req.body.homeTeam;
+//   const awayTeam = req.body.awayTeam;
+//   const matchVenue = req.body.matchVenue;
+//   const dateAndTime = req.body.dateAndTime;
+//   const mainReferee = req.body.mainReferee;
+//   const linesMen = req.body.linesMen;
+//   const match = new Match({
+//     homeTeam,
+//     awayTeam,
+//     matchVenue,
+//     dateAndTime,
+//     mainReferee,
+//     linesMen,
+//   });
+
+//   match
+//     .save()
+//     .then((result) => {
+//       res.status(201).json({ message: "Match added successfully" });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(500).json({ error: err.message });
+//     });
+// };
 
 const updateMatchValidate = (req, res, next) => {
   const matchId = req.body.id;
