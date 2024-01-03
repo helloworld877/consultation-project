@@ -114,15 +114,18 @@ export default function AddMatch() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Match added successfully:", data);
-        // Redirect or perform any other action after successful save
+        if (data.message === "There is a conflict with an existing match.") {
+          setError("There is a conflict with an existing match.");
+        } else {
+          console.log("Match added successfully:", data);
+          setError(""); // Clear any previous errors
+        }
       })
       .catch((error) => {
         console.error("Error adding match:", error);
-        // Handle error, display an error message, etc.
+        setError("An error occurred while adding the match.");
       });
   };
-
 
   const awayTeamOptions = teamOptions.filter(
     (option) => option !== homeTeamState
