@@ -73,7 +73,7 @@ export default function Home() {
       console.log(result);
 
       if (result.message === "Login Successful") {
-        if (typeof window !== "undefined") {
+        
           localStorage.setItem("role", result.result.role);
           localStorage.setItem("token", result.accessToken);
           if (result.result.role === "Admin") {
@@ -81,8 +81,7 @@ export default function Home() {
           } else {
             router.push("/viewMatches");
           }
-        }
-        router.push("/viewMatches");
+        
       } else if (
         result.message === "Your SignUp Request Hasn't Been Reviewed Yet"
       ) {
@@ -142,7 +141,8 @@ export default function Home() {
         setSignUpError("User Already Exists");
       } else if (result.message === "User added successfully") {
         console.log("harohh view matches");
-        router.push("/viewMatches");
+        alert("User request added");
+        router.push("/login");
       } else {
         setSignUpError("Failed to Sign Up");
       }

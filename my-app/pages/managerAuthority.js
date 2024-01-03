@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../styles/managerAuthority.css";
 import Alert from "react-bootstrap/Alert";
+import Link from "next/link";
+
 
 export default function Admin() {
   const [existingUsers, setExistingManagers] = useState([]);
@@ -49,8 +51,8 @@ export default function Admin() {
 
   const handleUserAction = async (user, actionType) => {
     const userName = `${user.userName}`;
-    const actionObject = {userName,message:actionType};
-   
+    const actionObject = { userName, message: actionType };
+
     try {
       const response = await fetch(
         "http://localhost:8080/users/handleRequest",
@@ -92,15 +94,28 @@ export default function Admin() {
   };
 
   return (
+    <div>
+      <Link href="/">
+          <img
+            src="/home.png"
+            alt="Home"
+            className="Loginicon photo"
+            title="Home"
+          />
+        </Link>
+    
     <div className="container">
       <h1>Requests</h1>
       {showAlert && (
         <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
-          <Alert.Heading className="alert">Oh snap! You got an error!</Alert.Heading>
+          <Alert.Heading className="alert">
+            Oh snap! You got an error!
+          </Alert.Heading>
           <p>{alertContent}</p>
         </Alert>
       )}
       <div className="managerSection">
+       
         <h2>Existing Users</h2>
         {existingUsers.map((manager) => (
           <div key={manager._id} className="managerEntry">
@@ -115,7 +130,7 @@ export default function Admin() {
             {/* End of user info */}
             <button
               className="removeButton"
-              onClick={() => handleUserAction(manager,"remove")}
+              onClick={() => handleUserAction(manager, "remove")}
             >
               Remove
             </button>
@@ -139,13 +154,13 @@ export default function Admin() {
             <div className="ContainerButtons">
               <button
                 className="acceptButton"
-                onClick={() => handleUserAction(request,"accept")}
+                onClick={() => handleUserAction(request, "accept")}
               >
                 Accept
               </button>
               <button
                 className="declineButton"
-                onClick={() => handleUserAction(request,"decline")}
+                onClick={() => handleUserAction(request, "decline")}
               >
                 Decline
               </button>
@@ -153,6 +168,7 @@ export default function Admin() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }
