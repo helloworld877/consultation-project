@@ -8,7 +8,6 @@ const ReceiptCard = ({ ticket }) => {
             <div className="card">
                 <h2>Receipt Details</h2>
                 <div className="row-section">
-                    <h3>Row {ticket.row}</h3>
                     <div className="seat-section">
                         <p><strong>Seat:</strong> {ticket.itemName}</p>
                         <p><strong>Price:</strong> {ticket.price}</p>

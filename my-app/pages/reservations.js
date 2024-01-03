@@ -7,7 +7,7 @@ export default function Reservations() {
   const [reservedTickets, setReservedTickets] = useState([]);
   const [seatNumbers, setSeatNumbers] = useState([]);
   const [ticketIds, setTicketIds] = useState([]);
-  const [matchId, setMatchId] = useState("");
+  const [matchIds, setMatchIds] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:8080/tickets/getUsersTickets", {
@@ -23,11 +23,13 @@ export default function Reservations() {
         const ticketsLength = result.tickets.length;
         console.log(ticketsLength);
         ticketIds.length = 0;
+        reservedTickets.length = 0;
         for (let i = 0; i < ticketsLength; i++) {
           reservedTickets.push(result.tickets[i]);
           ticketIds.push(result.tickets[i].ticketId);
+          matchIds.push(result.tickets[i].matchId);
         }
-        setMatchId(result.tickets[0].matchId);
+        setMatchIds(matchIds);
         setTicketIds(ticketIds);
         setReservedTickets(reservedTickets);
         console.log(reservedTickets);
@@ -47,7 +49,7 @@ export default function Reservations() {
         for (let k = 0; k < ticketsLength; k++) {
           allSeatNumbers.push(
             String.fromCharCode(65 + parseInt(allSeatNumbersRows[k], 10)) +
-              parseInt(allSeatNumbersColumns[k] + 1, 10)
+              parseInt(allSeatNumbersColumns[k]-1 , 10)
           );
         }
         console.log(allSeatNumbers);
@@ -98,15 +100,17 @@ export default function Reservations() {
         <h1>Reserved Tickets</h1>
       </div>
       <div className="tickets-view">
-        {reservedTickets.map((ticket, index) => (
+      {matchIds.map((matchId, _index1) => 
+        reservedTickets.map((ticket, _index) => (
           <Ticket
-            key={index}
+            key={_index}
             showCancelIcon={true}
-            ticketNumber={ticketIds[index]}
-            seatNumber={seatNumbers[index]}
+            ticketNumber={ticketIds[_index]}
+            seatNumber={seatNumbers[_index]}
             matchId={matchId}
           />
-        ))}
+        ))
+      )}
       </div>
     </div>
   );
