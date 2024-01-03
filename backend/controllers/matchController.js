@@ -54,7 +54,7 @@ const createMatch = (req, res, next) => {
     .then((existingMatch) => {
       if (existingMatch) {
         return res
-          .status(400)
+          .status(200)
           .json({ message: "There is a conflict with an existing match." });
       }
 
