@@ -20,50 +20,12 @@ export default function Reservations() {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
-        const ticketsLength = result.tickets.length;
-        console.log(ticketsLength);
-        ticketIds.length = 0;
-        reservedTickets.length = 0;
-        for (let i = 0; i < ticketsLength; i++) {
-          reservedTickets.push(result.tickets[i]);
-          ticketIds.push(result.tickets[i].ticketId);
-          matchIds.push(result.tickets[i].matchId);
-        }
-        setMatchIds(matchIds);
-        setTicketIds(ticketIds);
-        setReservedTickets(reservedTickets);
-        console.log(reservedTickets);
-        console.log(ticketIds);
-
-        const allSeatNumbersRows = [];
-        const allSeatNumbersColumns = [];
-        for (let j = 0; j < ticketsLength; j++) {
-          allSeatNumbersRows.push(result.tickets[j].seats[0]);
-          allSeatNumbersColumns.push(result.tickets[j].seats[1]);
-        }
-
-        console.log(allSeatNumbersRows);
-        console.log(allSeatNumbersColumns);
-
-        const allSeatNumbers = [];
-        for (let k = 0; k < ticketsLength; k++) {
-          allSeatNumbers.push(
-            String.fromCharCode(65 + parseInt(allSeatNumbersRows[k], 10)) +
-              parseInt(allSeatNumbersColumns[k]-1 , 10)
-          );
-        }
-        console.log(allSeatNumbers);
-        setSeatNumbers(allSeatNumbers);
+        setReservedTickets(result.tickets);
       })
       .catch((error) => {
         console.error("Error fetching tickets:", error);
       });
   }, []);
-
-  console.log(ticketIds);
-  console.log(seatNumbers);
-  console.log(matchId);
-
   return (
     <div className="tickets-page">
       <div className="page-header">
@@ -100,17 +62,15 @@ export default function Reservations() {
         <h1>Reserved Tickets</h1>
       </div>
       <div className="tickets-view">
-      {matchIds.map((matchId, _index1) => 
-        reservedTickets.map((ticket, _index) => (
+        {reservedTickets?.map((ticket, _index) => (
           <Ticket
             key={_index}
             showCancelIcon={true}
-            ticketNumber={ticketIds[_index]}
-            seatNumber={seatNumbers[_index]}
-            matchId={matchId}
+            ticketNumber={ticket.ticketId}
+            seatNumber={ticket.seats}
+            matchId={ticket.matchId}
           />
-        ))
-      )}
+        ))}
       </div>
     </div>
   );
