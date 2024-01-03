@@ -201,12 +201,12 @@ const PaymentCard = ({ selectedPaymentMethod, handlePaymentMethodChange }) => {
       {showConfirmation && (
         <div className="purchase-confirmation-dialog">
           <p>Your purchase has been confirmed!</p>
-          <Link href="/viewMatches" passHref>
+          <Link href="/reservations" passHref>
             <CustomButton
               onClick={handleConfirmationClose}
               className="return-to-matches-btn"
             >
-              Return To Matches
+              View Tickets
             </CustomButton>
           </Link>
         </div>
