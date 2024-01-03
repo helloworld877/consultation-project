@@ -30,7 +30,8 @@ const createTicket = (req, res, next) => {
           .save()
           .then((result) => {
             console.log("HENAAAA");
-            console.log(result.matchId);
+            log(result);
+            // console.log(result.matchId);
             const filter = { _id: result.matchId };
             const update = {
               reservedSeats: result.matchId.reservedSeats.append(seats[i]),
