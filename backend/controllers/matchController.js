@@ -83,33 +83,6 @@ const createMatch = async (req, res, next) => {
   }
 };
 
-// const createMatch = (req, res, next) => {
-//   const homeTeam = req.body.homeTeam;
-//   const awayTeam = req.body.awayTeam;
-//   const matchVenue = req.body.matchVenue;
-//   const dateAndTime = req.body.dateAndTime;
-//   const mainReferee = req.body.mainReferee;
-//   const linesMen = req.body.linesMen;
-//   const match = new Match({
-//     homeTeam,
-//     awayTeam,
-//     matchVenue,
-//     dateAndTime,
-//     mainReferee,
-//     linesMen,
-//   });
-
-//   match
-//     .save()
-//     .then((result) => {
-//       res.status(201).json({ message: "Match added successfully" });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).json({ error: err.message });
-//     });
-// };
-
 const updateMatchValidate = (req, res, next) => {
   const matchId = req.body.id;
   const homeTeam = req.body.homeTeam;
@@ -170,33 +143,85 @@ const updateMatchValidate = (req, res, next) => {
 };
 
 //Update Match Info
+// const updateMatch = (req, res, next) => {
+//   const matchId = req.body.id;
+//   const homeTeam = req.body.homeTeam;
+//   const awayTeam = req.body.awayTeam;
+//   const matchVenue = req.body.matchVenue;
+//   const dateAndTime = req.body.dateAndTime;
+//   const mainReferee = req.body.mainReferee;
+//   const linesMen = req.body.linesMen;
+//   Match.findOne({ _id: matchId }).then((match) => {
+//     match.homeTeam = homeTeam;
+//     match.awayTeam = awayTeam;
+//     match.matchVenue = matchVenue;
+//     match.dateAndTime = dateAndTime;
+//     match.mainReferee = mainReferee;
+//     match.linesMen = linesMen;
+//     return match
+//       .save()
+//       .then((result) => {
+//         console.log("Match Details Updated Successfully");
+//         console.log(result);
+//         res.status(200).json({ result, message: "Edited Match Successfully" });
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         res.status(500).json({ err, message: "Match Not Updated" });
+//       });
+//   });
+// };
 const updateMatch = (req, res, next) => {
   const matchId = req.body.id;
-  const homeTeam = req.body.homeTeam;
-  const awayTeam = req.body.awayTeam;
-  const matchVenue = req.body.matchVenue;
-  const dateAndTime = req.body.dateAndTime;
-  const mainReferee = req.body.mainReferee;
-  const linesMen = req.body.linesMen;
-  Match.findOne({ _id: matchId }).then((match) => {
-    match.homeTeam = homeTeam;
-    match.awayTeam = awayTeam;
-    match.matchVenue = matchVenue;
-    match.dateAndTime = dateAndTime;
-    match.mainReferee = mainReferee;
-    match.linesMen = linesMen;
-    return match
-      .save()
-      .then((result) => {
-        console.log("Match Details Updated Successfully");
-        console.log(result);
-        res.status(200).json({ result, message: "Edited Match Successfully" });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json({ err, message: "Match Not Updated" });
-      });
-  });
+  const { homeTeam, awayTeam, matchVenue, dateAndTime, mainReferee, linesMen } =
+    req.body;
+
+  // First, check for existing conflicts
+  Match.findOne({
+    _id: { $ne: matchId }, // Exclude the match being updated from the conflict check
+    $or: [
+      { mainReferee: mainReferee },
+      { homeTeam: homeTeam },
+      { awayTeam: awayTeam },
+      { matchVenue: matchVenue },
+      { linesMen: { $in: linesMen } },
+    ],
+    dateAndTime: { $eq: dateAndTime },
+  })
+    .then((conflictMatch) => {
+      if (conflictMatch) {
+        // Conflict found, don't update the match and inform the user
+        return res
+          .status(200)
+          .json({ message: "There is a conflict with an existing match." });
+      }
+
+      // No conflicts found, proceed to update the match
+      return Match.findOne({ _id: matchId });
+    })
+    .then((match) => {
+      if (!match) {
+        return res.status(404).json({ message: "Match not found" });
+      }
+      // Update match details
+      match.homeTeam = homeTeam;
+      match.awayTeam = awayTeam;
+      match.matchVenue = matchVenue;
+      match.dateAndTime = dateAndTime;
+      match.mainReferee = mainReferee;
+      match.linesMen = linesMen;
+
+      return match.save();
+    })
+    .then((result) => {
+      console.log("Match Details Updated Successfully");
+      console.log(result);
+      res.status(200).json({ result, message: "Edited Match Successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err, message: "Match Not Updated" });
+    });
 };
 
 //delete a match
