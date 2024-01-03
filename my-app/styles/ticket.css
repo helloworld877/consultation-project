@@ -8,6 +8,7 @@
     text-align: center;
     background: white;
     width: 20%;
+  overflow: hidden; /* hide overflow content */
     
 }
 a:-webkit-any-link 
@@ -89,4 +90,11 @@ strong {
   .cancel-confirmation-dialog p {
     margin-bottom: 10px;
   }
+  
 
+  .ticket-details {
+    max-width: 100%; /* set maximum width */
+    overflow: hidden; /* hide overflow content */
+    white-space: nowrap; /* prevent line break */
+    text-overflow: ellipsis; /* display ellipsis (...) when text overflows */
+  }

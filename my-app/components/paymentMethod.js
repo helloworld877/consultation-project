@@ -82,7 +82,7 @@ const PaymentCard = ({ selectedPaymentMethod, handlePaymentMethodChange }) => {
         const [column, row] = pair.split("-"); 
         const rowNumber = parseInt(row, 10) + 1;
         const columnNumber = parseInt(column, 10);
-        return { column:columnNumber, row:rowNumber };
+        return [columnNumber, rowNumber];
       });
       console.log(seats);
 
