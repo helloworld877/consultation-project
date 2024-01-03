@@ -10,7 +10,9 @@ const StadiumCard = ({
   name,
   columns,
   rows,
-  clickable=true,
+  city,
+  address,
+  clickable = true,
   showEditIcon,
 }) => {
   const router = useRouter();
@@ -20,31 +22,32 @@ const StadiumCard = ({
     name: name,
     columns: columns,
     rows: rows,
+    city: city,
+    address: address,
   };
   console.log(props);
 
-  const[stadiumDetails, setStadiumDetails] = useState(props);
+  const [stadiumDetails, setStadiumDetails] = useState(props);
 
-
-  const onEdit = () => {
-    
-  };
-
+  const onEdit = () => {};
 
   return (
-    <div className="card" >
+    <div className="card">
       {showEditIcon && (
         <div className="edit-icon-container" onClick={onEdit}>
           <FontAwesomeIcon icon={faEdit} className="editIcon" />
         </div>
       )}
-        
-        <h3>
+
+      <h3>
         <strong>Venue:</strong> {name}
-        </h3>
-        <p>
-          <strong>Capacity:</strong> {rows * columns}
-        </p>
+      </h3>
+      <p>
+        <strong>Capacity:</strong> {rows * columns}
+      </p>
+      <p>
+        <strong>Location:</strong> {city}, {address}
+      </p>
     </div>
   );
 };

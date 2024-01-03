@@ -66,6 +66,8 @@ export default function Stadiums() {
             name={stadium.name}
             columns={stadium.columns}
             rows={stadium.rows}
+            city={stadium.city}
+            address={stadium.address}
             clickable={true}
             showEditIcon={false}
           />

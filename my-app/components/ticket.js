@@ -35,7 +35,7 @@ const Ticket = ({
   useEffect(() => {
     setActualSeatNumber(
       String.fromCharCode(65 + parseInt(seatNumber[0], 10)) +
-        parseInt(seatNumber[1], 10)
+        parseInt(seatNumber[1]-1, 10)
     );
     console.log(actualSeatNumber);
   }, []);
