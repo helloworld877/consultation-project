@@ -3,55 +3,112 @@ const Ticket = require("../models/tickets");
 const Match = require("../models/match");
 
 //creates a Ticket
-const createTicket = (req, res, next) => {
-  console.log(req.USER.result.userName);
-  const ticketHolder = req.USER.result.userName;
-  const matchId = req.body.matchId;
-  const seats = req.body.seats;
-  for (let i = 0; i < seats.length; i++) {
-    console.log("These Are The Seats");
-    console.log(seats[i][0]);
-    console.log(seats[i][1]);
-    const row = seats[i][0];
-    const column = seats[i][1];
-    const ticketId = ticketHolder + row + column + matchId;
-    console.log(ticketId);
-    Ticket.findOne({ ticketId: ticketId }).then((result) => {
-      if (result) {
-        console.log(result);
-        res.status(200).json({ result, message: "Ticket Already Exists" });
+const createTicket = async (req, res, next) => {
+  try {
+    console.log(req.USER.result.userName);
+    const ticketHolder = req.USER.result.userName;
+    const matchId = req.body.matchId;
+    const seats = req.body.seats;
+
+    const ticketPromises = seats.map(async (seat) => {
+      console.log("These Are The Seats");
+      console.log(seat[0]);
+      console.log(seat[1]);
+      const row = seat[0];
+      const column = seat[1];
+      const ticketId = ticketHolder + row + column + matchId;
+      console.log(ticketId);
+
+      const existingTicket = await Ticket.findOne({ ticketId: ticketId });
+      if (existingTicket) {
+        console.log(existingTicket);
+        throw new Error("Ticket Already Exists");
       } else {
         const ticket = new Ticket({
           ticketId,
           ticketHolder,
           matchId,
-          seats: seats[i],
+          seats: seat,
         });
-        ticket
-          .save()
-          .then((result) => {
-            console.log("HENAAAA");
-            console.log(result);
-            console.log(seats[i]);
-            Match.findOne({ _id: result.matchId }).then((resultMatch) => {
-              console.log("GEBT EL MATCH");
-              const updatedSeats = resultMatch.reservedSeats;
-              updatedSeats.push(seats[i]);
-              console.log(updatedSeats);
-              resultMatch.reservedSeats = updatedSeats;
-              resultMatch.save();
-            });
-            console.log("Ticket added Successfully");
-            res.status(200).json({ message: "Ticket added successfully" });
-          })
-          .catch((err) => {
-            console.log(err);
-            res.status(500).json({ error: err.message });
-          });
+        await ticket.save();
+        console.log("Ticket added Successfully");
+
+        const resultMatch = await Match.findOne({ _id: matchId });
+        console.log("GEBT EL MATCH");
+        resultMatch.reservedSeats.push(seat);
+        console.log(resultMatch.reservedSeats);
+        await resultMatch.save();
+        return ticket; // Return the ticket to be used in Promise.all()
       }
     });
+
+    const createdTickets = await Promise.all(ticketPromises);
+    res
+      .status(200)
+      .json({
+        tickets: createdTickets,
+        message: "All tickets added successfully",
+      });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
   }
 };
+
+// const createTicket = (req, res, next) => {
+//   console.log(req.USER.result.userName);
+//   const ticketHolder = req.USER.result.userName;
+//   const matchId = req.body.matchId;
+//   const seats = req.body.seats;
+//   for (let i = 0; i < seats.length; i++) {
+//     console.log("These Are The Seats");
+//     console.log(seats[i][0]);
+//     console.log(seats[i][1]);
+//     const row = seats[i][0];
+//     const column = seats[i][1];
+//     const ticketId = ticketHolder + row + column + matchId;
+//     console.log(ticketId);
+//     Ticket.findOne({ ticketId: ticketId }).then((result) => {
+//       if (result) {
+//         console.log(result);
+//         res.status(200).json({ result, message: "Ticket Already Exists" });
+//       } else {
+//         const ticket = new Ticket({
+//           ticketId,
+//           ticketHolder,
+//           matchId,
+//           seats: seats[i],
+//         });
+//         ticket
+//           .save()
+//           .then((result) => {
+//             console.log("HENAAAA");
+//             console.log(result);
+//             console.log(seats[i]);
+//             Match.findOne({ _id: result.matchId })
+//               .then((resultMatch) => {
+//                 console.log("GEBT EL MATCH");
+//                 const updatedSeats = resultMatch.reservedSeats;
+//                 updatedSeats.push(seats[i]);
+//                 console.log(updatedSeats);
+//                 resultMatch.reservedSeats = updatedSeats;
+//                 resultMatch.save();
+//               })
+//               .then((matchUpdated) => {
+//                 console.log("ANA UPDATED EL MATCH");
+//                 console.log(matchUpdated);
+//               });
+//             console.log("Ticket added Successfully");
+//             res.status(200).json({ message: "Ticket added successfully" });
+//           })
+//           .catch((err) => {
+//             console.log(err);
+//             res.status(500).json({ error: err.message });
+//           });
+//       }
+//     });
+//   }
+// };
 
 //Get User Tickets
 const getUserTickets = (req, res, next) => {
@@ -92,13 +149,6 @@ const cancelTicket = (req, res, next) => {
           console.log(match);
           match.save();
         });
-        // .catch((err) => {
-        //   console.log(err);
-        //   res.status(500).json({
-        //     err,
-        //     message: "Error Finding Match To Update Its Seats",
-        //   });
-        // });
         res
           .status(200)
           .json({ ticket, message: "Ticket Cancelled Successfully" });
