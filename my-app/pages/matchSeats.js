@@ -46,7 +46,9 @@ export default function Seats() {
       });
   }, [router.query.matchID]);
 
-  const matchPageDetailsUrl = `/Checkout?matchID=${router.query.matchID}&selectedSeats=${selectedSeats.join(",")}`;
+  const matchPageDetailsUrl = `/Checkout?matchID=${
+    router.query.matchID
+  }&selectedSeats=${selectedSeats.join(",")}`;
 
   const handleSeatToggle = (row, col) => {
     if (isManager) {
@@ -67,20 +69,10 @@ export default function Seats() {
 
   return (
     <div className="page-container">
-
       <div className="section">
         <div className="row full-height justify-content-center">
           <div className="col-12 text-center align-self-center py-5">
             <div className="section pb-5 pt-5 pt-sm-2 text-center">
-              <div className="button-container">
-                {!isManager && (
-                  <Link href={matchPageDetailsUrl} passHref>
-                    <button type="button" className="checkout-btn-matches">
-                      Checkout
-                    </button>
-                  </Link>
-                )}
-              </div>
               <Link href="/viewMatches" passHref>
                 <div className="back-btn-container">
                   <label htmlFor="reg-log" className="back-btn-label">
@@ -107,29 +99,38 @@ export default function Seats() {
               <div className="seats">
                 {[...Array(stadiumSize[0])].map((_, row) => (
                   <div key={row} className="seat-row">
-                    {[...Array(stadiumSize[1])].map((_, col) => {
-                      const seatId = `${row}-${col}`;
-                      const isReserved = reservedSeats.includes(seatId);
-                      return (
-                        <button
-                          key={seatId}
-                          className={`seat-btn ${
-                            selectedSeats.includes(seatId) ? "selected" : ""
-                          } ${isReserved ? "reserved" : ""}`}
-                          onClick={() => handleSeatToggle(row, col)}
-                          disabled={isReserved}
-                        >
-                          {String.fromCharCode(65 + row)}
-                          {col + 1}
-                        </button>
-                      );
-                    }).reverse()}
+                    {[...Array(stadiumSize[1])]
+                      .map((_, col) => {
+                        const seatId = `${row}-${col}`;
+                        const isReserved = reservedSeats.includes(seatId);
+                        return (
+                          <button
+                            key={seatId}
+                            className={`seat-btn ${
+                              selectedSeats.includes(seatId) ? "selected" : ""
+                            } ${isReserved ? "reserved" : ""}`}
+                            onClick={() => handleSeatToggle(row, col)}
+                            disabled={isReserved}
+                          >
+                            {String.fromCharCode(65 + row)}
+                            {col}
+                          </button>
+                        );
+                      })
+                      .reverse()}
                   </div>
                 ))}
               </div>
-
+              <div className="button-container">
+                {!isManager && (
+                  <Link href={matchPageDetailsUrl} passHref>
+                    <button type="button" className="checkout-btn-matches">
+                      Checkout
+                    </button>
+                  </Link>
+                )}
+              </div>
             </div>
-
           </div>
         </div>
       </div>

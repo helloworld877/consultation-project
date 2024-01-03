@@ -43,15 +43,15 @@ export default function Checkout() {
   const selectedSeats = router.query.selectedSeats ? router.query.selectedSeats.split(",") : [];
   
   const receiptDetails = selectedSeats.map((seat) => {
-    const [col, row] = seat.split("-");
-    const seatId = `${String.fromCharCode(65 + parseInt(col, 10))}${parseInt(row, 10) + 1}`;
+    const [row, col] = seat.split("-");
+    const seatId = `${String.fromCharCode(65 + parseInt(row, 10))}${parseInt(col, 10)}`;
     const price = 'EGP200.00';
     return {
       itemName: seatId,
       price,
       quantity: 1,
       total: price,
-      row: parseInt(row, 10) + 1,
+      row: parseInt(row, 10),
       col: parseInt(col, 10)
     };
   });
