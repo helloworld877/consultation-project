@@ -46,6 +46,23 @@ const Ticket = ({
 
   const onConfirmCancel = () => {
     setCancelConfirmationVisible(false);
+    fetch(`http://localhost:8080/tickets/cancelTicket/${ticketNumber}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Ticket cancelled successfully");
+          window.location.reload();
+        } else {
+          alert("Error cancelling ticket");
+        }
+      })
+      .catch((error) => {
+        console.error("Error cancelling ticket:", error);
+      });
   };
 
   const onCancelCancel = () => {

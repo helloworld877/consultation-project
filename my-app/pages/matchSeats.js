@@ -28,7 +28,7 @@ export default function Seats() {
         if (data.reservedSeats) {
           for (let i = 0; i < data.reservedSeats.length; i++) {
             const row = data.reservedSeats[i][0];
-            const col = data.reservedSeats[i][1];
+            const col = data.reservedSeats[i][1]-1;
             const seatId = `${row}-${col}`;
             allReservedSeats.push(seatId);
           }
