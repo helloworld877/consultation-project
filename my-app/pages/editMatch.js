@@ -84,6 +84,9 @@ export default function EditMatch() {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    const selectedDate = new Date(dateState);
+    const minDate = new Date("2024-01-01");
+  
     if (
       !homeTeamState ||
       !awayTeamState ||
@@ -94,8 +97,11 @@ export default function EditMatch() {
       linesmenState.includes("")
     ) {
       setErrorMessage("Please complete all fields.");
+    } else if (selectedDate < minDate) {
+      setErrorMessage("The date must be on or after January 1, 2024.");
     } else {
       setErrorMessage("");
+  
 
       const matchDetails = {
         id: matchId,
@@ -201,6 +207,7 @@ export default function EditMatch() {
               id="date"
               value={dateState}
               onChange={(e) => setDateState(e.target.value)}
+              min="2024-01-01"
             />
           </div>
         </div>

@@ -77,6 +77,8 @@ export default function AddMatch() {
   }, []);
 
   const handleSave = () => {
+    const selectedDate = new Date(dateState);
+    const minDate = new Date("2024-01-01");
     if (
       !homeTeamState ||
       !awayTeamState ||
@@ -88,6 +90,9 @@ export default function AddMatch() {
       !linesmenState[1]
     ) {
       setError("All fields must be filled out.");
+      return;
+    } else if (selectedDate < minDate) {
+      setError("The date must be after January 1, 2024.");
       return;
     }
 
@@ -186,6 +191,7 @@ export default function AddMatch() {
               id="date"
               value={dateState}
               onChange={(e) => setDateState(e.target.value)}
+              min="2024-01-01"
             />
           </div>
         </div>
