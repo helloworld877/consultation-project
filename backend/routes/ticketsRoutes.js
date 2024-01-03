@@ -19,6 +19,10 @@ router.get(
   ticketController.getUserTickets
 );
 //Cancel Ticket
-router.get("/cancelTicket", bodyParser.json(), ticketController.cancelTicket);
+router.get(
+  "/cancelTicket/:ticketId",
+  bodyParser.json(),
+  ticketController.cancelTicket
+);
 
 module.exports = router;
